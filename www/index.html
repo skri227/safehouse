@@ -1,0 +1,388 @@
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<script src="inc/js/jquery-1.12.0.min.js"></script>
+		<script type='application/javascript' src='inc/js/fastclick.js'></script>
+		<script src="inc/js/classes.js"></script>
+		<script src="inc/js/game.js"></script>
+		<link rel="stylesheet" type="text/css" href="inc/css/game.css">
+	</head>
+	<body onLoad="game_layout_setup()">
+
+		<!--Start Menu Screen-->
+		<div id="start_menu">
+			<img id="logo" src="inc/images/logo.png">
+			<br>
+			<button type="button" onclick="num_of_players_screen_setup()">Start</button>
+			<br>
+			<button type="button">Rules</button>
+		</div>
+
+		<!--Number of Players Select Screen-->
+		<div id="player_select_screen">
+			<div class="num_of_players">
+				<h3>HOW MANY PLAYERS/AI WILL BE PLAYING?</h3>
+				<button class="num_of_players_btn" onclick="player_select_screen_setup(3)">
+					<span>3</span>
+					<br>
+					1 - Terrorist
+					<br>
+					1 - Counter-terrorist
+					<br>
+					1 - Neutral
+					<br>
+					0 - Random
+					<br>
+				</button>
+				<button class="num_of_players_btn" onclick="player_select_screen_setup(4)">
+					<span>4</span>
+					<br>
+					2 - Terrorist
+					<br>
+					2 - Counter-terrorist
+					<br>
+					0 - Neutral
+					<br>
+					0 - Random
+					<br>
+				</button>
+				<button class="num_of_players_btn" onclick="player_select_screen_setup(5)">
+					<span>5</span>
+					<br>
+					2 - Terrorist
+					<br>
+					2 - Counter-terrorist
+					<br>
+					1 - Neutral
+					<br>
+					0 - Random
+					<br>
+				</button>
+				<button class="num_of_players_btn" onclick="player_select_screen_setup(6)">
+					<span>6</span>
+					<br>
+					2 - Terrorist
+					<br>
+					2 - Counter-terrorist
+					<br>
+					2 - Neutral
+					<br>
+					0 - Random
+					<br>
+				</button>
+				<button class="num_of_players_btn" onclick="player_select_screen_setup(72)">
+					<span>7</span>
+					<br>
+					2 - Terrorist
+					<br>
+					2 - Counter-terrorist
+					<br>
+					3 - Neutral
+					<br>
+					0 - Random
+					<br>
+				</button>
+				<button class="num_of_players_btn" onclick="player_select_screen_setup(71)">
+					<span>7</span>
+					<br>
+					2 - Terrorist
+					<br>
+					2 - Counter-terrorist
+					<br>
+					2 - Neutral
+					<br>
+					1 - Random
+					<br>
+				</button>
+
+				<button class="num_of_players_btn" onclick="player_select_screen_setup(81)">
+					<span>8</span>
+					<br>
+					3 - Terrorist
+					<br>
+					3 - Counter-terrorist
+					<br>
+					2 - Neutral
+					<br>
+					0 - Random
+					<br>
+				</button>
+				<button class="num_of_players_btn" onclick="player_select_screen_setup(82)">
+					<span>8</span>
+					<br>
+					2 - Terrorist
+					<br>
+					2 - Counter-terrorist
+					<br>
+					2 - Neutral
+					<br>
+					2 - Random
+					<br>
+				</button>
+				<div id="num_of_players_home_btn" onclick="reset_game()">
+					<h3>Back</h3>
+				</div>
+			</div>
+
+			<!--Select players Screen-->
+			<div class="select_players">
+				<div class="player_select_row">
+					<div class="player_select" id="player_1_select">
+						<h3>Player 1</h3>
+						<div class="player_select_btn_selected" onclick="player_select_btn_toggle(1, 'player')">Player</div>
+						<div class="player_select_btn_not_selected">CPU</div>
+					</div>
+					<div class="player_select" id="player_2_select">
+						<h3>Player 2</h3>
+						<div class="player_select_btn_selected" onclick="player_select_btn_toggle(2, 'player')">Player</div>
+						<div class="player_select_btn_not_selected" onclick="player_select_btn_toggle(2, 'cpu')">CPU</div>
+					</div>
+					<div class="player_select" id="player_3_select">
+						<h3>Player 3</h3>
+						<div class="player_select_btn_selected" onclick="player_select_btn_toggle(3, 'player')">Player</div>
+						<div class="player_select_btn_not_selected" onclick="player_select_btn_toggle(3, 'cpu')">CPU</div>
+					</div>
+					<div class="player_select" id="player_4_select">
+						<h3>Player 4</h3>
+						<div class="player_select_btn_selected" onclick="player_select_btn_toggle(4, 'player')">Player</div>
+						<div class="player_select_btn_not_selected" onclick="player_select_btn_toggle(4, 'cpu')">CPU</div>
+					</div>
+				</div>
+				<div class="player_select_row">
+					<div class="player_select" id="player_5_select">
+						<h3>Player 5</h3>
+						<div class="player_select_btn_selected" onclick="player_select_btn_toggle(5, 'player')">Player</div>
+						<div class="player_select_btn_not_selected" onclick="player_select_btn_toggle(5, 'cpu')">CPU</div>
+					</div>
+					<div class="player_select" id="player_6_select">
+						<h3>Player 6</h3>
+						<div class="player_select_btn_selected" onclick="player_select_btn_toggle(6, 'player')">Player</div>
+						<div class="player_select_btn_not_selected" onclick="player_select_btn_toggle(6, 'cpu')">CPU</div>
+					</div>
+					<div class="player_select" id="player_7_select">
+						<h3>Player 7</h3>
+						<div class="player_select_btn_selected" onclick="player_select_btn_toggle(7, 'player')">Player</div>
+						<div class="player_select_btn_not_selected" onclick="player_select_btn_toggle(7, 'cpu')">CPU</div>
+					</div>
+					<div class="player_select" id="player_8_select">
+						<h3>Player 8</h3>
+						<div class="player_select_btn_selected" onclick="player_select_btn_toggle(8, 'player')">Player</div>
+						<div class="player_select_btn_not_selected" onclick="player_select_btn_toggle(8, 'cpu')">CPU</div>
+					</div>
+				</div>
+				<div class="player_select_row" id="player_select_play_btn" onclick="game.start()">
+					Play
+				</div>
+				<div id="player_select_home_btn" onclick="reset_game()">
+						Back
+				</div>
+			</div>
+		</div>
+
+		<!--Main game Screen-->
+		<div id="game">
+
+			<!--Loading Screen-->
+			<div id="loading_overlay_container">
+				<div id="loading_overlay_gif">
+					<img src="inc/images/loading.gif">
+				</div>
+			</div>
+
+			<!--Game Menu Screen-->
+			<div id="game_menu_overlay_container">
+				<div id="game_menu_overlay_area">
+					<h3>MENU</h3>
+					<button onclick="reset_game()">RESET GAME</button>
+					<button onclick="hide_game_menu_screen_overlay()">BACK</button>
+				</div>
+			</div>
+
+			<!--Next Player Screen-->
+			<div id="next_player_overlay_container">
+				<div id="next_player_overlay_area">
+					<h3>PASS TO PLAYER 1</h3>
+					<button id="next_player_btn" onclick="hide_next_player_screen_overlay()">START TURN</button>
+					<button id="next_player_end_game_btn" onclick="reset_game()">END GAME</button>
+				</div>
+			</div>
+
+			<!--Draw card Screen-->
+			<div id="draw_card_overlay_container">
+				<div id="draw_card_overlay_area">
+					<h3>DRAW A CARD</h3>
+					<div id="draw_invest_card" onclick="game.exec_state('invest_0')">
+						<h3>INVESTIGATION</h3>
+					</div>
+					<div id="draw_equip_card" onclick="game.exec_state('equip_0')">
+						<h3>EQUIPMENT</h3>
+					</div>
+					<div id="draw_onetime_card" onclick="game.exec_state('action_0')">
+						<h3>One Time Action</h3>
+					</div>
+				</div>
+			</div>
+
+			<!--Show zoomed card Screen-->
+			<div id="show_card_overlay_container" onclick="game.exec_state()">
+				<div id="card_overlay">
+					<h1>Test Card Name</h1>
+					<img src="http://the-toast.net/wp-content/uploads/2015/06/taken.jpg"></img>
+					<p>When you take an Investigation card you may take two, giving them to the same player or two players.</p>
+				</div>
+			</div>
+
+			<!--view card Screen-->
+			<div id="view_card_overlay_container" onclick="hide_view_card()">
+				<div id="view_overlay">
+					<h1>Test Card Name</h1>
+					<img src="http://the-toast.net/wp-content/uploads/2015/06/taken.jpg"></img>
+					<p>When you take an Investigation card you may take two, giving them to the same player or two players.</p>
+				</div>
+			</div>
+
+			<!--Select player Screen-->
+			<div id="select_player_overlay_container">
+				<div id="select_player_overlay_area">
+					<h1>SELECT PLAYER</h1>
+					<button id="select_player_1_btn" onclick="game.select_player(1)">PLAYER 1</button>
+					<button id="select_player_2_btn" onclick="game.select_player(2)">PLAYER 2</button>
+					<button id="select_player_3_btn" onclick="game.select_player(3)">PLAYER 3</button>
+					<button id="select_player_4_btn" onclick="game.select_player(4)">PLAYER 4</button>
+					<button id="select_player_5_btn" onclick="game.select_player(5)">PLAYER 5</button>
+					<button id="select_player_6_btn" onclick="game.select_player(6)">PLAYER 6</button>
+					<button id="select_player_7_btn" onclick="game.select_player(7)">PLAYER 7</button>
+					<button id="select_player_8_btn" onclick="game.select_player(8)">PLAYER 8</button>
+				</div>
+			</div>
+
+			<!--Select Options Screen-->
+			<div id="select_options_overlay_container">
+				<div id="select_options_overlay_area">
+					<h1 id="select_option_header">MESSAGE HERE</h1>
+					<br>
+					<button id="select_option_1_btn" onclick="game.exec_state('select_option_1')">MESSAGE HERE</button>
+					<button id="select_option_2_btn" onclick="game.exec_state('select_option_2')">MESSAGE HERE</button>
+					<button id="select_option_3_btn" onclick="game.exec_state('select_option_3')">MESSAGE HERE</button>
+				</div>
+			</div>
+
+			<!--Menu btn-->
+			<div id="menu_container">
+				<button onclick="game_menu_screen_overlay(game.current_player)">MENU</button>
+			</div>
+
+			<!--Info box-->
+			<div id="info_messages">
+				<div id="info_messages_player_1"></div>
+				<div id="info_messages_player_2"></div>
+				<div id="info_messages_player_3"></div>
+				<div id="info_messages_player_4"></div>
+				<div id="info_messages_player_5"></div>
+				<div id="info_messages_player_6"></div>
+				<div id="info_messages_player_7"></div>
+				<div id="info_messages_player_8"></div>
+			</div>
+
+			<!--Current Player color-->
+			<div id="current_player_box">
+				<h3>YOU ARE: PLAYER <span id="current_player_id"></span></h3>
+				<h3>COLOR: <span id="current_player_box_color">PLAYER 1</span></h3>
+				<!--Populated in game-->
+			</div>
+
+			<!--Revealed box-->
+			<div id="revealed_box">
+				<h3>Revealed:</h3>
+				<!--Populated in game-->
+			</div>
+
+			<!--Players color-->
+			<div id="player_color_box">
+				<div id="player_1_color_box" class="player_color_box_class">
+					<h3>PLAYER 1: <span id="player_1_color" style="color: WHITE">WHITE</span></h3>
+				</div>
+				<div id="player_2_color_box" class="player_color_box_class">
+					<h3>PLAYER 2: <span id="player_2_color" style="color: RED">RED</span></h3>
+				</div>
+				<div id="player_3_color_box" class="player_color_box_class">
+					<h3>PLAYER 3: <span id="player_3_color" style="color: GREEN">GREEN</span></h3>
+				</div>
+				<div id="player_4_color_box" class="player_color_box_class">
+					<h3>PLAYER 4: <span id="player_4_color" style="color: BLUE">BLUE</span></h3>
+				</div>
+				<div id="player_5_color_box" class="player_color_box_class">
+					<h3>PLAYER 5: <span id="player_5_color" style="color: ORANGE">ORANGE</span></h3>
+				</div>
+				<div id="player_6_color_box" class="player_color_box_class">
+					<h3>PLAYER 6: <span id="player_6_color" style="color: PURPLE">PURPLE</span></h3>
+				</div>
+				<div id="player_7_color_box" class="player_color_box_class">
+					<h3>PLAYER 7: <span id="player_7_color" style="color: YELLOW">YELLOW</span></h3>
+				</div>
+				<div id="player_8_color_box" class="player_color_box_class">
+					<h3>PLAYER 8: <span id="player_8_color" style="color: BLACK">BLACK</span></h3>
+				</div>
+				<!--Populated in game-->
+			</div>
+
+			<!--3D game canvas-->
+			<div id="canvas_container">
+				<!--<canvas id = "my_Canvas"></canvas>-->
+				<!--Code from Three.js gets loaded here-->
+			</div>
+
+			<!--Zoom btn-->
+			<div id="zoom_container">
+					<button onclick="move_screen()">ZOOM</button>
+			</div>
+
+			<!--Player info area-->
+			<div id="player_container">
+				<div id="player">
+					<h3 id="player_title"><span id="player_type"></span> - <span id="player_name"></span></h3>
+					<img id="player_image" src="http://the-toast.net/wp-content/uploads/2015/06/taken.jpg"></img>
+					<h3 id="player_health">HEALTH: <span id="player_hp">XX</span></h3>
+					<h3 id="player_win_condition">Win Condition:</h3>
+					<p id="player_win_condition_text">
+						When you kill a character, you win if the total number of dead characters is 3 or more.
+					</p>
+					<h3 id="player_special_condition">Special:</h3>
+					<p id="player_special_condition_text">
+						Reveal - If you attack a player and inflict 3 or more damage, you heal 2 points of your own damage.
+					</p>
+				</div>
+			</div>
+
+			<!--Card info area-->
+			<div id="cards_container">
+				<div id="card_area_scroll_left" onclick="card_area_scroll_left()">
+					<img src="inc/images/Left_Arrow.png">
+					<!--<button id="cards_scroll_left_btn" onclick="card_area_scroll_left()">Left</button>
+					<button id="cards_scroll_right_btn" onclick="card_area_scroll_right()">Right</button>-->
+				</div>
+				<div id="card_area_beginning_text">
+					<h3>EQUIPMENT CARDS WILL BE PLACED HERE.</h3>
+				</div>
+				<div id="cards_area">
+					<!--Populated in game-->
+				</div>
+				<div id="card_area_scroll_right" onclick="card_area_scroll_right()">
+					<img src="inc/images/Right_Arrow.png">
+				</div>
+			</div>
+
+			<!--Action btns area-->
+			<div id="action_container">
+				<button id="action_roll_btn" onclick="game.exec_state()">ROLL</button>
+				<!--<button id="action_roll_btn" onclick="show_attack_screen()">ROLL</button>-->
+				<button id="action_draw_btn" onclick="game.exec_state()">DRAW</button>
+				<button id="action_attack_btn" class="general_action_btn" onclick="game.exec_state('attack_0')">ATTACK</button>
+				<button id="action_special_btn" class="general_action_btn" onclick="game.exec_state('special_0')">SPECIAL</button>
+				<button id="action_end_turn_btn" class="general_action_btn" onclick="game.exec_state()">END TURN</button>
+			</div>
+		</div>
+		<script src="inc/js/three.min.js"></script>
+		<script src="inc/js/Three_JS_Build.js"></script>
+	</body>
+</html>

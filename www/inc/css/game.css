@@ -1,0 +1,908 @@
+@font-face
+{
+	font-family:"GrotesqueNo9T";
+	src: url("../fonts/grotesqueno9t.ttf") /* TTF file for CSS3 browsers */
+}
+
+/*Main body CSS*/
+body
+{
+	margin: 0px;
+	overflow: hidden;
+	font-family:'GrotesqueNo9T', sans-serif;
+	background-color: black;
+	/*Start Menu */
+	background-image: url("../images/background.png");
+	background-repeat: no-repeat;
+	background-size:100% 100%;
+	text-align: center;
+
+	-webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none;   /* Chrome/Safari/Opera */
+  -khtml-user-select: none;    /* Konqueror */
+  -moz-user-select: none;      /* Firefox */
+  -ms-user-select: none;       /* Internet Explorer/Edge */
+  user-select: none;           /* Non-prefixed version, currently
+                                  not supported by any browser */
+}
+
+/*Start Menu */
+#start_menu #logo
+{
+	width: 30%;
+	height: 60%;
+}
+
+#start_menu button
+{
+	background-color: transparent;
+	padding: 10px;
+	border: none;
+	font-weight: bold;
+	font-size: 32px;
+	width: 130px;
+	margin-bottom: 5px;
+	color: red;
+	font-family:'GrotesqueNo9T', sans-serif;
+	-webkit-appearance: button;
+}
+#start_menu button:focus {outline:0;}
+
+#start_menu
+{
+	display: initial;
+}
+/*End Start Menu */
+
+/*Player Select Menu */
+/*If we have time, divide section into media screens for different types of screens*/
+.num_of_players
+{
+	display: initial;
+}
+
+.num_of_players h3
+{
+	margin-top: 30px;
+	margin-bottom: 15px;
+	font-size: 3em;
+}
+
+.num_of_players_btn
+{
+	width: 200px;
+	/*height: 180px;*/
+	margin: 5px;
+	background-color: red;
+	border: 2px solid red;
+	border-radius: 7px;
+	color: black;
+	font-size: 22px;
+	font-family:'GrotesqueNo9T', sans-serif;
+}
+.num_of_players button:active {border-color: white;}
+.num_of_players button:focus {outline:0;}
+
+.num_of_players_btn span
+{
+	color: white;
+	font-size: 40px;
+	text-decoration: underline;
+}
+/*End Player Select Menu */
+
+/*Player Select Screen */
+.select_players
+{
+	display: initial;
+}
+
+#player_select_screen
+{
+	display: none;
+	color: red;
+	margin-left: auto ;
+	margin-right: auto ;
+}
+
+.player_select_row
+{
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 30px;
+	margin-bottom: 30px;
+}
+
+.player_select
+{
+	display: inline-block;
+	width: 12%;
+  height: 15%;
+	margin-left: 2%;
+	margin-right: 2%;
+	padding-bottom: 1%;
+	border: 3px solid red;
+	border-radius: 9px;
+	background: #131313;
+}
+
+.player_select h3
+{
+	margin-top: .5%;
+	margin-bottom: .5%;
+}
+
+.select_players #player_select_play_btn
+{
+	font-size: 3em;
+}
+.select_players #player_select_home_btn
+{
+	position: fixed;
+	font-size: 2em;
+	bottom: 20px;
+	left: 20px;
+}
+
+.select_players .player_select_btn_not_selected
+{
+	border: 2px solid transparent;
+	margin-left: auto ;
+	margin-right: auto ;
+	padding: .5%;
+	margin-bottom: 2.5%;
+	background-color: #E8E8E8;
+	border: 3px solid transparent;
+	border-radius: 9px;
+	width: 70%;
+	height: 25%;
+	text-align: center;
+	color: black;
+}
+
+.select_players .player_select_btn_selected
+{
+	margin-left: auto ;
+	margin-right: auto ;
+	padding: .5%;
+	margin-bottom: 2.5%;
+	background-color: #E8E8E8;
+	border: 3px solid red;
+	border-radius: 9px;
+	width: 70%;
+	height: 25%;
+	text-align: center;
+}
+/*End Player Select Menu */
+
+/*Hide game screen by default */
+#game
+{
+	display: none;
+}
+
+/*Loading screen*/
+#loading_overlay_container
+{
+	position: fixed;
+	top: 0%;
+	left: 0%;
+	width: 100%;
+	height: 100%;
+	z-index: 1000;
+	background-color: black;
+}
+
+#loading_overlay_gif
+{
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+/*End Loading screen*/
+
+/*game menu screen*/
+#game_menu_overlay_container
+{
+	display: none;
+}
+
+#game_menu_overlay_area button
+{
+	margin-bottom: 10px;
+}
+
+#game_menu_overlay_area h3
+{
+	text-align: center;
+}
+/*end game menu screen*/
+
+/*next player screen*/
+#next_player_overlay_container, #game_menu_overlay_container
+{
+	position: fixed;
+	top: 0%;
+	left: 0%;
+	width: 100%;
+	height: 100%;
+	z-index: 999;
+	background-color: black;
+}
+
+#next_player_overlay_area, #game_menu_overlay_area
+{
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	font-size: 2em;
+}
+
+#next_player_overlay_area h3, #game_menu_overlay_area h3
+{
+	color: white;
+}
+
+#next_player_overlay_area button, #game_menu_overlay_area button
+{
+	font-size: 1.2em;
+	font-weight: bold;
+	color: white;
+	background-color: red;
+	border-color: red;
+	width: 100%;
+	height: 33.33333%;
+	font-family:'GrotesqueNo9T', sans-serif;
+}
+#next_player_overlay_area button:focus {outline:0;}
+#game_menu_overlay_area button:focus {outline:0;}
+/*end next player screen*/
+
+/*Draw card screen*/
+#draw_card_overlay_container
+{
+	display: none;
+}
+
+#draw_card_overlay_container
+{
+	position: fixed;
+	top: 0%;
+	left: 0%;
+	width: 100%;
+	height: 100%;
+	z-index: 999;
+	background-color: transparent;
+}
+
+#draw_card_overlay_area
+{
+	/*position: fixed;
+	top: 50%;
+	left: 25%;
+	transform: translate(0%, -75%);
+	font-size: 1em;*/
+  position: relative;
+  font-size: 15px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+#draw_card_overlay_area > h3
+{
+	text-align: center;
+	font-size: 3em;
+	color: red;
+}
+
+#draw_invest_card, #draw_equip_card, #draw_onetime_card
+{
+	display: inline-block;
+	width: 150px;
+	height: 200px;
+	text-align: center;
+	background-color: white;
+	border-radius: 7px;
+	margin: 5px;
+}
+
+#draw_invest_card
+{
+	border: 6px solid yellow;
+}
+
+#draw_equip_card
+{
+	border: 6px solid silver;
+}
+
+#draw_onetime_card
+{
+	border: 6px solid black;
+}
+/*End Draw card screen*/
+
+/*Select player screen*/
+#select_player_overlay_container
+{
+	position: fixed;
+	top: 0%;
+	left: 0%;
+	z-index: 999;
+	width: 100%;
+	height: 100%;
+}
+
+#select_player_overlay_area
+{
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	padding: 20px;
+	color: red;
+	background: rgba(0, 0, 0, 0.6);
+	text-align: center;
+}
+
+#select_player_overlay_area button
+{
+	display: block;
+	padding-top: 15px;
+	padding-bottom: 15px;
+	padding-left: 20px;
+	padding-right: 20px;
+	margin: 5px;
+	margin-left: auto;
+	margin-right: auto;
+	font-size: 24px;
+	font-weight: bold;
+	color: white;
+	background-color: red;
+	border-color: red;
+	font-family:'GrotesqueNo9T', sans-serif;
+}
+#select_player_overlay_area button:focus {outline:0;}
+
+#select_options_overlay_container
+{
+	position: fixed;
+	top: 0%;
+	left: 0%;
+	z-index: 500;
+	width: 100%;
+	height: 100%;
+}
+
+#select_options_overlay_area
+{
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	padding: 20px;
+	color: red;
+	background: rgba(0, 0, 0, 0.6);
+	text-align: center;
+}
+
+#select_options_overlay_area button
+{
+	display: block;
+	padding-top: 15px;
+	padding-bottom: 15px;
+	padding-left: 20px;
+	padding-right: 20px;
+	margin: 5px;
+	margin-left: auto;
+	margin-right: auto;
+	font-size: 24px;
+	font-weight: bold;
+	color: white;
+	background-color: red;
+	border-color: red;
+	font-family:'GrotesqueNo9T', sans-serif;
+}
+#select_options_overlay_area button:focus {outline:0;}
+/*End Select player screen*/
+
+/*Show card screen*/
+#show_card_overlay_container
+{
+ position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 350px;
+  height: 80%;
+  transform: translate(-50%, -50%);
+  z-index: 100;
+  visibility: hidden;
+
+	/*max-width: 140px;*/
+	padding: .5%;
+	box-sizing: border-box;
+	background-color: #F9F9F9;
+	border: solid .5em lightblue;
+	border-radius: 9px;
+	margin: 0px;
+	white-space: initial;
+	text-align: center;
+}
+
+#card_overlay > h1
+{
+	font-size: 1.7em;
+	margin: 0px;
+}
+
+#card_overlay > img
+{
+	background-color: white;
+	width: 95%;
+	height: 50%;
+	border: solid .5em #899092;
+	border-radius: 9px;
+}
+
+#card_overlay > p
+{
+	font-size: 1.5em;
+}
+
+#view_card_overlay_container
+{
+ position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 350px;
+  height: 80%;
+  transform: translate(-50%, -50%);
+  z-index: 100;
+  visibility: hidden;
+
+	/*max-width: 140px;*/
+	padding: .5%;
+	box-sizing: border-box;
+	background-color: #F9F9F9;
+	border: solid .5em lightblue;
+	border-radius: 9px;
+	margin: 0px;
+	white-space: initial;
+	text-align: center;
+}
+
+#view_overlay > h1
+{
+	font-size: 1.7em;
+	margin: 0px;
+}
+
+#view_overlay > img
+{
+	background-color: white;
+	width: 95%;
+	height: 50%;
+	border: solid .5em #899092;
+	border-radius: 9px;
+}
+
+#view_overlay > p
+{
+	font-size: 1.5em;
+}
+/*End Show card screen*/
+
+/*Bottom user interface CSS*/
+#bottom_ui
+{
+	position: fixed;
+	bottom: 0;
+	right: 0;
+	width: 100%;
+	background-color: lightgreen;
+	height: 20%;
+}
+
+/*Current Player box CSS*/
+#current_player_box
+{
+	position: fixed;
+	background: rgba(0, 0, 0, 0.6);
+	border-radius: 8px;
+	top: 2%;
+	left: 13%;
+	padding: 5px;
+	z-index: 1;
+	color: white;
+	font-family:'GrotesqueNo9T', sans-serif;
+}
+#current_player_box h3
+{
+		margin: 0;
+}
+
+/*Player color box CSS*/
+#player_color_box
+{
+	position: fixed;
+	left: 2%;
+	z-index: 1;
+}
+
+.player_color_box_class
+{
+	float: left;
+	background: rgba(0, 0, 0, 0.6);
+	border-radius: 8px;
+	padding: 5px;
+	margin: 2px;
+	font-size: 13px;
+	color: white;
+	font-family:'GrotesqueNo9T', sans-serif;
+}
+.player_color_box_class h3
+{
+		margin: 0;
+}
+
+/*Revealed box CSS*/
+#revealed_box
+{
+	position: fixed;
+	top: 4%;
+	right: 2%;
+	width: 200px;
+	overflow-y: scroll;
+	padding: 5px;
+	background: rgba(0, 0, 0, 0.6);
+	border-radius: 8px;
+	z-index: 1;
+	color: white;
+	font-family:'GrotesqueNo9T', sans-serif;
+}
+
+#revealed_box h3
+{
+	margin: 0;
+	color: red;
+}
+
+/*Info box CSS*/
+#info_messages
+{
+	position: fixed;
+	top: 20%;
+	left: 2%;
+	width: 200px;
+	max-height: 320px;
+	overflow-y: scroll;
+	padding: 5px;
+	background: rgba(0, 0, 0, 0.6);
+	border-radius: 8px;
+	z-index: 1;
+	color: white;
+	font-family:'GrotesqueNo9T', sans-serif;
+}
+
+#info_messages_player_1, #info_messages_player_2, #info_messages_player_3, #info_messages_player_4,
+#info_messages_player_5, #info_messages_player_6, #info_messages_player_7, #info_messages_player_8
+{
+	display: initial;
+}
+
+#info_messages .info_message_item
+{
+	margin-bottom: 8px;
+}
+
+#info_messages .info_message_item_dot
+{
+	color: red;
+}
+/*End Info box CSS*/
+
+/*menu btn CSS*/
+#menu_container
+{
+	position: fixed;
+	z-index: 1;
+	background-color: transparent;
+	top: 15px;
+	left: 15px;
+}
+
+#menu_container button
+{
+	color: white;
+	font-size: 20px;
+	font-weight: bold;
+	background-color: transparent;
+	border: 2px solid white;
+	border-radius: 7px;
+}
+#menu_container button:focus {outline:0;}
+/*End menu btn CSS*/
+
+/*zoom btn CSS*/
+#zoom_container
+{
+	position: fixed;
+	z-index: 1;
+	background-color: transparent;
+	top: 50px;
+	left: 15px;
+}
+
+#zoom_container button
+{
+
+	color: white;
+	font-size: 20px;;
+	font-weight: bold;
+	background-color: transparent;
+	border: 2px solid white;
+	border-radius: 7px;
+}
+#zoom_container button:focus {outline:0;}
+/*End zoom btn CSS*/
+
+/*Player info area CSS*/
+#player_container
+{
+	position: fixed;
+	border-color: black;
+	background-color: white;
+}
+
+#player #player_title
+{
+	position: absolute;
+	top: 1%;
+	left: 5%;
+	width: 30%;
+	/*height: 50%; */
+	margin: 0px;
+	text-align: center;
+	font-size: 14px;
+}
+
+#player_type
+{
+	color: red;
+}
+
+#player #player_image
+{
+	position: absolute;
+	top: 30%;
+	left: 5%;
+	width: 30%;
+	height: 50%;
+	border-radius: 9px;
+}
+
+#player_health
+{
+	position: absolute;
+	top: 85%;
+	left: 5%;
+	width: 30%;
+	/*height: 50%; */
+	margin: 0px;
+	text-align: center;
+	color: red;
+}
+
+#player #player_win_condition
+{
+	position: absolute;
+	top: 1%;
+	left: 40%;
+	width: 60%;
+	height: 10%;
+	margin: 0px;
+}
+
+#player #player_win_condition_text
+{
+	position: absolute;
+	top: 14%;
+	left: 40%;
+	width: 60%;
+	height: 35%;
+	margin: 0px;
+	font-size: 15px;
+}
+
+#player #player_special_condition
+{
+	position: absolute;
+	top: 47%;
+	left: 40%;
+	width: 60%;
+	height: 10%;
+	margin: 0px;
+}
+
+#player #player_special_condition_text
+{
+	position: absolute;
+	top: 60%;
+	left: 40%;
+	width: 60%;
+	height: 35%;
+	margin: 0px;
+	font-size: 15px;
+}
+/*End Player info area CSS*/
+
+/*card info area CSS*/
+#cards_container
+{
+	position: fixed;
+	bottom: 0%;
+	left: 30%;
+	width: 54%;
+	height: 21%;
+	border-color: black;
+	background-color: white;
+	/*white-space: nowrap;
+	overflow-y: hidden;
+	overflow-x: hidden;*/
+}
+
+#cards_area
+{
+	white-space: nowrap;
+	overflow-y: hidden;
+	overflow-x: hidden;
+	float: left;
+	width: 80%;
+	position: relative;
+}
+
+#card_area_scroll_left, #card_area_scroll_right
+{
+	float: left;
+	width: 10%;
+	height: 100%;
+	position: relative;
+}
+
+#card_area_scroll_left img, #card_area_scroll_right img
+{
+	width: 100%;
+	height: 40%;
+	position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+}
+
+#card_area_beginning_text
+{
+	text-align: center;
+}
+
+.card_equip
+{
+	background-color: lightblue;
+}
+
+.card
+{
+	display: inline-block;
+	width: 26%;
+	height: 100%;
+	max-width: 140px;
+	padding: .5%;
+	box-sizing: border-box;
+	background-color: #EAEAEA;
+	border: solid .25em silver;
+	margin: 0px;
+	white-space: initial;
+	text-align: center;
+}
+
+.card_selected
+{
+	border: solid .25em gold;
+}
+
+.card > h1
+{
+	font-size: .7em;
+	margin: 0px;
+}
+
+.card > img
+{
+	background-color: white;
+	width: 95%;
+	height: 50%;
+}
+
+.card > p
+{
+	font-size: .5em;
+}
+/*End card info area CSS*/
+
+/*action area CSS*/
+#action_container
+{
+	position: fixed;
+	border-color: black;
+	background-color: red;
+}
+
+#action_container .general_action_btn
+{
+	/*font-size: 1.2em;*/
+	font-size: 20px;
+	font-weight: bold;
+	color: black;
+	background-color: red;
+	border-color: red;
+	width: 100%;
+	height: 33.33333%;
+	font-family:'GrotesqueNo9T', sans-serif;
+}
+
+#action_container .action_btn_disabled
+{
+
+}
+
+#action_container #action_roll_btn
+{
+	display: initial;
+	font-size: 45px;
+	font-weight: bold;
+	color: black;
+	background-color: red;
+	border-color: red;
+	width: 100%;
+	height: 100%;
+	font-family:'GrotesqueNo9T', sans-serif;
+}
+#action_container button:focus {outline:0;}
+
+#action_container #action_draw_btn
+{
+	display: initial;
+	font-size: 45px;
+	font-weight: bold;
+	color: black;
+	background-color: red;
+	border-color: red;
+	width: 100%;
+	height: 100%;
+	font-family:'GrotesqueNo9T', sans-serif;
+}
+#action_container button:focus {outline:0;}
+/*End action area CSS*/
+
+/*game canvas area CSS*/
+#canvas_container
+{
+	position: fixed;
+	top: 0%;
+	left: 0%;
+	width: 99%;
+	height: 71.5%;
+	padding: .5%;
+	background-color: black;
+}
+
+#my_Canvas
+{
+	width: 100%;
+	height: 100%;
+}
+/*End game canvas area CSS*/
