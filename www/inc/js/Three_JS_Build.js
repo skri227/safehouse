@@ -435,9 +435,9 @@ function animate(){
 	//dice only move if told to do so
 	if(diceMove){
 		//simple physics calculations so that the dice move with the correct trajectory and speed
-		xDistance = xVelocity*(time/100) + .5*xAcceleration*Math.pow((time/100), 2);
-		yDistance = yVelocity*(time/100) + .5*yAcceleration*Math.pow((time/100), 2);
-		zDistance = zVelocity*(time/100) + .5*zAcceleration*Math.pow((time/100), 2);
+		//xDistance = xVelocity*(time/100) + .5*xAcceleration*Math.pow((time/100), 2);
+		yDistance = yVelocity*(time/75)+ .375*yAcceleration*Math.pow((time/75), 2);
+		//zDistance = zVelocity*(time/100) + .5*zAcceleration*Math.pow((time/100), 2);
 
 
 		//white dice are only ever moved used on a turn roll
