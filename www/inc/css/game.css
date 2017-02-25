@@ -1,4 +1,4 @@
-@font-face
+:@font-face
 {
 	font-family:"GrotesqueNo9T";
 	src: url("../fonts/grotesqueno9t.ttf") /* TTF file for CSS3 browsers */
@@ -626,28 +626,7 @@ body
 #menu_container button:focus {outline:0;}
 /*End menu btn CSS*/
 
-/*zoom btn CSS*/
-#zoom_container
-{
-	position: fixed;
-	z-index: 1;
-	background-color: transparent;
-	top: 50px;
-	left: 15px;
-}
-
-#zoom_container button
-{
-
-	color: white;
-	font-size: 20px;;
-	font-weight: bold;
-	background-color: transparent;
-	border: 2px solid white;
-	border-radius: 7px;
-}
-#zoom_container button:focus {outline:0;}
-/*End zoom btn CSS*/
+/*removed zoom button container*/
 
 /*Player info area CSS*/
 #player_container
@@ -674,6 +653,7 @@ body
 	color: red;
 }
 
+/*possible fix here for better player image sizing*/
 #player #player_image
 {
 	position: absolute;
