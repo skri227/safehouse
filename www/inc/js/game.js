@@ -335,7 +335,7 @@ function show_select_player_screen(selection)
         var player_string = 'select_player_' + i + '_btn';
         var r = game.player_array[game.current_turn].current_region;
         var y = game.player_array[i].current_region;
-        if(i <= game.num_of_players && i != game.current_turn && game.player_array[i].current_region != 7 && game.player_array[i].alive == true)
+        if(i <= game.num_of_players && i != game.current_F && game.player_array[i].current_region != 7 && game.player_array[i].alive == true)
         {
           // var r = game.player_array[game.current_turn].current_region;
           // var y = game.player_array[i].current_region;
@@ -782,7 +782,7 @@ class Game{
           if(anyone_have_cards == true)
             this.exec_state('steal_region_0');
           else
-            this.exec_state('turn_2');
+            this.next_state = 'turn_2';
         }
         else if(r == 9 || r == 10)
         {
@@ -797,8 +797,8 @@ class Game{
         break;
       case 'turn_2':
         this.next_state = 'turn_3';
-        this.show_general_btn();
-        this.add_info_message(this.current_turn, 'You can now attack a player, select a card to equip, use your speical, or end your turn.');
+		this.show_general_btn();
+        this.add_info_message(this.current_turn, 'You can now attack a player, select a card to equip, use your special, or end your turn.');
         this.exec_state();
         break;
       case 'turn_3':
@@ -2288,7 +2288,7 @@ class Game{
   show_draw_btn()
   {
     document.getElementById("action_roll_btn").style.display = "none";
-    document.getElementById("action_draw_btn").style.display = "initial";
+	setTimeout(function (){document.getElementById("action_draw_btn").style.display = "initial"; },7000);
     document.getElementById("action_attack_btn").style.display = "none";
     document.getElementById("action_special_btn").style.display = "none";
     document.getElementById("action_end_turn_btn").style.display = "none";
