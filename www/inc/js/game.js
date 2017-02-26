@@ -687,7 +687,7 @@ class Game{
     this.selected_option = 0;
 
     //Used for sam's special
-    this.double_damage = 0;
+    this.double_damage= 0;
 
     //this.drawn_invest_card = new Investigation();
     this.drawn_invest_card; //Current drawn Investigation card
@@ -999,7 +999,7 @@ class Game{
               if(this.player_array[this.current_turn].equipped.card_title == 'Sniper Rifle' || this.player_array[this.current_turn].equipped.card_title == 'Handgun')
                 damage=damage+1;
 
-              this.double_damage = damage; //Used for sam's special
+              this.double_damage = damage * 2; //Used for sam's special
               moveDamage(this.player_array[this.current_player].player_color, damage);
               //this.player_array[this.current_player].hp = this.player_array[this.current_player].hp + damage;
               this.add_info_message(this.current_player, 'You lost the attack! You lost ' + damage + ' point(s) of health.');
