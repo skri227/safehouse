@@ -841,7 +841,7 @@ body
 
 #action_container #action_roll_btn
 {
-	display: initial;
+	/*display: initial;*/
 	font-size: 45px;
 	font-weight: bold;
 	color: black;
@@ -855,7 +855,7 @@ body
 
 #action_container #action_draw_btn
 {
-	display: initial;
+	display: none;
 	font-size: 45px;
 	font-weight: bold;
 	color: black;
