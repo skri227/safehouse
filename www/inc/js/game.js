@@ -1257,7 +1257,7 @@ class Game{
         //this.next_state = 'george_special_1';
         if(this.player_array[this.current_player].used_special == 1)
         {
-          this.add_info_message(this.current_player, "You've already used your speical");
+          this.add_info_message(this.current_player, "You've already used your special");
         }
         else if(this.has_attacked == 0)
         {
