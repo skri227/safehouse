@@ -688,7 +688,7 @@ class Game{
     this.selected_option = 0;
 
     //Used for sam's special
-    this.double_damage = 0;
+    this.double_damage= 0;
 
     //this.drawn_invest_card = new Investigation();
     this.drawn_invest_card; //Current drawn Investigation card
@@ -1117,8 +1117,8 @@ class Game{
           this.reveal_player();
           this.player_array[this.current_player].used_special = 1;
           //this.player_array[this.current_player].hp = this.player_array[this.current_player].hp - 2;
-          moveDamage(this.player_array[this.current_player].player_color, -2);
-          this.add_info_message(this.current_player, "You used your special!");
+          moveDamage(this.player_array[this.current_player].player_color, -2); // Heals Ayman 2 damage points
+          this.add_info_message(this.current_player, "You've used your special!");
         }
 		this.last_state=state;
         this.check_win_or_dead();
@@ -1138,7 +1138,7 @@ class Game{
         //this.next_state = 'ayman_special_1';
         if(this.player_array[this.current_player].used_special == 1)
         {
-          this.add_info_message(this.current_player, "You've already used your speical");
+          this.add_info_message(this.current_player, "You've already used your special");
         }
         else if(this.has_attacked == 0)
         {
@@ -1154,10 +1154,11 @@ class Game{
         }
         else
         {
+	  this.reveal_player();
           this.player_array[this.current_player].used_special = 1;
           //this.player_array[this.current_defending_player].hp = this.player_array[this.current_defending_player].hp + this.double_damage;
           moveDamage(this.player_array[this.current_defending_player].player_color, this.double_damage);
-          this.add_info_message(this.current_player, "You used your special!");
+          this.add_info_message(this.current_player, "You've used your special!");
         }
 		this.last_state=state;
         this.check_win_or_dead();
@@ -1169,7 +1170,7 @@ class Game{
         this.next_state = 'fred_special_1';
         if(this.player_array[this.current_player].used_special == 1)
         {
-          this.add_info_message(this.current_player, "You've already used your speical");
+          this.add_info_message(this.current_player, "You've already used your special");
           this.next_state = 'turn_3';
           this.exec_state();
         }
@@ -1196,6 +1197,7 @@ class Game{
         var damage = (Math.floor(Math.random() * 6) + 1);
         //this.player_array[this.selected_player].hp = this.player_array[this.selected_player].hp + damage;
         moveDamage(this.player_array[this.selected_player].player_color, damage);
+	this.reveal_player();
         this.player_array[this.current_player].used_special = 1;
         this.add_info_message(this.current_player, "You used your special!");
 		this.last_state=state;
@@ -1238,10 +1240,10 @@ class Game{
             this.player_array[this.current_player].used_special = 1;
             //this.player_array[this.current_player].hp = this.player_array[this.current_player].hp - 1;
             moveDamage(this.player_array[this.current_player].player_color, -1);
-            this.add_info_message(this.current_player, "You used your special!");
+            this.add_info_message(this.current_player, "You've used your special!");
           }
           else{
-            this.add_info_message(this.current_player, "Player has full heal!");
+            this.add_info_message(this.current_player, "Player has full health!");
           }
 
         }
@@ -1276,7 +1278,7 @@ class Game{
             this.reveal_player();
             this.player_array[this.current_player].used_special = 1;
             this.steal_equip_card();
-            this.add_info_message(this.current_player, "You used your special!");
+            this.add_info_message(this.current_player, "You've used your special!");
           }
           else {
             this.add_info_message(this.current_player, "Player has no equipment cards!");
@@ -1309,8 +1311,10 @@ class Game{
           this.player_array[this.current_player].used_special = 1;
           this.has_attacked = 0;
           this.be_attacked = false;
+	  moveDamage(this.player_array[this.selected_player].player_color, 2); // billy takes 2 damage to use special
+	  
           this.add_info_message(this.current_player, "You may now attack again!");
-          this.add_info_message(this.current_player, "You used your special!");
+          this.add_info_message(this.current_player, "You've used your special!");
         }
 		this.last_state=state;
         this.check_win_or_dead();
@@ -1322,7 +1326,7 @@ class Game{
         this.next_state = 'turn_3';
         if(this.player_array[this.current_player].used_special == 1)
         {
-          this.add_info_message(this.current_player, "You've already used your speical");
+          this.add_info_message(this.current_player, "You've already used your special");
         }
         else if(this.current_player != this.current_turn)
         {
@@ -1656,6 +1660,7 @@ class Game{
           show_zoomed_card(this.drawn_invest_card);
           this.add_info_message(this.current_player, 'Click card to use it.');
 		  this.last_state=state;
+
           this.check_win_or_dead();
           break;
         //Let player select who to investigate.
