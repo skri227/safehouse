@@ -8,7 +8,7 @@ var window_h = 0;
 
 //fastclick add on snippet to enable touch screen fast click input
 if ('addEventListener' in document)
-
+{
     document.addEventListener('DOMContentLoaded', function() {
         FastClick.attach(document.body);
     }, false);
