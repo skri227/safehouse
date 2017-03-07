@@ -950,7 +950,7 @@ class Game{
 
 
       //Attacking
-      case'attack_0':
+      case'attack_0': // After Attack is pressed
         if(this.player_array[this.current_turn].current_region == 7)
         {
           this.add_info_message(this.current_turn, 'You cannot attack while in safehouse.');
@@ -971,7 +971,7 @@ class Game{
 		this.last_state=state;
         this.check_win_or_dead();
         break;
-      case 'attack_1':
+      case 'attack_1': //Roll for attacker damage
         this.next_state = 'attack_2';
         rollOneRedDice();
         this.current_attacking_player_pts = dice1Value;
@@ -984,15 +984,15 @@ class Game{
 		this.last_state=state;
         this.check_win_or_dead();
         break;
-      case 'attack_2':
+      case 'attack_2': //Transition to Defender
         this.next_state = 'attack_3';
         this.switch_player(this.selected_player);
         this.show_roll_btn();
-        this.add_info_message(this.current_player, 'You are being attacked by Player ' + this.current_turn + '! Roll for your defense points.');
+        this.add_info_message(this.current_player, 'You are being attacked by Player ' + this.current_turn + '! They rolled a ' + this.current_attacking_player_pts + '. \rRoll to defend!.');
 		this.last_state=state;
         this.check_win_or_dead();
         break;
-      case 'attack_3':
+      case 'attack_3': // Roll for Defense
         this.next_state = 'attack_4';
         rollOneGreenDice();
         this.current_defending_player_pts = dice1Value;
@@ -1023,10 +1023,10 @@ class Game{
               if(this.player_array[this.current_turn].equipped.card_title == 'Sniper Rifle' || this.player_array[this.current_turn].equipped.card_title == 'Handgun')
                 damage=damage+1;
 
-              this.double_damage = damage * 2; //Used for sam's special
+              this.double_damage = damage; //Used for sam's special
               moveDamage(this.player_array[this.current_player].player_color, damage);
               //this.player_array[this.current_player].hp = this.player_array[this.current_player].hp + damage;
-              this.add_info_message(this.current_player, 'You lost the attack! You lost ' + damage + ' point(s) of health.');
+              this.add_info_message(this.current_player, 'You lost the attack! You took ' + damage + ' point(s) of damage.');
               this.add_info_message(this.current_turn, 'You won the attack! You gave ' + damage + ' damage to Player ' + this.current_player + '.');
 
               var total_hp = this.player_array[this.current_player].character.hp;
@@ -1044,7 +1044,7 @@ class Game{
         this.add_info_message(this.current_player, 'Press "END TURN" and pass to attacking player.');
         //ADD WAIT FOR DICE ROLL!!!
         break;
-      case 'attack_4':
+      case 'attack_4': // Transition back to attacker
 	    this.last_state=state;
         this.next_state = 'turn_3';
         //this.add_info_message(this.current_turn, 'You BlANK your attack! You gave BLANK damage to BLANK');
@@ -1159,6 +1159,7 @@ class Game{
           //this.player_array[this.current_defending_player].hp = this.player_array[this.current_defending_player].hp + this.double_damage;
           moveDamage(this.player_array[this.current_defending_player].player_color, this.double_damage);
           this.add_info_message(this.current_player, "You've used your special!");
+	  this.double_damage = 0; // reset double damage to 0
         }
 		this.last_state=state;
         this.check_win_or_dead();
