@@ -807,13 +807,13 @@ class Game{
         this.exec_state();
         break;
       case 'turn_3':
-		if(this.last_state=="turn_1")
-		{
-	      this.show_general_btn(this.last_state);
-		}
-		this.add_info_message(this.current_turn, 'You can now attack a player, select a card to equip, use your special, or end your turn.');
+    		if(this.last_state=="turn_1")
+    		{
+    	      this.show_general_btn(this.last_state);
+    		}
+    		this.add_info_message(this.current_turn, 'You can now attack a player, select a card to equip, use your special, or end your turn.');
         this.next_state = 'turn_4';
-		this.last_state=state;
+		    this.last_state=state;
         break;
       case 'turn_4':
         this.next_state = 'turn_0';
@@ -974,14 +974,14 @@ class Game{
       case 'attack_1': //Roll for attacker damage
         this.next_state = 'attack_2';
         rollOneRedDice();
+        this.show_defense_pass_btn();
         this.current_attacking_player_pts = dice1Value;
         this.current_attacking_player = this.current_turn;
         this.current_defending_player = this.selected_player;
         this.add_info_message(this.current_player, 'You rolled a ' + this.current_attacking_player_pts + '!');
-		this.show_general_btn(this.last_state);
-        this.add_info_message(this.current_turn, 'Press "END TURN" and pass to defending player.');
+        this.add_info_message(this.current_turn, 'Press "PASS TO DEFENSE" and pass to defending player.');
         //ADD WAIT FOR DICE ROLL!!!
-		this.last_state=state;
+		    this.last_state=state;
         this.check_win_or_dead();
         break;
       case 'attack_2': //Transition to Defender
@@ -989,7 +989,7 @@ class Game{
         this.switch_player(this.selected_player);
         this.show_roll_btn();
         this.add_info_message(this.current_player, 'You are being attacked by Player ' + this.current_turn + '! They rolled a ' + this.current_attacking_player_pts + '. \rRoll to defend!.');
-		this.last_state=state;
+		    this.last_state=state;
         this.check_win_or_dead();
         break;
       case 'attack_3': // Roll for Defense
@@ -997,7 +997,7 @@ class Game{
         rollOneGreenDice();
         this.current_defending_player_pts = dice1Value;
         this.add_info_message(this.current_player, 'You rolled a ' + this.current_defending_player_pts + '!');
-        this.show_general_btn(this.last_state);
+        this.show_offense_pass_btn(this.player_array[this.current_defending_player].character.char_name);
         var damage = 0;
 
         //Check if Balance Suit is equipped
@@ -1039,9 +1039,9 @@ class Game{
             }
 
         }
-		this.last_state=state;
+		    this.last_state=state;
         this.check_win_or_dead();
-        this.add_info_message(this.current_player, 'Press "END TURN" and pass to attacking player.');
+        this.add_info_message(this.current_player, 'Press "PASS TO OFFENSE" and pass to attacking player.');
         //ADD WAIT FOR DICE ROLL!!!
         break;
       case 'attack_4': // Transition back to attacker
@@ -1313,7 +1313,7 @@ class Game{
           this.has_attacked = 0;
           this.be_attacked = false;
 	  moveDamage(this.player_array[this.selected_player].player_color, 2); // billy takes 2 damage to use special
-	  
+
           this.add_info_message(this.current_player, "You may now attack again!");
           this.add_info_message(this.current_player, "You've used your special!");
         }
@@ -1453,7 +1453,7 @@ class Game{
 
       //One Time Action
       case 'one_time_0':
-		this.last_state=state;
+		    this.last_state=state;
         break;
 
       //Equipment
@@ -2380,6 +2380,8 @@ class Game{
   //Shows roll btn and hides other buttons
   show_roll_btn()
   {
+    document.getElementById("action_offense_pass_btn").style.display = "none";
+    document.getElementById("action_defense_pass_btn").style.display = "none";
     document.getElementById("action_roll_btn").style.display = "initial";
     document.getElementById("action_draw_btn").style.display = "none";
     document.getElementById("action_attack_btn").style.display = "none";
@@ -2391,34 +2393,66 @@ class Game{
   show_draw_btn()
   {
     document.getElementById("action_roll_btn").style.display = "none";
-	setTimeout(function(){document.getElementById("action_draw_btn").style.display = "initial";
+    document.getElementById("action_defense_pass_btn").style.display = "none";
+    document.getElementById("action_offense_pass_btn").style.display = "none";
     document.getElementById("action_attack_btn").style.display = "none";
     document.getElementById("action_special_btn").style.display = "none";
-    document.getElementById("action_end_turn_btn").style.display = "none"; },7000);
+    document.getElementById("action_end_turn_btn").style.display = "none";
+	setTimeout(function(){
+    document.getElementById("action_draw_btn").style.display = "initial"; },7000);
+  }
+
+  //Shows pass to defense button for attacking phase
+  show_defense_pass_btn(){
+    document.getElementById("action_roll_btn").style.display = "none";
+    document.getElementById("action_draw_btn").style.display = "none";
+    document.getElementById("action_attack_btn").style.display = "none";
+    document.getElementById("action_special_btn").style.display = "none";
+    document.getElementById("action_end_turn_btn").style.display = "none";
+    document.getElementById("action_offense_pass_btn").style.display = "none";
+	setTimeout(function(){
+    document.getElementById("action_defense_pass_btn").style.display = "initial"; },3500);
+  }
+
+  show_offense_pass_btn(character){
+    document.getElementById("action_roll_btn").style.display = "none";
+    document.getElementById("action_draw_btn").style.display = "none";
+    document.getElementById("action_attack_btn").style.display = "none";
+    document.getElementById("action_special_btn").style.display = "none";
+    document.getElementById("action_end_turn_btn").style.display = "none";
+    document.getElementById("action_defense_pass_btn").style.display = "none";
+  setTimeout(function(){
+    document.getElementById("action_offense_pass_btn").style.display = "initial";
+    if(character=='Osama Bin Laden'){
+      document.getElementById("action_special_btn").style.display = "initial";
+    }
+    },3500);
   }
 
   //Shows general btns and hides other buttons
   show_general_btn(previous_state)
   {
+    document.getElementById("action_offense_pass_btn").style.display = "none";
+    document.getElementById("action_defense_pass_btn").style.display = "none";
     document.getElementById("action_roll_btn").style.display = "none";
     document.getElementById("action_draw_btn").style.display = "none";
-	if(previous_state=="turn_1"){
-	  setTimeout(function(){
-	  document.getElementById("action_attack_btn").style.display = "initial";
-	  document.getElementById("action_special_btn").style.display = "initial";
-      document.getElementById("action_end_turn_btn").style.display = "initial";},7000);
-	}
-	else if(previous_state == "damage_region_3"){
-	  setTimeout(function(){
-	  document.getElementById("action_attack_btn").style.display = "initial";
-	  document.getElementById("action_special_btn").style.display = "initial";
-      document.getElementById("action_end_turn_btn").style.display = "initial";},4000);
-	}
-	else{
-	  document.getElementById("action_attack_btn").style.display = "initial";
-	  document.getElementById("action_special_btn").style.display = "initial";
-      document.getElementById("action_end_turn_btn").style.display = "initial";
-	}
+  	if(previous_state=="turn_1"){
+  	  setTimeout(function(){
+  	  document.getElementById("action_attack_btn").style.display = "initial";
+  	  document.getElementById("action_special_btn").style.display = "initial";
+        document.getElementById("action_end_turn_btn").style.display = "initial";},7000);
+  	}
+  	else if(previous_state == "damage_region_3"){
+  	  setTimeout(function(){
+  	  document.getElementById("action_attack_btn").style.display = "initial";
+  	  document.getElementById("action_special_btn").style.display = "initial";
+        document.getElementById("action_end_turn_btn").style.display = "initial";},4000);
+  	}
+  	else{
+  	  document.getElementById("action_attack_btn").style.display = "initial";
+  	  document.getElementById("action_special_btn").style.display = "initial";
+        document.getElementById("action_end_turn_btn").style.display = "initial";
+  	}
   }
 
   //Sets the game objects select player variable and hides the select player screen.
