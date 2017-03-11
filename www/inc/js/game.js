@@ -802,8 +802,8 @@ class Game{
         break;
       case 'turn_2':
         this.next_state = 'turn_3';
-		this.show_general_btn(this.last_state);
-		this.last_state=state;
+		    this.show_general_btn(this.last_state);
+		    this.last_state=state;
         this.exec_state();
         break;
       case 'turn_3':
@@ -1046,7 +1046,7 @@ class Game{
         break;
       case 'attack_4': // Transition back to attacker
 	    this.last_state=state;
-        this.next_state = 'turn_3';
+        this.next_state = 'turn_2';
         //this.add_info_message(this.current_turn, 'You BlANK your attack! You gave BLANK damage to BLANK');
 		this.last_state=state;
         this.check_win_or_dead();
