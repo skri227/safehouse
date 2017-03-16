@@ -366,7 +366,7 @@ function drawBoard(){
 	//board
 	var boardMesh = new THREE.PlaneGeometry(5,2);
 	THREE.ImageUtils.crossOrigin = '';
-	var mapOverlay = THREE.ImageUtils.loadTexture('http://i.imgur.com/jQ3ixyC.jpg');
+	var mapOverlay = THREE.ImageUtils.loadTexture('http://i.imgur.com/Wbbp6xN.jpg');
 	var boardMaterial = new THREE.MeshBasicMaterial({map: mapOverlay})
 	var board = new THREE.Mesh(boardMesh,boardMaterial);
 	board.rotation.x = (-90*Math.PI/180);
