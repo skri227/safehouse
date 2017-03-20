@@ -300,7 +300,7 @@ animate();
 //draw functions for each stationary element in the scene
 //stationary elements don't break textures put into functions so this cleans up the code quite a bit
 function drawTable(){
-	//tableTop
+	//tableTop backgroun
 	var tableTopGeo = new THREE.BoxGeometry( 7.5, .1, 3 );
 	THREE.ImageUtils.crossOrigin = '';
 	var tableTopTex = THREE.ImageUtils.loadTexture('http://i.imgur.com/CQYuOYb.jpg');
@@ -363,10 +363,10 @@ function drawRoom(){
 }
 
 function drawBoard(){
-	//board
-	var boardMesh = new THREE.PlaneGeometry(5,2);
+	//board - map
+	var boardMesh = new THREE.PlaneGeometry(5,2); //5 wide, 2 tall
 	THREE.ImageUtils.crossOrigin = '';
-	var mapOverlay = THREE.ImageUtils.loadTexture('http://i.imgur.com/jQ3ixyC.jpg');
+	var mapOverlay = THREE.ImageUtils.loadTexture('http://i.imgur.com/Wbbp6xN.jpg');
 	var boardMaterial = new THREE.MeshBasicMaterial({map: mapOverlay})
 	var board = new THREE.Mesh(boardMesh,boardMaterial);
 	board.rotation.x = (-90*Math.PI/180);
