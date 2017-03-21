@@ -936,7 +936,7 @@ class Game{
         else
         {
             //this.player_array[this.selected_player].hp = this.player_array[this.selected_player].hp + 1;
-            moveDamage(this.player_array[this.selected_player].player_color, 1);
+            moveDamage(this.player_array[this.selected_player].player_color, 2);
         }
 		this.last_state=state;
         this.check_win_or_dead();
