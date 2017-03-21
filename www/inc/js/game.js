@@ -1071,7 +1071,7 @@ class Game{
             this.next_state = 'sam_special_0';
             break;
           case 'CIA Charlie':
-            this.next_state = 'tori_special_0';
+            this.next_state = 'charlie_special_0';
             break;
           case 'FBI Fred':
             this.next_state = 'fred_special_0';
@@ -1321,7 +1321,28 @@ class Game{
         this.check_win_or_dead();
         this.exec_state();
         break;
-
+	
+      case 'charlie_special_0';	// reveal and allows charlie to move to an adjacent zone instead of rolling
+ 	this.next_state = 'turn_3';
+	if(this.player_array[this.current_player.used_special == 1)
+    	{
+	   this.add_info_message(this.current_player, "You've already used your special");
+    	}
+        else if (this.current_player != this.current_turn) 
+    	{
+	    this.add_info_message(this.current_player, "You've can only use this special during your turn");
+    	}
+    	else 
+    	{
+	    this.reveal_player();
+	    this.player_array[this.current_player].used_special = 1;
+	    this.add_info_message(this.current_player, "You used your special!");
+    	}
+		this.last_state=state;
+        this.check_win_or_dead();
+        this.exec_state();
+        break;
+	
       case 'tori_special_0':
         //this.next_state = 'ayman_special_1';
         this.next_state = 'turn_3';
