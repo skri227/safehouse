@@ -757,17 +757,26 @@ class Game{
         this.has_attacked = 0;
         this.be_attacked = false;
         this.add_info_message(this.current_turn, 'Starting your turn.');
-        this.show_roll_btn();
-        this.add_info_message(this.current_turn, 'Click "ROLL" to roll and move your player.');
+	if(this.player_array[this.current_player].character.char_name == 'CIA Charlie') {
+		if(this.player_array[this.current_player].used_special == 1) {
+			//this.show_charlie_special_move_btn();
+			this.add_info_message(this.current_turn, 'Click "ROLL" to roll and move your player or "ADJACENT" to move to an adjacent zone.');
+		}
+	}
+    	else {
+		this.show_roll_btn();
+		this.add_info_message(this.current_turn, 'Click "ROLL" to roll and move your player.');
+	}
+        
         if(this.player_array[this.current_turn].hand.length > 0)
           this.add_info_message(this.current_turn, 'You can change your equipment card before you roll.');
         break;
       case 'turn_1':
-	    this.last_state=state;
-        rollWhiteDice(this.player_array[this.current_turn].player_color);
-        this.player_array[this.current_turn].current_region = dice1Value + dice2Value;
-        this.add_info_message(this.current_player, 'You rolled a ' + this.player_array[this.current_turn].current_region + '!');
-        var r = this.player_array[this.current_player].current_region;
+	this.last_state=state;
+	rollWhiteDice(this.player_array[this.current_turn].player_color);
+	this.player_array[this.current_turn].current_region = dice1Value + dice2Value;
+	this.add_info_message(this.current_player, 'You rolled a ' + this.player_array[this.current_turn].current_region + '!');
+	var r = this.player_array[this.current_player].current_region;
 
 			if(r == 2 || r == 3 || r == 4 || r == 5 || r == 6 || r == 8)
 			{
@@ -798,6 +807,7 @@ class Game{
 			  this.next_state = 'turn_3';
 			  this.exec_state();
 			}
+	}
         this.check_win_or_dead();
         break;
       case 'turn_2':
@@ -1324,7 +1334,7 @@ class Game{
 	
       case 'charlie_special_0';	// reveal and allows charlie to move to an adjacent zone instead of rolling
  	this.next_state = 'turn_3';
-	if(this.player_array[this.current_player.used_special == 1)
+	if(this.player_array[this.current_player].used_special == 1)
     	{
 	   this.add_info_message(this.current_player, "You've already used your special");
     	}
