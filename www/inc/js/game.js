@@ -748,7 +748,7 @@ class Game{
         if(this.player_array[this.current_turn].alive == false)
           this.exec_state('turn_4');
 		this.last_state=state;
-        this.next_state = 'turn_1';
+        
         this.switch_player(this.current_turn);
         document.getElementById('current_player_id').innerHTML = this.current_player;
         document.getElementById('current_player_box_color').style.color = this.player_array[this.current_turn].player_color;
@@ -761,10 +761,12 @@ class Game{
 		//this.show_charlie_special_move_btn();
 	   	this.show_roll_btn(); //this is so charlie can move during testing take it out once charlie_special_move_btn is ready
 		this.add_info_message(this.current_turn, 'Click "ROLL" to roll and move your player or "ADJACENT" to move to an adjacent zone.');
+		this.next_state = 'charlie_movement_0';
 	}
     	else {
 		this.show_roll_btn();
 		this.add_info_message(this.current_turn, 'Click "ROLL" to roll and move your player.');
+		this.next_state = 'turn_1';
 	}
         
         if(this.player_array[this.current_turn].hand.length > 0)
@@ -839,7 +841,76 @@ class Game{
 		this.last_state=state;
         this.exec_state();
         break;
-
+      
+	//Special state for Charlie's movement
+      case 'charlie_movement_0':
+	this.last_state = state;
+	var current = this.player_array[this.current_player].current_region;
+    	
+ 	if (current == 2 || current == 3) {
+		// options of 4
+		this.player_array[this.current_player].current_region = 4; // this is for testing, should show pop up 
+	}
+    	else if (current == 4 || current == 5) {
+		// options of 2 or 6
+	}
+	else if (current == 6) {
+		// options of 4, 7, or 8
+	}
+    	else if (current == 7) {
+		// options of 6 or 8
+	}
+    	else if (current == 8) {
+		// options of 6, 7, or 9
+	}
+    	else if (current == 9 || current == 10) {
+		// options of 8 or 11
+	}
+    	else if (current == 11 || current == 12) {
+		// options of 9
+		this.player_array[this.current_player].current_region = 9;
+	}
+    	else {
+		this.add_info_message(this.current_turn, 'What have you done, this should have never happened.');
+	}
+		    
+    	var new_region = this.player_array[this.current_player].current_region;
+		    
+	if(new_region == 2 || new_region == 3 || new_region == 4 || new_region == 5 || new_region == 6 || new_region == 8)
+	{
+	  	this.next_state = 'draw_card_0';
+	  	this.show_draw_btn();
+	  	this.add_info_message(this.current_turn, 'Click "DRAW" to choose a card.');
+	}
+	else if(new_region == 11 || new_region == 12)
+	{
+	  	var anyone_have_cards = false;
+	  	for(var i = 1; i <= this.num_of_players; i++)
+	  	{
+			if(this.player_array[i].hand.length > 0) {
+		  		anyone_have_cards = true;
+			}
+	  	}
+	  	if(anyone_have_cards == true) {
+			this.exec_state('steal_region_0');
+		}
+	  	else {
+			this.next_state = 'turn_2';
+			this.exec_state();
+		}
+	}
+	else if(new_region == 9 || new_region == 10)
+	{
+	  	this.exec_state('damage_region_0');
+	}
+	else
+	{
+	  	this.next_state = 'turn_3';
+	  	this.exec_state();
+	}
+ 	this.check_win_or_dead();
+	break;
+		    
       //Draw
       case 'draw_card_0':
         this.next_state = 'draw_card_1';
