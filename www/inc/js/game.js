@@ -1104,7 +1104,7 @@ class Game{
       case 'ayman_special_0':
         this.next_state = 'turn_3';
         //this.next_state = 'ayman_special_1';
-        if(this.player_array[this.current_player].  == 1)
+        if(this.player_array[this.current_player].used_special == 1)
         {
           this.add_info_message(this.current_player, "You've already used your special");
         }
