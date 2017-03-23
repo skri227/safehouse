@@ -807,7 +807,6 @@ class Game{
 			  this.next_state = 'turn_3';
 			  this.exec_state();
 			}
-	}
         this.check_win_or_dead();
         break;
       case 'turn_2':
