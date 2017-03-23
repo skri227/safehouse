@@ -757,7 +757,7 @@ class Game{
         this.has_attacked = 0;
         this.be_attacked = false;
         this.add_info_message(this.current_turn, 'Starting your turn.');
-	if(this.player_array[this.current_player].character.char_name == 'CIA Charlie' && this.player_array[this.current_player].used_special == ) {
+	if(this.player_array[this.current_player].character.char_name == 'CIA Charlie' && this.player_array[this.current_player].used_special == 1) {
 			//this.show_charlie_special_move_btn();
 	   		this.show_roll_btn(); //this is so charlie can move during testing take it out once charlie_special_move_btn is ready
 			this.add_info_message(this.current_turn, 'Click "ROLL" to roll and move your player or "ADJACENT" to move to an adjacent zone.');
