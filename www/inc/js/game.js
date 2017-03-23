@@ -1332,7 +1332,7 @@ class Game{
         this.exec_state();
         break;
 	
-      case 'charlie_special_0';	// reveal and allows charlie to move to an adjacent zone instead of rolling
+      case 'charlie_special_0':	// reveal and allows charlie to move to an adjacent zone instead of rolling
  	this.next_state = 'turn_3';
 	if(this.player_array[this.current_player].used_special == 1)
     	{
@@ -1346,7 +1346,7 @@ class Game{
     	{
 	    this.reveal_player();
 	    this.player_array[this.current_player].used_special = 1;
-	    this.add_info_message(this.current_player, "You used your special!");
+	    this.add_info_message(this.current_player, "You've used your special!");
     	}
 		this.last_state=state;
         this.check_win_or_dead();
