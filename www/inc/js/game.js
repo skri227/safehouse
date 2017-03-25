@@ -760,7 +760,6 @@ class Game{
 	if(this.player_array[this.current_player].character.char_name == 'CIA Charlie' && this.player_array[this.current_player].used_special == 1) {
 		this.show_charlie_special_move_btn();
 		this.add_info_message(this.current_turn, 'Click "ROLL" to roll and move your player or "ADJACENT" to move to an adjacent zone.');
-		this.next_state = 'charlie_movement_0';
 	}
     	else {
 		this.show_roll_btn();
