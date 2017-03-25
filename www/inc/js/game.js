@@ -758,8 +758,7 @@ class Game{
         this.be_attacked = false;
         this.add_info_message(this.current_turn, 'Starting your turn.');
 	if(this.player_array[this.current_player].character.char_name == 'CIA Charlie' && this.player_array[this.current_player].used_special == 1) {
-		//this.show_charlie_special_move_btn();
-	   	this.show_roll_btn(); //this is so charlie can move during testing take it out once charlie_special_move_btn is ready
+		this.show_charlie_special_move_btn();
 		this.add_info_message(this.current_turn, 'Click "ROLL" to roll and move your player or "ADJACENT" to move to an adjacent zone.');
 		this.next_state = 'charlie_movement_0';
 	}
@@ -844,6 +843,7 @@ class Game{
       
 	//Special state for Charlie's movement
       case 'charlie_movement_0':
+   	this.add_info_message(this.current_turn, "BUTTON WORKED");
 	this.last_state = state;
 	var current = this.player_array[this.current_player].current_region;
     	
@@ -2487,6 +2487,7 @@ class Game{
     document.getElementById("action_attack_btn").style.display = "none";
     document.getElementById("action_special_btn").style.display = "none";
     document.getElementById("action_end_turn_btn").style.display = "none";
+    document.getElementById("charlie_special_move_btn").style.display = "none";
   }
 
   //Shows draw btn and hides other buttons
@@ -2498,6 +2499,7 @@ class Game{
     document.getElementById("action_attack_btn").style.display = "none";
     document.getElementById("action_special_btn").style.display = "none";
     document.getElementById("action_end_turn_btn").style.display = "none";
+    document.getElementById("charlie_special_move_btn").style.display = "none";
 	setTimeout(function(){
     document.getElementById("action_draw_btn").style.display = "initial"; },7000);
   }
@@ -2510,6 +2512,7 @@ class Game{
     document.getElementById("action_special_btn").style.display = "none";
     document.getElementById("action_end_turn_btn").style.display = "none";
     document.getElementById("action_offense_pass_btn").style.display = "none";
+    document.getElementById("charlie_special_move_btn").style.display = "none";
 	setTimeout(function(){
     document.getElementById("action_defense_pass_btn").style.display = "initial"; },3500);
   }
@@ -2521,6 +2524,7 @@ class Game{
     document.getElementById("action_special_btn").style.display = "none";
     document.getElementById("action_end_turn_btn").style.display = "none";
     document.getElementById("action_defense_pass_btn").style.display = "none";
+    document.getElementById("charlie_special_move_btn").style.display = "none";
   setTimeout(function(){
     document.getElementById("action_offense_pass_btn").style.display = "initial";
     if(character=='Osama Bin Laden'){
@@ -2536,6 +2540,7 @@ class Game{
     document.getElementById("action_defense_pass_btn").style.display = "none";
     document.getElementById("action_roll_btn").style.display = "none";
     document.getElementById("action_draw_btn").style.display = "none";
+    document.getElementById("charlie_special_move_btn").style.display = "none";
   	if(previous_state=="turn_1"){
   	  setTimeout(function(){
   	  document.getElementById("action_attack_btn").style.display = "initial";
@@ -2555,6 +2560,18 @@ class Game{
   	}
   }
 
+  show_charlie_special_move_btn()
+  {	
+    document.getElementById("charlie_special_move_btn").style.display = "initial";
+    document.getElementById("action_roll_btn").style.display = "initial";
+    document.getElementById("action_offense_pass_btn").style.display = "none";
+    document.getElementById("action_defense_pass_btn").style.display = "none";
+    document.getElementById("action_draw_btn").style.display = "none";
+    document.getElementById("action_attack_btn").style.display = "none";
+    document.getElementById("action_special_btn").style.display = "none";  
+    document.getElementById("action_end_turn_btn").style.display = "none";
+  }
+		
   //Sets the game objects select player variable and hides the select player screen.
   select_player(player)
   {
