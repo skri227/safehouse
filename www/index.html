@@ -374,8 +374,9 @@
 
 			<!--Action btns area-->
 			<div id="action_container">
-				<button id="action_adjacent_btn" class="charlie_special_move_btn" onclick="game.execstate('charlie_movement_0')">ADJACENT</button>
-				<button id="action_roll_btn" class="charlie_special_move_btn" onclick="game.exec_state()">ROLL</button>
+				<button id="action_adjacent_btn" class="charlie_special_move_btn" onclick="game.exec_state('charlie_movement_0')">ADJACENT</button>
+				<button id="action_special_roll_btn" class="charlie_special_move_btn" onclick="game.exec_state()">ROLL</button>
+				<button id="action_roll_btn" onclick="game.exec_state()">ROLL</button>
 				<!--<button id="action_roll_btn" onclick="show_attack_screen()">ROLL</button>-->
 				<button id="action_draw_btn" onclick="game.exec_state()">DRAW</button>
 				<button id="action_attack_btn" class="general_action_btn" onclick="game.exec_state('attack_0')">ATTACK</button>
