@@ -870,7 +870,7 @@ class Game{
         this.next_state = 'turn_2';
         hide_draw_card_screen_overlay();
         this.check_win_or_dead();
-		this.last_state=state;
+		      this.last_state=state;
         this.exec_state();
         break;
 
@@ -878,7 +878,7 @@ class Game{
       case 'draw_invest_card_only':
         this.next_state = 'draw_card_1';
         draw_card_screen_overlay(1,0,0);
-		this.last_state=state;
+		      this.last_state=state;
         this.check_win_or_dead();
         break;
 
@@ -894,7 +894,7 @@ class Game{
         hide_select_player_screen();
         this.steal_equip_card();
         this.check_win_or_dead();
-		this.last_state=state;
+		    this.last_state=state;
         //this.add_info_message(this.current_turn, 'Select which player to steal card from.');
         this.exec_state();
         break;
@@ -1426,13 +1426,13 @@ class Game{
             this.next_state = 'draw_card_1';
             break;
         }
-		this.last_state=state;
+		      this.last_state=state;
         this.check_win_or_dead();
         this.exec_state();
         break;
 
       case 'invest_1':
-		this.last_state=state;
+		    this.last_state=state;
         if((this.player_array[this.current_player].equipped.card_title == 'Water Board' || this.player_array[this.current_player].equipped.card_title == 'Cattle Prod') && this.used_equip_card == 0)
         {
           this.used_equip_card = 1;
@@ -1446,7 +1446,7 @@ class Game{
         break;
       case 'invest_2':
         this.next_state = 'draw_invest_card_only';
-		this.last_state=state;
+		      this.last_state=state;
         this.show_draw_btn();
         this.check_win_or_dead();
         break;
@@ -1501,19 +1501,19 @@ class Game{
 
       case 'select_option_1':
         this.selected_option = 1;
-		this.last_state=state;
+		    this.last_state=state;
         this.check_win_or_dead();
         this.exec_state();
         break;
       case 'select_option_2':
         this.selected_option = 2;
-		this.last_state=state;
+		    this.last_state=state;
         this.check_win_or_dead();
         this.exec_state();
         break;
       case 'select_option_3':
         this.selected_option = 3;
-		this.last_state=state;
+		    this.last_state=state;
         this.check_win_or_dead();
         this.exec_state();
         break;
@@ -1525,7 +1525,7 @@ class Game{
         hide_draw_card_screen_overlay();
         show_zoomed_card(this.drawn_invest_card);
         this.add_info_message(this.current_player, 'Click card to use it.');
-		this.last_state=state;
+		    this.last_state=state;
         this.check_win_or_dead();
         break;
       //Let player select who to investigate.
@@ -1534,7 +1534,7 @@ class Game{
         hide_zoomed_card();
         this.add_info_message(this.current_player, 'Select player to investigate.');
         show_select_player_screen();
-		this.last_state=state;
+		    this.last_state=state;
         this.check_win_or_dead();
         break;
       //Switch to the player selected. If player can lie, show lie btn.
@@ -1544,19 +1544,23 @@ class Game{
         this.add_info_message(this.current_player, "Player " + this.current_turn + ": " + this.drawn_invest_card.card_text);
         if(this.player_array[this.current_player].character.char_name ==  "Hassan Nasrallah")
         {
-          this.add_info_message(this.current_player, "You can lie! Press 'OK' or 'LIE'.");
-          show_select_options_screen("YOU'RE BEING INVESTIGATED, SELECT OPTION", 'OK', 'LIE');
+          this.add_info_message(this.current_player, "You can lie! Press 'TAKE 1 DAMAGE' or 'LIE'.");
+          show_select_options_screen("YOU'RE BEING INVESTIGATED AS BEING A TERRORIST! SELECT AN OPTION.", 'TAKE ONE DAMAGE', 'LIE');
         }
         else
         {
           if(this.player_array[this.current_player].character.affiliation == 'Terrorist')
-            this.add_info_message(this.current_player, "You cannot lie! Press 'OK'.");
+          {
+            this.add_info_message(this.current_player, "You cannot lie! Press 'TAKE 1 DAMAGE'.");
+            show_select_options_screen("YOU'RE BEING INVESTIGATED AS BEING A TERRORIST!", "TAKE 1 DAMAGE");
+          }
           else
-            this.add_info_message(this.current_player, "You cannot lie but you're not a Terrorist! Press 'OK'.");
-
-          show_select_options_screen("YOU'RE BEING INVESTIGATED, SELECT OPTION", "OK");
+          {
+            this.add_info_message(this.current_player, "You cannot lie but you're not a Terrorist! Press 'OK'.")
+            show_select_options_screen("YOU'RE BEING INVESTIGATED AS BEING A TERRORIST!", "OK");
+          }
         }
-		this.last_state=state;
+		    this.last_state=state;
         this.check_win_or_dead();
         break;
       //Calculate damage then switch back to current turn player.
@@ -1572,7 +1576,7 @@ class Game{
             moveDamage(this.player_array[this.current_player].player_color, 1);
           }
         }
-		this.last_state=state;
+		    this.last_state=state;
         this.check_win_or_dead();
         this.switch_player(this.current_turn);
         this.exec_state('invest_1');
@@ -1588,7 +1592,7 @@ class Game{
         hide_draw_card_screen_overlay();
         show_zoomed_card(this.drawn_invest_card);
         this.add_info_message(this.current_player, 'Click card to use it.');
-		this.last_state=state;
+		    this.last_state=state;
         this.check_win_or_dead();
         break;
       //Let player select who to investigate.
@@ -1596,7 +1600,7 @@ class Game{
         this.next_state = 'accuse3_2';
         hide_zoomed_card();
         this.add_info_message(this.current_player, 'Select player to investigate.');
-		this.last_state=state;
+		    this.last_state=state;
         show_select_player_screen();
         this.check_win_or_dead();
         break;
@@ -1605,19 +1609,20 @@ class Game{
           this.switch_player(this.selected_player);
           this.add_info_message(this.current_player, "Player " + this.current_turn + ": " + this.drawn_invest_card.card_text);
           if(this.player_array[this.current_player].character.char_name == "Hassan Nasrallah"){
-            this.add_info_message(this.current_player, "You can lie! Press 'OK' or 'Lie'");
-            show_select_options_screen("You're being Investigated! Select your Option.", 'OK', 'LIE');
+            this.add_info_message(this.current_player, "You can lie! Press 'HEAL/TAKE 1 DAMAGE' or 'LIE'");
+            show_select_options_screen("YOU'RE BEING INVESTIGATED AS BEING A NEUTRAL! SELECT AN OPTION. (YOU TAKE DAMAGE INSTEAD OF HEAL IF YOU HAVE NO DAMAGE)", 'HEAL/TAKE 1 DAMAGE', 'LIE');
           }
           else{
             if(this.player_array[this.current_player].character.affiliation == 'Neutral'){
-              this.add_info_message(this.current_player, "You cannot lie! Press 'OK'.");
+              this.add_info_message(this.current_player, "You cannot lie! Press 'HEAL/TAKE 1 DAMAGE'.");
+              show_select_options_screen("YOU'RE BEING INVESTIGATED AS BEING A NEUTRAL! (YOU TAKE DAMAGE INSTEAD OF HEAL IF YOU HAVE NO DAMAGE)", "HEAL/TAKE 1 DAMAGE");
             }
             else{
-              this.add_info_message(this.current_player, "you cannot lie but you are not Neutral.  Press 'OK'.")
+              this.add_info_message(this.current_player, "You cannot lie, but you are not Neutral.  Press 'OK'.")
+              show_select_options_screen("YOU'RE BEING INVESTIGATED AS BEING A NEUTRAL!", "OK");
             }
-            show_select_options_screen("You're being Investigated!  Select your option!", "OK");
           }
-		  this.last_state=state;
+		      this.last_state=state;
           this.check_win_or_dead();
           break;
       case 'accuse3_3':
@@ -1644,7 +1649,7 @@ class Game{
               }
             }
           }
-		  this.last_state=state;
+		      this.last_state=state;
           this.check_win_or_dead();
           this.switch_player(this.current_turn);
           this.exec_state('invest_1');
@@ -1660,8 +1665,7 @@ class Game{
           hide_draw_card_screen_overlay();
           show_zoomed_card(this.drawn_invest_card);
           this.add_info_message(this.current_player, 'Click card to use it.');
-		  this.last_state=state;
-
+		      this.last_state=state;
           this.check_win_or_dead();
           break;
         //Let player select who to investigate.
@@ -1679,16 +1683,17 @@ class Game{
             this.add_info_message(this.current_player, "Player " + this.current_turn + ": " + this.drawn_invest_card.card_text);
             if(this.player_array[this.current_player].character.char_name == "Hassan Nasrallah"){
               this.add_info_message(this.current_player, "You can lie! Press 'OK' or 'Lie'");
-              show_select_options_screen("You're being Investigated! Select your Option.", 'OK', 'LIE');
+              show_select_options_screen("YOU'RE BEING INVESTIGATED AS A TERRORIST! SELECT AN OPTION.(YOU TAKE DAMAGE INSTEAD OF HEAL IF YOU HAVE NO DAMAGE)", 'HEAL/TAKE 1 DAMAGE', 'LIE');
             }
             else{
               if(this.player_array[this.current_player].character.affiliation == 'Terrorist'){
-                this.add_info_message(this.current_player, "You cannot lie! Press 'OK'.");
+                this.add_info_message(this.current_player, "You cannot lie! Press 'HEAL/TAKE 1 DAMAGE'.");
+                show_select_options_screen("YOU'RE BEING INVESTIGATED AS A TERRORIST! (YOU TAKE DAMAGE INSTEAD OF HEAL IF YOU HAVE NO DAMAGE).", "HEAL/TAKE 1 DAMAGE");
               }
               else{
-                this.add_info_message(this.current_player, "you cannot lie but you are not Terrorist.  Press 'OK'.")
+                this.add_info_message(this.current_player, "You cannot lie, but you are not Terrorist.  Press 'OK'.");
+                show_select_options_screen("YOU'RE BEING INVESTIGATED AS A TERRORIST!", "OK");
               }
-              show_select_options_screen("You're being Investigated!  Select your option!", "OK");
             }
             break;
         case 'accuse4_3':
@@ -1708,7 +1713,7 @@ class Game{
                 }
               }
             }
-			this.last_state=state;
+			      this.last_state=state;
             this.check_win_or_dead();
             this.switch_player(this.current_turn);
             this.exec_state('invest_1');
@@ -1718,7 +1723,7 @@ class Game{
         //Show card and wait for user to click card
         case 'accuse5_0':
           this.next_state = 'accuse5_1';
-		  this.last_state=state;
+		      this.last_state=state;
           hide_draw_card_screen_overlay();
           show_zoomed_card(this.drawn_invest_card);
           this.add_info_message(this.current_player, 'Click card to use it.');
@@ -1728,7 +1733,7 @@ class Game{
           this.next_state = 'accuse5_2';
           hide_zoomed_card();
           this.add_info_message(this.current_player, 'Select player to investigate.');
-		  this.last_state=state;
+		      this.last_state=state;
           show_select_player_screen();
           break;
         //Switch to the player selected. If player can lie, show lie btn.
@@ -1739,28 +1744,32 @@ class Game{
           if(this.player_array[this.current_player].character.char_name ==  "Hassan Nasrallah")
           {
             this.add_info_message(this.current_player, "You can lie! Select an option or press 'LIE'.");
-            if(this.player_array[this.current_player].hand.length != 0) //Check if players hand is empty
-              show_select_options_screen("YOU'RE BEING INVESTIGATED, SELECT OPTION", 'TAKE 1 DAMAGE', 'LIE', 'GIVE EQUIPMENT CARD');
+            //Check if players hand is empty
+            //If empty, then only show take 1 damage and lie buttons
+            if(this.player_array[this.current_player].hand.length != 0)
+              show_select_options_screen("YOU'RE BEING INVESTIGATED AS A TERRORIST OR NEUTRAL! SELECT AN OPTION.", 'TAKE 1 DAMAGE', 'LIE', 'GIVE EQUIPMENT CARD');
             else
-              show_select_options_screen("YOU'RE BEING INVESTIGATED, SELECT OPTION", 'TAKE 1 DAMAGE', 'LIE');
+              show_select_options_screen("YOU'RE BEING INVESTIGATED AS A TERRORIST OR NEUTRAL! SELECT AN OPTION.", 'TAKE 1 DAMAGE', 'LIE');
           }
           else
           {
             if(this.player_array[this.current_player].character.affiliation == 'Terrorist' || this.player_array[this.current_player].character.affiliation == 'Neutral')
             {
               this.add_info_message(this.current_player, "You cannot lie! Select an option.");
-              if(this.player_array[this.current_player].hand.length != 0) //Check if players hand is empty
-                show_select_options_screen("YOU'RE BEING INVESTIGATED, SELECT OPTION", 'TAKE 1 DAMAGE', 'GIVE EQUIPMENT CARD');
+              //Check if players hand is empty
+              //If empty, then only show take 1 damage and lie buttons
+              if(this.player_array[this.current_player].hand.length != 0)
+                show_select_options_screen("YOU'RE BEING INVESTIGATED AS A TERRORIST OR NEUTRAL! SELECT AN OPTION.", 'TAKE 1 DAMAGE', 'GIVE EQUIPMENT CARD');
               else
-                show_select_options_screen("YOU'RE BEING INVESTIGATED, SELECT OPTION", 'TAKE 1 DAMAGE');
+                show_select_options_screen("YOU'RE BEING INVESTIGATED AS A TERRORIST OR NEUTRAL! SELECT OPTION.", 'TAKE 1 DAMAGE');
             }
             else
             {
                 this.add_info_message(this.current_player, "You cannot lie, but you don't need to! Press 'OK'.");
-                show_select_options_screen("YOU'RE BEING INVESTIGATED, SELECT OPTION", 'OK');
+                show_select_options_screen("YOU'RE BEING INVESTIGATED AS A TERRORIST OR NEUTRAL! SELECT OPTION.", 'OK');
             }
           }
-		  this.last_state=state;
+		        this.last_state=state;
           break;
         //Calculate damage then switch back to current turn player.
         case 'accuse5_3':
@@ -1791,7 +1800,7 @@ class Game{
           }
           else
             this.player_array[this.current_player].hp = this.player_array[this.current_player].hp + 0;
-		  this.last_state=state;
+          this.last_state=state;
           this.check_win_or_dead();
           this.switch_player(this.current_turn);
           this.exec_state('invest_1');
@@ -1822,19 +1831,20 @@ class Game{
               this.switch_player(this.selected_player);
               this.add_info_message(this.current_player, "Player " + this.current_turn + ": " + this.drawn_invest_card.card_text);
               if(this.player_array[this.current_player].character.char_name == "Hassan Nasrallah"){
-                this.add_info_message(this.current_player, "You can lie! Press 'OK' or 'Lie'");
-                show_select_options_screen("You're being Investigated! Select your Option.", 'OK', 'LIE');
+                this.add_info_message(this.current_player, "You can lie! Press 'HEAL/TAKE 1 DAMAGE' or 'LIE'");
+                show_select_options_screen("YOU'RE BEING INVESTIGATED AS A COUNTER-TERRORIST! SELECT AN OPTION.(YOU TAKE DAMAGE INSTEAD OF HEAL IF YOU HAVE NO DAMAGE)", 'HEAL/TAKE 1 DAMAGE', 'LIE');
               }
               else{
                 if(this.player_array[this.current_player].character.affiliation == 'Counter-Terrorist'){
-                  this.add_info_message(this.current_player, "You cannot lie! Press 'OK'.");
+                  this.add_info_message(this.current_player, "You cannot lie! Press 'HEAL/TAKE 1 DAMAGE'.");
+                  show_select_options_screen("YOU'RE BEING INVESTIGATED AS A COUNTER-TERRORIST! (YOU TAKE DAMAGE INSTEAD OF HEAL IF YOU HAVE NO DAMAGE)", "HEAL/TAKE 1 DAMAGE");
                 }
                 else{
-                  this.add_info_message(this.current_player, "you cannot lie but you are not Counter-Terrorist.  Press 'OK'.")
+                  this.add_info_message(this.current_player, "You cannot lie, but you are not Counter-Terrorist.  Press 'OK'.")
+                  show_select_options_screen("YOU'RE BEING INVESTIGATED AS A COUNTER-TERRORIST!", "OK");
                 }
-                show_select_options_screen("You're being Investigated!  Select your option!", "OK");
               }
-			  this.last_state=state;
+			        this.last_state=state;
               break;
           case 'accuse6_3':
               hide_select_options_screen();
@@ -1876,7 +1886,7 @@ class Game{
               //     }
               //   }
               // }
-			  this.last_state=state;
+			        this.last_state=state;
               this.check_win_or_dead();
               this.switch_player(this.current_turn);
               this.exec_state('invest_1');
@@ -1886,7 +1896,7 @@ class Game{
           //Show card and wait for user to click card
           case 'accuse10_0':
             this.next_state = 'accuse10_1';
-			this.last_state=state;
+			      this.last_state=state;
             hide_draw_card_screen_overlay();
             show_zoomed_card(this.drawn_invest_card);
             this.add_info_message(this.current_player, 'Click card to use it.');
@@ -1894,7 +1904,7 @@ class Game{
           //Let player select who to investigate.
           case 'accuse10_1':
             this.next_state = 'accuse10_2';
-			this.last_state=state;
+			      this.last_state=state;
             hide_zoomed_card();
             this.add_info_message(this.current_player, 'Select player to investigate.');
             show_select_player_screen();
@@ -1906,17 +1916,21 @@ class Game{
             this.add_info_message(this.current_player, "Player " + this.current_turn + ": " + this.drawn_invest_card.card_text);
             if(this.player_array[this.current_player].character.char_name ==  "Hassan Nasrallah")
             {
-              this.add_info_message(this.current_player, "You can lie! Press 'OK' or 'LIE'.");
-              show_select_options_screen("YOU'RE BEING INVESTIGATED, SELECT OPTION", 'OK', 'LIE');
+              this.add_info_message(this.current_player, "You can lie! Press 'TAKE 1 DAMAGE' or 'LIE'.");
+              show_select_options_screen("YOU'RE BEING INVESTIGATED AS A COUNTER-TERRORIST! SELECT AN OPTION.", 'TAKE 1 DAMAGE', 'LIE');
             }
             else
             {
               if(this.player_array[this.current_player].character.affiliation == 'Counter-Terrorist')
-                this.add_info_message(this.current_player, "You cannot lie! Press 'OK'.");
+              {
+                this.add_info_message(this.current_player, "You cannot lie! Press 'TAKE 1 DAMAGE'.");
+                show_select_options_screen("YOU'RE BEING INVESTIGATED AS A COUNTER-TERRORIST!", "TAKE 1 DAMAGE");
+              }
               else
-                this.add_info_message(this.current_player, "You cannot lie but you're not a Counter-Terrorist! Press 'OK'.");
-
-              show_select_options_screen("YOU'RE BEING INVESTIGATED, SELECT OPTION", "OK");
+              {
+                this.add_info_message(this.current_player, "You cannot lie, but you're not a Counter-Terrorist! Press 'OK'.");
+                show_select_options_screen("YOU'RE BEING INVESTIGATED AS A COUNTER-TERRORIST!", "OK");
+              }
             }
 			this.last_state=state;
             break;
@@ -1939,7 +1953,7 @@ class Game{
                 moveDamage(this.player_array[this.current_player].player_color, 1);
               }
             }
-			this.last_state=state;
+			      this.last_state=state;
             this.check_win_or_dead();
             this.switch_player(this.current_turn);
             this.exec_state('invest_1');
@@ -1949,7 +1963,7 @@ class Game{
           //Show card and wait for user to click card
           case 'accuse11_0':
             this.next_state = 'accuse11_1';
-			this.last_state=state;
+			      this.last_state=state;
             hide_draw_card_screen_overlay();
             show_zoomed_card(this.drawn_invest_card);
             this.add_info_message(this.current_player, 'Click card to use it.');
@@ -1957,7 +1971,7 @@ class Game{
           //Let player select who to investigate.
           case 'accuse11_1':
             this.next_state = 'accuse11_2';
-			this.last_state=state;
+			      this.last_state=state;
             hide_zoomed_card();
             this.add_info_message(this.current_player, 'Select player to investigate.');
             show_select_player_screen();
@@ -1970,17 +1984,21 @@ class Game{
             this.add_info_message(this.current_player, "Player " + this.current_turn + ": " + this.drawn_invest_card.card_text);
             if(this.player_array[this.current_player].character.char_name ==  "Hassan Nasrallah")
             {
-              this.add_info_message(this.current_player, "You can lie! Press 'OK' or 'LIE'.");
-              show_select_options_screen("YOU'RE BEING INVESTIGATED, SELECT OPTION", 'OK', 'LIE');
+              this.add_info_message(this.current_player, "You can lie! Press 'TAKE 1 DAMAGE' or 'LIE'.");
+              show_select_options_screen("YOU'RE BEING INVESTIGATED AS A NEUTRAL! SELECT AN OPTION.", 'TAKE 1 DAMAGE', 'LIE');
             }
             else
             {
               if(this.player_array[this.current_player].character.affiliation == 'Neutral')
-                this.add_info_message(this.current_player, "You cannot lie! Press 'OK'.");
+              {
+                this.add_info_message(this.current_player, "You cannot lie! Press 'TAKE 1 DAMAGE'.");
+                show_select_options_screen("YOU'RE BEING INVESTIGATED AS A NEUTRAL!", "TAKE 1 DAMAGE");
+              }
               else
+              {
                 this.add_info_message(this.current_player, "You cannot lie but you're not a Neutral! Press 'OK'.");
-
-              show_select_options_screen("YOU'RE BEING INVESTIGATED, SELECT OPTION", "OK");
+                show_select_options_screen("YOU'RE BEING INVESTIGATED AS A NEUTRAL!", "OK");
+              }
             }
             break;
           //Calculate damage then switch back to current turn player.
@@ -2002,7 +2020,7 @@ class Game{
                 moveDamage(this.player_array[this.current_player].player_color, 1);
               }
             }
-			this.last_state=state;
+			      this.last_state=state;
             this.check_win_or_dead();
             this.switch_player(this.current_turn);
             this.exec_state('invest_1');
@@ -2141,7 +2159,7 @@ class Game{
             var damage = (Math.floor(Math.random() * 6) + 1);
             //this.player_array[this.selected_player].hp = this.player_array[this.selected_player].hp - damage;
             moveDamage(this.player_array[this.selected_player].player_color, (-1 * damage));
-            var message_string = "You healed Player" + this.selected_player + ".";
+            var message_string = "You healed Player " + this.selected_player + ".";
             this.add_info_message(this.current_player, message_string);
 			this.last_state=state;
             this.check_win_or_dead();
@@ -2258,12 +2276,12 @@ class Game{
               hide_draw_card_screen_overlay();
               show_zoomed_card(this.drawn_action_card);
               this.add_info_message(this.current_player, 'Click card to use it.');
-			  this.last_state=state;
+			         this.last_state=state;
               break;
             case 'action_thatsmine_1':
               this.next_state = 'action_thatsmine_2';
               hide_zoomed_card();
-			  this.last_state=state;
+			         this.last_state=state;
               show_select_player_screen();
               break;
             case 'action_thatsmine_2':
@@ -2272,11 +2290,11 @@ class Game{
               if(this.player_array[this.selected_player].hand.length > 0)
               {
                 this.steal_equip_card();
-                var message_string = "You stole a card from Player" + this.selected_player + ".";
+                var message_string = "You stole a card from Player " + this.selected_player + ".";
                 this.add_info_message(this.current_player, message_string);
               }
               else{
-                var message_string = "Player" + this.selected_player + " has no cards.";
+                var message_string = "Player " + this.selected_player + " has no cards.";
                 this.add_info_message(this.current_player, message_string);
               }
 			  this.last_state=state;
