@@ -48,6 +48,13 @@ body
 }
 #start_menu button:focus {outline:0;}
 
+#start_menu button:hover
+{
+	transform: scale(1.2);
+	color: yellow;
+	text-shadow: .75px .75px red, 0 0 35px red;
+}
+
 #start_menu
 {
 	display: initial;
@@ -83,11 +90,22 @@ body
 .num_of_players button:active {border-color: white;}
 .num_of_players button:focus {outline:0;}
 
+.num_of_players button:hover
+{
+	box-shadow: 0 5px 15px white;
+}
+
 .num_of_players_btn span
 {
 	color: white;
 	font-size: 40px;
-	text-decoration: underline;
+}
+
+#num_of_players_home_btn h3:hover
+{
+	transform: scale(1.2);
+	color: yellow;
+	text-shadow: .75px .75px red, 0 0 35px red;
 }
 /*End Player Select Menu */
 
@@ -136,12 +154,26 @@ body
 {
 	font-size: 3em;
 }
+.select_players #player_select_play_btn:hover
+{
+	transform: scale(1.2);
+	color: yellow;
+	text-shadow: .75px .75px red, 0 0 35px red;
+}
+
 .select_players #player_select_home_btn
 {
 	position: fixed;
 	font-size: 2em;
 	bottom: 20px;
 	left: 20px;
+}
+
+.select_players #player_select_home_btn:hover
+{
+	transform: scale(1.2);
+	color: yellow;
+	text-shadow: .75px .75px red, 0 0 35px red;
 }
 
 .select_players .player_select_btn_not_selected
