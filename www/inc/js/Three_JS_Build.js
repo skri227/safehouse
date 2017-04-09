@@ -206,7 +206,7 @@ scene.add(yellowDamagePiece);
 
 //orange piece
 var orangeGeo = new THREE.BoxGeometry(.1,.2,.1);
-var orangeMat = new THREE.MeshPhongMaterial({color: 0xee7600});
+var orangeMat = new THREE.MeshPhongMaterial({color: 0xee5500});
 orangePiece = new THREE.Mesh(orangeGeo, orangeMat);
 orangePiece.position.set(-2.8,.11,.3);
 scene.add(orangePiece);
