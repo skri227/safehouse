@@ -83,7 +83,13 @@ var battleAttackSpecial = false;
 var battleDefense = false;
 var battleDefenseSpecial = false;
 
+//used to determine dice location
+//as set in dice settings below, dice are .2 apart
+var diceXLocation = -4;
+var diceYLocation = -.55;
 
+//set dice block size
+var diceSize = .15;
 
 
 
@@ -94,7 +100,7 @@ var battleDefenseSpecial = false;
 //WhiteDice
 //Dice1
 THREE.ImageUtils.crossOrigin = '';
-var dieOneGeo = new THREE.BoxGeometry(.1,.1,.1 );
+var dieOneGeo = new THREE.BoxGeometry(diceSize,diceSize,diceSize );
 var whiteDiceTex1 = THREE.ImageUtils.loadTexture('http://i.imgur.com/M0fHn0d.jpg');
 var whiteDiceMat1 = new THREE.MeshBasicMaterial({ map: whiteDiceTex1} );
 var whiteDiceTex2 = THREE.ImageUtils.loadTexture('http://i.imgur.com/k2I1BrJ.jpg');
@@ -110,18 +116,18 @@ var whiteDiceMat6 = new THREE.MeshBasicMaterial({ map: whiteDiceTex6} );
 var whiteDieFaces = [whiteDiceMat1, whiteDiceMat2, whiteDiceMat3, whiteDiceMat4, whiteDiceMat5, whiteDiceMat6];
 var whiteDieFaceMat = new THREE.MeshFaceMaterial(whiteDieFaces);
 whiteDice1 = new THREE.Mesh( dieOneGeo, whiteDieFaceMat );
-whiteDice1.position.set(-2.8,.11,-.55);
+whiteDice1.position.set(diceXLocation+.4,.11,diceYLocation);
 scene.add( whiteDice1 );
 
 //Dice 2
-var dieTwoGeo = new THREE.BoxGeometry(.1,.1,.1 );
+var dieTwoGeo = new THREE.BoxGeometry(diceSize,diceSize,diceSize );
 whiteDice2 = new THREE.Mesh( dieTwoGeo, whiteDieFaceMat );
-whiteDice2.position.set(-2.8,.11,-.35);
+whiteDice2.position.set(diceXLocation+.4,.11,diceYLocation+.2);
 scene.add( whiteDice2 );
 
 //RedDice
 //Dice1
-var dieOneGeo = new THREE.BoxGeometry(.1,.1,.1 );
+var dieOneGeo = new THREE.BoxGeometry(diceSize,diceSize, diceSize );
 var redDieTex1 = THREE.ImageUtils.loadTexture('http://i.imgur.com/JGbogEh.jpg');
 var redDieMat1 = new THREE.MeshBasicMaterial({ map: redDieTex1} );
 var redDieTex2 = THREE.ImageUtils.loadTexture('http://i.imgur.com/VCtxju0.jpg');
@@ -137,18 +143,18 @@ var redDieMat6 = new THREE.MeshBasicMaterial({ map: redDieTex6} );
 var redDieFaces = [redDieMat1, redDieMat2, redDieMat3, redDieMat4, redDieMat5, redDieMat6];
 var redDieFaceMat = new THREE.MeshFaceMaterial(redDieFaces);
 redDice1 = new THREE.Mesh( dieOneGeo, redDieFaceMat );
-redDice1.position.set(-3,.11,-.55);
+redDice1.position.set(diceXLocation+.2,.11,diceYLocation);
 scene.add( redDice1 );
 
 //Dice2
-var dieTwoGeo = new THREE.BoxGeometry(.1,.1,.1 );
+var dieTwoGeo = new THREE.BoxGeometry(diceSize, diceSize,diceSize );
 redDice2 = new THREE.Mesh( dieTwoGeo, redDieFaceMat );
-redDice2.position.set(-3,.11,-.35);
+redDice2.position.set(diceXLocation+.2,.11,diceYLocation+.2);
 scene.add( redDice2 );
 
 //GreenDice
 //Dice1
-var dieOneGeo = new THREE.BoxGeometry(.1,.1,.1 );
+var dieOneGeo = new THREE.BoxGeometry(diceSize, diceSize,diceSize );
 var greenDieTex1 = THREE.ImageUtils.loadTexture('http://i.imgur.com/X4IoCaR.jpg');
 var greenDieMat1 = new THREE.MeshBasicMaterial({ map: greenDieTex1} );
 var greenDieTex2 = THREE.ImageUtils.loadTexture('http://i.imgur.com/PtHWvM9.jpg');
@@ -164,14 +170,16 @@ var greenDieMat6 = new THREE.MeshBasicMaterial({ map: greenDieTex6} );
 var greenDieFaces = [greenDieMat1, greenDieMat2, greenDieMat3, greenDieMat4, greenDieMat5, greenDieMat6];
 var greenDieFaceMat = new THREE.MeshFaceMaterial(greenDieFaces);
 greenDice1 = new THREE.Mesh( dieOneGeo, greenDieFaceMat );
-greenDice1.position.set(-3.2,.11,-.55);
+greenDice1.position.set(diceXLocation,.11,diceYLocation);
+//greenDice1.position.set(-3.2,.11,-.55);
 scene.add( greenDice1 );
 
 //Dice2
-var dieTwoGeo = new THREE.BoxGeometry(.1,.1,.1 );
+var dieTwoGeo = new THREE.BoxGeometry(diceSize, diceSize, diceSize);
 greenDice2 = new THREE.Mesh( dieTwoGeo, greenDieFaceMat );
-greenDice2.position.set(-3.2,.11,-.35);
+greenDice2.position.set(diceXLocation,.11,diceYLocation+.2);
 scene.add( greenDice2 );
+
 
 
 
@@ -301,7 +309,7 @@ animate();
 //stationary elements don't break textures put into functions so this cleans up the code quite a bit
 function drawTable(){
 	//tableTop backgroun
-	var tableTopGeo = new THREE.BoxGeometry( 7.5, .1, 3 );
+	var tableTopGeo = new THREE.BoxGeometry( 8.5, .1, 3.5 ); //(width, thickness, height)
 	THREE.ImageUtils.crossOrigin = '';
 	var tableTopTex = THREE.ImageUtils.loadTexture('http://i.imgur.com/CQYuOYb.jpg');
 	var tableTopMat = new THREE.MeshPhongMaterial({ map: tableTopTex} );
@@ -364,18 +372,20 @@ function drawRoom(){
 
 function drawBoard(){
 	//board - map
-	var boardMesh = new THREE.PlaneGeometry(5,2); //5 wide, 2 tall
+	//var boardMesh = new THREE.PlaneGeometry(5,2); //5 wide, 2 tall
+	var boardMesh = new THREE.PlaneGeometry(7,3.4); //7 wide, 3.4 tall - close to tabletop size
 	THREE.ImageUtils.crossOrigin = '';
 	var mapOverlay = THREE.ImageUtils.loadTexture('http://i.imgur.com/9e9CDIo.jpg');
 	var boardMaterial = new THREE.MeshBasicMaterial({map: mapOverlay})
 	var board = new THREE.Mesh(boardMesh,boardMaterial);
 	board.rotation.x = (-90*Math.PI/180);
-	board.position.set(0,.08,.25);
+	//board.position.set(0,.08,.25); //moved up
+	board.position.set(0,.08,.05);
 	scene.add(board);
 }
 
 
-//initialize the canvas that everything is drawen on
+//initialize the canvas that everything is drawn on
 function canvas_init(){
 
 	container_height = $("#canvas_container").height()
@@ -933,12 +943,12 @@ function animate(){
 			movePiece(playerColor);
 		}
 
-		whiteDice1.position.set(-2.8,.11,-.55);
-		whiteDice2.position.set(-2.8,.11,-.35);
-		redDice1.position.set(-3,.11,-.55);
-		greenDice1.position.set(-3.2,.11,-.55);
-		greenDice2.position.set(-3.2,.11,-.35);
-		redDice2.position.set(-3,.11,-.35);
+		whiteDice1.position.set(diceXLocation+.4,.11,diceYLocation);
+		whiteDice2.position.set(diceXLocation+.4,.11,diceYLocation+.2);
+		redDice1.position.set(diceXLocation+.2,.11,diceYLocation);
+		greenDice1.position.set(diceXLocation,.11,diceYLocation);
+		greenDice2.position.set(diceXLocation,.11,diceYLocation+.2);
+		redDice2.position.set(diceXLocation+.2,.11,diceYLocation+.2);
 
 		whiteDice1.rotation.x = 0;
 		whiteDice1.rotation.y = 0;
@@ -1120,25 +1130,25 @@ function movePiece(color){
 	var whoseTurn = whitePiece;
 
 	//specific centers for each region
-	var fourFiveCenterX = -1.7;
-	var fourFiveCenterZ = -.45;
+	var fourFiveCenterX = -2.6;
+	var fourFiveCenterZ = -1.1;
 
-	var sixCenterX = -.45;
-	var sixCenterZ = -.45;
+	var sixCenterX = -.55;
+	var sixCenterZ = -1.1;
 
-	var eightCenterX = .6;
-	var eightCenterZ = -.45;
+	var eightCenterX = .75;
+	var eightCenterZ = -1.1;
 
-	var nineTenCenterX = 1.8;
-	var nineTenCenterZ = -.45;
+	var nineTenCenterX = 2.5;
+	var nineTenCenterZ = -1.1;
 
-	var twoThreeCenterX = -1.7;
+	var twoThreeCenterX = -2.5;
 	var twoThreeCenterZ = .2;
 
-	var sevenCenterX = -.1;
-	var sevenCenterZ = .4;
+	var sevenCenterX = -.15;
+	var sevenCenterZ = .2;
 
-	var elevenTwelveCenterX = 1.85;
+	var elevenTwelveCenterX = 2.2;
 	var elevenTwelveCenterZ = .4;
 
 	var offsetX = 0.0;
@@ -1308,8 +1318,8 @@ function moveDamage(color, damageAdded){
 function resetDamage(colorsPlaying){
 
 	//since the damage map consists of squares we only need the starting center and an offset
-	var centerZ = 1.1;
-	var centerX = -2.3;
+	var centerZ = 1.5;
+	var centerX = -3.25;
 
 		//if a piece is playing set it to the correct position in the zero square
 		if(colorsPlaying == "white"){
@@ -1382,8 +1392,8 @@ so that there is no overlap of the pieces if they are in the same square
 function setDamage(colorsPlaying){
 
 	//since the damage map consists of squares we only need the starting center and an offset
-	var centerZ = 1.1;
-	var centerX = -2.3;
+	var centerZ = 1.5;
+	var centerX = -3.25;
 
 	//looks through an array to find all of the colors playing
 	for(i = 0; i < colorsPlaying.length; i++){
