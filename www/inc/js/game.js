@@ -534,6 +534,28 @@ function hide_select_player_screen()
 	document.getElementById("select_player_overlay_container").style.display = "none";
 }
 
+//Start select zone screen S17
+function show_select_zone_screen() {
+  	document.getElementById("select_zone_overlay_container").style.display = "initial";
+	//initially hide all zone buttons. There is no button for 3, 5, or 10 because those are the second numbers in the given zone
+	for(var i = 2; i <= 11; i++) {
+		if (i == 3 || i == 5 || i = 10) {
+			// do nothing
+		}
+    		else {
+			var zone_string = 'select_zone_' + i + '_btn';
+    			document.getElementById(zone_string).style.display = "none";
+		}
+  	}
+	
+	
+
+
+function hide_select_zone_screen()
+{
+	document.getElementById("select_zone_overlay_container").style.display = "none";
+}
+
 //Shows general options screen
 //This is a customizable screen that shows custom text for each button
 //and the header text.
@@ -2605,6 +2627,12 @@ class Game{
     //hide_invest_select_player_screen();
     if(this.next_state != 'attack_1')
       this.exec_state();
+  }
+
+  select_zone(zone) //S17
+  {
+	this.player_array[this.current_player].current_region = zone;
+	hide_select_zone_screen(); 
   }
 
   //Display hand for current player
