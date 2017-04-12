@@ -33,7 +33,7 @@ var greenDie2;
 var whitePiece;
 var redPiece;
 var greenPiece;
-var pinkPiece;
+var pinkPiece; //not used yet, for future increase to 9 players
 var bluePiece;
 var orangePiece;
 var blackPiece;
@@ -83,15 +83,19 @@ var battleAttackSpecial = false;
 var battleDefense = false;
 var battleDefenseSpecial = false;
 
+// s17
 //used to determine dice location
 //as set in dice settings below, dice are .2 apart
+//keep in mind origin is cetner screen, negative is left/up, positive is right/down
 var diceXLocation = -4;
 var diceYLocation = -.55;
 
 //set dice block size
 var diceSize = .15;
 
-
+//width of damage meter, needs change if map size changed
+//distance each damage counter will travel in x direction per damage point taken
+var damageMeterSpaceSize = .42;
 
 
 /************Setup For all movable pieces of geometry in the scene**********/
@@ -316,7 +320,7 @@ function drawTable(){
 	var tableTop = new THREE.Mesh( tableTopGeo, tableTopMat );
 	scene.add( tableTop );
 
-
+//not visible since zoom feature removed s17, but still needed for room draw
 	//left front leg
 	var lfGeo = new THREE.BoxGeometry( .15, 2.25, .15 );
 	var lfMat = new THREE.MeshBasicMaterial( { map: tableTopTex} );
@@ -379,7 +383,6 @@ function drawBoard(){
 	var boardMaterial = new THREE.MeshBasicMaterial({map: mapOverlay})
 	var board = new THREE.Mesh(boardMesh,boardMaterial);
 	board.rotation.x = (-90*Math.PI/180);
-	//board.position.set(0,.08,.25); //moved up
 	board.position.set(0,.08,.05);
 	scene.add(board);
 }
@@ -403,10 +406,6 @@ function canvas_init(){
 	directionalLight.position.set(0,7,2).normalize();
 	scene.add(directionalLight);
 
-	//ambient lighting
-	//var ambientLight = new THREE.AmbientLight( 0x404040 ); // soft white light
-	//scene.add( ambientLight );
-
 	//draw all stationary elements from functions above
 	drawRoom();
 	drawTable();
@@ -415,6 +414,7 @@ function canvas_init(){
 	//set the scene so that it starts at birds eye point of view because the camera was initialized
 	//so that it started in the 3D view
 	scene.rotation.x = (50*Math.PI/180);
+	//scene.rotation.x = (50*Math.PI/180);
 
 
 }
@@ -994,6 +994,7 @@ function render(){
 }
 
 //increments the counter so the scene can move between birds eye and table
+//zoom button no longer appears, removed s17
 function move_screen()
 {
 	zoomClicked = true;
@@ -1129,6 +1130,7 @@ function movePiece(color){
 	//variable to hold piece to be moved
 	var whoseTurn = whitePiece;
 
+//each area needs a unique center set since areas are not equal or symmetric
 	//specific centers for each region
 	var fourFiveCenterX = -2.6;
 	var fourFiveCenterZ = -1.1;
@@ -1282,6 +1284,8 @@ function moveDamage(color, damageAdded){
 		damage = blueDamagePiece;
 	}
 
+	// pink to be implemented with 9th player option
+
 	//Find correct player based on color
 	for(var i = 1; i <= game.num_of_players; i++)
 	{
@@ -1290,7 +1294,7 @@ function moveDamage(color, damageAdded){
 			if(((game.player_array[i].hp + damageAdded) > 0) && ((game.player_array[i].hp + damageAdded) < game.player_array[i].character.hp))
 			{
 				game.player_array[i].hp = game.player_array[i].hp + damageAdded;
-				damage.position.x = damage.position.x + (damageAdded*.33);
+				damage.position.x = damage.position.x + (damageAdded*damageMeterSpaceSize); //.33
 			}
 			else if((game.player_array[i].hp + damageAdded) >= game.player_array[i].character.hp)
 			{
