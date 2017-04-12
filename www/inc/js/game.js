@@ -738,6 +738,7 @@ class Game{
     this.current_turn = 1; //Current players turn
     this.num_of_rotations = 0; //Number of turns that have happened
     this.select_player; //Selected player
+    this.select_zone; //Selected zone
     this.current_attacking_player = 0; //Player attacking
     this.current_defending_player = 0; //Player defending
     this.current_attacking_player_pts = 0; //Attacking pts
@@ -903,9 +904,9 @@ class Game{
       case 'charlie_movement_0':
    	this.add_info_message(this.current_turn, "BUTTON WORKED");
 	this.last_state = state;
-	var current = this.player_array[this.current_player].current_region;
-    	
- 	if (current == 2 || current == 3) {
+	show_select_zone_screen(); // shows charlie the options of the adjacent zones and sets this.selected_zone to choice
+/*	var current = this.player_array[this.current_player].current_region;
+    	if (current == 2 || current == 3) {
 		// options of 4
 		this.player_array[this.current_player].current_region = 4; // this is for testing, should show pop up 
 	}
@@ -931,8 +932,8 @@ class Game{
     	else {
 		this.add_info_message(this.current_turn, 'What have you done, this should have never happened.');
 	}
-		    
-    	var new_region = this.player_array[this.current_player].current_region;
+*/		    
+    	var new_region = this.selected_zone;
 		    
 	if(new_region == 2 || new_region == 3 || new_region == 4 || new_region == 5 || new_region == 6 || new_region == 8)
 	{
