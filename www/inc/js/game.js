@@ -543,7 +543,7 @@ function show_select_zone_screen() {
 	
 	//initially hide all zone buttons. There is no button for 3, 5, 10, or 12 because those are the second numbers in the given zone
 	for(var i = 2; i <= 11; i++) {
-		if (i == 3 || i == 5 || i = 10) {
+		if (i == 3 || i == 5 || i == 10) {
 			this.add_info_message(this.current_turn, 'You broke it, this should not happen.');
 		}
     		else {
