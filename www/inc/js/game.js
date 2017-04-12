@@ -912,34 +912,8 @@ class Game{
    	this.add_info_message(this.current_turn, "ADJACENT worked");
 	this.last_state = state;
 	show_select_zone_screen(); // shows charlie the options of the adjacent zones and sets this.selected_zone to choice
-/*	var current = this.player_array[this.current_player].current_region;
-    	if (current == 2 || current == 3) {
-		// options of 4
-		this.player_array[this.current_player].current_region = 4; // this is for testing, should show pop up 
-	}
-    	else if (current == 4 || current == 5) {
-		// options of 2 or 6
-	}
-	else if (current == 6) {
-		// options of 4, 7, or 8
-	}
-    	else if (current == 7) {
-		// options of 6 or 8
-	}
-    	else if (current == 8) {
-		// options of 6, 7, or 9
-	}
-    	else if (current == 9 || current == 10) {
-		// options of 8 or 11
-	}
-    	else if (current == 11 || current == 12) {
-		// options of 9
-		this.player_array[this.current_player].current_region = 9;
-	}
-    	else {
-		this.add_info_message(this.current_turn, 'What have you done, this should have never happened.');
-	}
-*/	this.player_array[this.current_turn].current_region = this.selected_zone;	    
+
+	this.player_array[this.current_turn].current_region = this.selected_zone;	    
     	var new_region = this.player_array[this.current_turn].current_region;
 	this.add_info_message(this.current_turn, 'You picked Zone ' + this.selected_zone +'.');	    
 		    
