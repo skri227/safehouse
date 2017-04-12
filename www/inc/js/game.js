@@ -2679,7 +2679,10 @@ class Game{
   {
 	this.selected_zone = zone;
 	hide_select_zone_screen();
-	this.add_info_message(this.current_turn, 'Selected Zone set to ' + zone + '.');
+	this.add_info_message(this.current_turn, 'Selected Zone set to ' + zone + '.'); 
+	if (this.next_state != 'turn_3') {
+		this.exec_state();
+	}
   }
 
   //Display hand for current player
