@@ -608,7 +608,8 @@ function game_layout_setup()
   document.getElementById("player_color_box").style.bottom = Math.floor(border_width + (window_h * .28)) + "px";
 
 	//Zoom Button Container
-	document.getElementById("zoom_container").style.bottom = Math.floor(border_width + (window_h * .28)) + "px";
+  //Commented out since the zoom feature has been removed
+	//document.getElementById("zoom_container").style.bottom = Math.floor(border_width + (window_h * .28)) + "px";
 
 	// document.getElementById("zoom_container").style.right = Math.floor(border_width + (window_w * .02)) + "px";
 	// document.getElementById("zoom_container").style.width = Math.floor(border_width + (window_w * .06)) + "px";
@@ -748,7 +749,7 @@ class Game{
         if(this.player_array[this.current_turn].alive == false)
           this.exec_state('turn_4');
 		this.last_state=state;
-        
+
         this.switch_player(this.current_turn);
         document.getElementById('current_player_id').innerHTML = this.current_player;
         document.getElementById('current_player_box_color').style.color = this.player_array[this.current_turn].player_color;
@@ -766,7 +767,7 @@ class Game{
 		this.add_info_message(this.current_turn, 'Click "ROLL" to roll and move your player.');
 		this.next_state = 'turn_1';
 	}
-        
+
         if(this.player_array[this.current_turn].hand.length > 0)
           this.add_info_message(this.current_turn, 'You can change your equipment card before you roll.');
         break;
@@ -839,16 +840,16 @@ class Game{
 		this.last_state=state;
         this.exec_state();
         break;
-      
+
 	//Special state for Charlie's movement
       case 'charlie_movement_0':
    	this.add_info_message(this.current_turn, "BUTTON WORKED");
 	this.last_state = state;
 	var current = this.player_array[this.current_player].current_region;
-    	
+
  	if (current == 2 || current == 3) {
 		// options of 4
-		this.player_array[this.current_player].current_region = 4; // this is for testing, should show pop up 
+		this.player_array[this.current_player].current_region = 4; // this is for testing, should show pop up
 	}
     	else if (current == 4 || current == 5) {
 		// options of 2 or 6
@@ -872,9 +873,9 @@ class Game{
     	else {
 		this.add_info_message(this.current_turn, 'What have you done, this should have never happened.');
 	}
-		    
+
     	var new_region = this.player_array[this.current_player].current_region;
-		    
+
 	if(new_region == 2 || new_region == 3 || new_region == 4 || new_region == 5 || new_region == 6 || new_region == 8)
 	{
 	  	this.next_state = 'draw_card_0';
@@ -909,7 +910,7 @@ class Game{
 	}
  	this.check_win_or_dead();
 	break;
-		    
+
       //Draw
       case 'draw_card_0':
         this.next_state = 'draw_card_1';
@@ -1399,18 +1400,18 @@ class Game{
         this.check_win_or_dead();
         this.exec_state();
         break;
-	
+
       case 'charlie_special_0':	// reveal and allows charlie to move to an adjacent zone instead of rolling
  	this.next_state = 'turn_3';
 	if(this.player_array[this.current_player].used_special == 1)
     	{
 	   this.add_info_message(this.current_player, "You've already used your special");
     	}
-        else if (this.current_player != this.current_turn) 
+        else if (this.current_player != this.current_turn)
     	{
 	    this.add_info_message(this.current_player, "You've can only use this special during your turn");
     	}
-    	else 
+    	else
     	{
 	    this.reveal_player();
 	    this.player_array[this.current_player].used_special = 1;
@@ -1420,7 +1421,7 @@ class Game{
         this.check_win_or_dead();
         this.exec_state();
         break;
-	
+
       case 'tori_special_0':
         //this.next_state = 'ayman_special_1';
         this.next_state = 'turn_3';
@@ -2506,7 +2507,7 @@ class Game{
     document.getElementById("action_end_turn_btn").style.display = "none";
     document.getElementById("action_adjacent_btn").style.display = "none";
     document.getElementById("action_special_roll_btn").style.display = "none";
-	  
+
   }
 
   //Shows draw btn and hides other buttons
@@ -2584,7 +2585,7 @@ class Game{
   }
 
   show_charlie_special_move_btn()
-  {	
+  {
     document.getElementById("action_adjacent_btn").style.display = "initial";
     document.getElementById("action_special_roll_btn").style.display = "initial";
     document.getElementById("action_roll_btn").style.display = "none";
@@ -2592,10 +2593,10 @@ class Game{
     document.getElementById("action_defense_pass_btn").style.display = "none";
     document.getElementById("action_draw_btn").style.display = "none";
     document.getElementById("action_attack_btn").style.display = "none";
-    document.getElementById("action_special_btn").style.display = "none";  
+    document.getElementById("action_special_btn").style.display = "none";
     document.getElementById("action_end_turn_btn").style.display = "none";
   }
-		
+
   //Sets the game objects select player variable and hides the select player screen.
   select_player(player)
   {
