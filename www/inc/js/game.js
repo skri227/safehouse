@@ -335,7 +335,7 @@ function show_select_player_screen(selection)
         var player_string = 'select_player_' + i + '_btn';
         var r = game.player_array[game.current_turn].current_region;
         var y = game.player_array[i].current_region;
-        if(i <= game.num_of_players && i != game.current_F && game.player_array[i].current_region != 7 && game.player_array[i].alive == true)
+        if(i <= game.num_of_players && i != game.current_turn && game.player_array[i].current_region != 7 && game.player_array[i].alive == true)
         {
           // var r = game.player_array[game.current_turn].current_region;
           // var y = game.player_array[i].current_region;
@@ -343,7 +343,7 @@ function show_select_player_screen(selection)
           {
             if(y == 4 || y == 5)
             {
-              be_attacked = true;
+              be_attacked = true;	
               document.getElementById(player_string).style.display = "initial";
             }
 
@@ -537,16 +537,51 @@ function hide_select_player_screen()
 //Start of select zone screen S17
 function show_select_zone_screen() {
   	document.getElementById("select_zone_overlay_container").style.display = "initial";
-	//initially hide all zone buttons. There is no button for 3, 5, or 10 because those are the second numbers in the given zone
+	
+	//initially hide all zone buttons. There is no button for 3, 5, 10, or 12 because those are the second numbers in the given zone
 	for(var i = 2; i <= 11; i++) {
 		if (i == 3 || i == 5 || i = 10) {
-			// do nothing
+			this.add_info_message(this.current_turn, 'You broke it, this should not happen.');
 		}
     		else {
 			var zone_string = 'select_zone_' + i + '_btn';
     			document.getElementById(zone_string).style.display = "none";
 		}
   	}
+	
+        var current = game.player_array[game.current_turn].current_region;
+	if (current == 2) { // 2/3 is only bordered by 4
+		document.getElementById("select_zone_4_btn").style.display = "initial";
+	}
+	else if (current == 4) { // 4/5 is borderd by 2/3 and 6
+		document.getElementById("select_zone_2_btn").style.display = "initial";
+		document.getElementById("select_zone_6_btn").style.display = "initial";
+	}
+	else if (current == 6) { // 6 is borderd by 4/5, 7, and 8
+		document.getElementById("select_zone_4_btn").style.display = "initial";
+		document.getElementById("select_zone_7_btn").style.display = "initial";
+		document.getElementById("select_zone_8_btn").style.display = "initial";
+	}
+	else if (current == 7) { //7 is bordered by 6 and 8
+		document.getElementById("select_zone_6_btn").style.display = "initial";
+		document.getElementById("select_zone_8_btn").style.display = "initial";
+	}
+	else if (current == 8) {// 8 is bordered by 6, 7, and 9/10
+		document.getElementById("select_zone_6_btn").style.display = "initial";
+		document.getElementById("select_zone_7_btn").style.display = "initial";
+		document.getElementById("select_zone_9_btn").style.display = "initial";
+	}
+	else if (current == 9) { // 9/10 is bordered by 8 and 11/12
+		document.getElementById("select_zone_8_btn").style.display = "initial";
+		document.getElementById("select_zone_11_btn").style.display = "initial";
+	}
+	else if (current == 11) { // only bordered by 9/10
+		document.getElementById("select_zone_9_btn").style.display = "initial";
+	}
+	else {
+		this.add_info_message(this.current_turn, 'You broke it, this should not happen.');
+	}
+		
 }
 
 
