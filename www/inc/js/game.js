@@ -608,7 +608,10 @@ function game_layout_setup()
   document.getElementById("player_color_box").style.bottom = Math.floor(border_width + (window_h * .28)) + "px";
 
 	//Zoom Button Container
+<<<<<<< HEAD
   //Commented out since the zoom feature has been removed
+=======
+>>>>>>> refs/remotes/origin/master
 	//document.getElementById("zoom_container").style.bottom = Math.floor(border_width + (window_h * .28)) + "px";
 
 	// document.getElementById("zoom_container").style.right = Math.floor(border_width + (window_w * .02)) + "px";
