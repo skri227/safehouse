@@ -379,7 +379,7 @@ function drawBoard(){
 	//var boardMesh = new THREE.PlaneGeometry(5,2); //5 wide, 2 tall
 	var boardMesh = new THREE.PlaneGeometry(7,3.4); //7 wide, 3.4 tall - close to tabletop size
 	THREE.ImageUtils.crossOrigin = '';
-	var mapOverlay = THREE.ImageUtils.loadTexture('http://i.imgur.com/9e9CDIo.jpg');
+	var mapOverlay = THREE.ImageUtils.loadTexture('http://i.imgur.com/sM7pySL.jpg');
 	var boardMaterial = new THREE.MeshBasicMaterial({map: mapOverlay})
 	var board = new THREE.Mesh(boardMesh,boardMaterial);
 	board.rotation.x = (-90*Math.PI/180);
