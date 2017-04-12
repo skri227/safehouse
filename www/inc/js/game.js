@@ -540,7 +540,7 @@ function hide_select_player_screen()
 //Start of select zone screen S17
 function show_select_zone_screen() {
   	document.getElementById("select_zone_overlay_container").style.display = "initial";
-	
+	this.add_info_message(this.current_turn, 'show_select_zone_screen()');
 	//initially hide all zone buttons. There is no button for 3, 5, 10, or 12 because those are the second numbers in the given zone
 	for(var i = 2; i <= 11; i++) {
 		if (i == 3 || i == 5 || i == 10) {
@@ -555,42 +555,50 @@ function show_select_zone_screen() {
         var current = game.player_array[game.current_turn].current_region;
 	if (current == 2) { // 2/3 is only bordered by 4
 		document.getElementById("select_zone_4_btn").style.display = "initial";
+		this.add_info_message(this.current_turn, 'Currently Zone 2');
 	}
 	else if (current == 4) { // 4/5 is borderd by 2/3 and 6
 		document.getElementById("select_zone_2_btn").style.display = "initial";
 		document.getElementById("select_zone_6_btn").style.display = "initial";
+		this.add_info_message(this.current_turn, 'Currently Zone 4');
 	}
 	else if (current == 6) { // 6 is borderd by 4/5, 7, and 8
 		document.getElementById("select_zone_4_btn").style.display = "initial";
 		document.getElementById("select_zone_7_btn").style.display = "initial";
 		document.getElementById("select_zone_8_btn").style.display = "initial";
+		this.add_info_message(this.current_turn, 'Currently Zone 6');
 	}
 	else if (current == 7) { //7 is bordered by 6 and 8
 		document.getElementById("select_zone_6_btn").style.display = "initial";
 		document.getElementById("select_zone_8_btn").style.display = "initial";
+		this.add_info_message(this.current_turn, 'Currently Zone 7');
 	}
 	else if (current == 8) {// 8 is bordered by 6, 7, and 9/10
 		document.getElementById("select_zone_6_btn").style.display = "initial";
 		document.getElementById("select_zone_7_btn").style.display = "initial";
 		document.getElementById("select_zone_9_btn").style.display = "initial";
+		this.add_info_message(this.current_turn, 'Currently Zone 8');
 	}
 	else if (current == 9) { // 9/10 is bordered by 8 and 11/12
 		document.getElementById("select_zone_8_btn").style.display = "initial";
 		document.getElementById("select_zone_11_btn").style.display = "initial";
+		this.add_info_message(this.current_turn, 'Currently Zone 9');
 	}
 	else if (current == 11) { // only bordered by 9/10
 		document.getElementById("select_zone_9_btn").style.display = "initial";
+		this.add_info_message(this.current_turn, 'Currently Zone 11');
 	}
 	else {
 		this.add_info_message(this.current_turn, 'You broke it, this should not happen.');
 	}
-		
+	
 }
 
 
 function hide_select_zone_screen()
 {
 	document.getElementById("select_zone_overlay_container").style.display = "none";
+	this.add_info_message(this.current_turn, 'Hiding select_zone_screen()');
 }
 
 //Shows general options screen
@@ -738,7 +746,7 @@ class Game{
     this.current_turn = 1; //Current players turn
     this.num_of_rotations = 0; //Number of turns that have happened
     this.select_player; //Selected player
-    this.select_zone; //Selected zone
+    this.selected_zone; //Selected zone
     this.current_attacking_player = 0; //Player attacking
     this.current_defending_player = 0; //Player defending
     this.current_attacking_player_pts = 0; //Attacking pts
@@ -902,7 +910,7 @@ class Game{
       
 	//Special state for Charlie's movement
       case 'charlie_movement_0':
-   	this.add_info_message(this.current_turn, "BUTTON WORKED");
+   	this.add_info_message(this.current_turn, "ADJACENT worked");
 	this.last_state = state;
 	show_select_zone_screen(); // shows charlie the options of the adjacent zones and sets this.selected_zone to choice
 /*	var current = this.player_array[this.current_player].current_region;
@@ -932,8 +940,9 @@ class Game{
     	else {
 		this.add_info_message(this.current_turn, 'What have you done, this should have never happened.');
 	}
-*/		    
-    	var new_region = this.selected_zone;
+*/	this.player_array[this.current_turn].current_region = this.selected_zone;	    
+    	var new_region = this.player_array[this.current_turn].current_region;
+	this.add_info_message(this.current_turn, 'You picked Zone ' + this.selected_zone +'.');	    
 		    
 	if(new_region == 2 || new_region == 3 || new_region == 4 || new_region == 5 || new_region == 6 || new_region == 8)
 	{
@@ -2669,8 +2678,9 @@ class Game{
 
   select_zone(zone) //S17
   {
-	this.player_array[this.current_player].current_region = zone;
-	hide_select_zone_screen(); 
+	this.selected_zone = zone;
+	hide_select_zone_screen();
+	this.add_info_message(this.current_turn, 'Selected Zone set to ' + zone + '.');
   }
 
   //Display hand for current player
