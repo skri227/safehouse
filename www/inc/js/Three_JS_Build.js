@@ -83,14 +83,19 @@ var battleAttackSpecial = false;
 var battleDefense = false;
 var battleDefenseSpecial = false;
 
+// s17
 //used to determine dice location
 //as set in dice settings below, dice are .2 apart
+//keep in mind origin is cetner screen, negative is left/up, positive is right/down
 var diceXLocation = -4;
 var diceYLocation = -.55;
 
 //set dice block size
 var diceSize = .15;
 
+//width of damage meter, needs change if map size changed
+//distance each damage counter will travel in x direction per damage point taken
+var damageMeterSpaceSize = .42;
 
 
 
@@ -171,7 +176,6 @@ var greenDieFaces = [greenDieMat1, greenDieMat2, greenDieMat3, greenDieMat4, gre
 var greenDieFaceMat = new THREE.MeshFaceMaterial(greenDieFaces);
 greenDice1 = new THREE.Mesh( dieOneGeo, greenDieFaceMat );
 greenDice1.position.set(diceXLocation,.11,diceYLocation);
-//greenDice1.position.set(-3.2,.11,-.55);
 scene.add( greenDice1 );
 
 //Dice2
@@ -1280,6 +1284,8 @@ function moveDamage(color, damageAdded){
 
 	if(color == "blue"){
 		damage = blueDamagePiece;
+		
+		// pink to be implemented with 9th player option
 	}
 
 	//Find correct player based on color
@@ -1290,7 +1296,7 @@ function moveDamage(color, damageAdded){
 			if(((game.player_array[i].hp + damageAdded) > 0) && ((game.player_array[i].hp + damageAdded) < game.player_array[i].character.hp))
 			{
 				game.player_array[i].hp = game.player_array[i].hp + damageAdded;
-				damage.position.x = damage.position.x + (damageAdded*.33);
+				damage.position.x = damage.position.x + (damageAdded*damageMeterSpaceSize);
 			}
 			else if((game.player_array[i].hp + damageAdded) >= game.player_array[i].character.hp)
 			{
