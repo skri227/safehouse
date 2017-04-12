@@ -200,6 +200,7 @@ function game_screen_setup()
 
   document.getElementById("select_player_overlay_container").style.display = "none";
   document.getElementById("select_options_overlay_container").style.display = "none";
+  document.getElementById("select_zone_overlay_container").style.display = "none";
   //document.getElementById("attack_select_player_overlay_container").style.display = "none";
   //document.getElementById("invest_select_player_overlay_container").style.display = "none";
 
@@ -208,6 +209,8 @@ function game_screen_setup()
   document.getElementById("action_attack_btn").style.display = "none";
   document.getElementById("action_special_btn").style.display = "none";
   document.getElementById("action_end_turn_btn").style.display = "none";
+  document.getElementById("action_adjacent_btn").style.display = "none";
+  document.getElementById("action_special_roll_btn").style.display = "none";
 
   document.getElementById("card_area_scroll_left").style.display = "none";
   document.getElementById("card_area_scroll_right").style.display = "none";
