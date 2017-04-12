@@ -540,24 +540,23 @@ function hide_select_player_screen()
 //Start of select zone screen S17
 function show_select_zone_screen() {
   	document.getElementById("select_zone_overlay_container").style.display = "initial";
-	this.add_info_message(this.current_turn, 'show_select_zone_screen()');
+
 	//initially hide all zone buttons. There is no button for 3, 5, 10, or 12 because those are the second numbers in the given zone
-	for(var i = 2; i <= 11; i++) {
-		if (i == 3 || i == 5 || i == 10) {
-			this.add_info_message(this.current_turn, 'You broke it, this should not happen.');
-		}
-    		else {
-			var zone_string = 'select_zone_' + i + '_btn';
-    			document.getElementById(zone_string).style.display = "none";
-		}
-  	}
+	document.getElementById("select_zone_2_btn").style.display = "none";
+	document.getElementById("select_zone_4_btn").style.display = "none";
+	document.getElementById("select_zone_6_btn").style.display = "none";
+	document.getElementById("select_zone_7_btn").style.display = "none";
+	document.getElementById("select_zone_8_btn").style.display = "none";
+	document.getElementById("select_zone_9_btn").style.display = "none";
+	document.getElementById("select_zone_11_btn").style.display = "none";
+	
 	
         var current = game.player_array[game.current_turn].current_region;
-	if (current == 2) { // 2/3 is only bordered by 4
+	if (current == 2 || current == 3) { // 2/3 is only bordered by 4
 		document.getElementById("select_zone_4_btn").style.display = "initial";
 		this.add_info_message(this.current_turn, 'Currently Zone 2');
 	}
-	else if (current == 4) { // 4/5 is borderd by 2/3 and 6
+	else if (current == 4 || current == 5) { // 4/5 is borderd by 2/3 and 6
 		document.getElementById("select_zone_2_btn").style.display = "initial";
 		document.getElementById("select_zone_6_btn").style.display = "initial";
 		this.add_info_message(this.current_turn, 'Currently Zone 4');
@@ -579,12 +578,12 @@ function show_select_zone_screen() {
 		document.getElementById("select_zone_9_btn").style.display = "initial";
 		this.add_info_message(this.current_turn, 'Currently Zone 8');
 	}
-	else if (current == 9) { // 9/10 is bordered by 8 and 11/12
+	else if (current == 9 || current == 10) { // 9/10 is bordered by 8 and 11/12
 		document.getElementById("select_zone_8_btn").style.display = "initial";
 		document.getElementById("select_zone_11_btn").style.display = "initial";
 		this.add_info_message(this.current_turn, 'Currently Zone 9');
 	}
-	else if (current == 11) { // only bordered by 9/10
+	else if (current == 11 || current == 12) { // only bordered by 9/10
 		document.getElementById("select_zone_9_btn").style.display = "initial";
 		this.add_info_message(this.current_turn, 'Currently Zone 11');
 	}
