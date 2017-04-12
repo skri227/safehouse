@@ -1,3 +1,4 @@
+/*Imports the font for the game.*/
 @font-face
 {
 	font-family:"GrotesqueNo9T";
@@ -5,6 +6,7 @@
 }
 
 /*Main body CSS*/
+/*Sets styles for the entire game*/
 body
 {
 	margin: 0px;
@@ -27,12 +29,15 @@ body
 }
 
 /*Start Menu */
+
+/*Sets the size for the logo on the game's start screen*/
 #start_menu #logo
 {
 	width: 30%;
 	height: 60%;
 }
 
+/*Sets the styles for the button on the start screen*/
 #start_menu button
 {
 	background-color: transparent;
@@ -46,8 +51,18 @@ body
 	font-family:'GrotesqueNo9T', sans-serif;
 	-webkit-appearance: button;
 }
+
 #start_menu button:focus {outline:0;}
 
+/*When hovering over the start screen's buttons, it turns the text yellow with a red glow on the outside*/
+#start_menu button:hover
+{
+	transform: scale(1.2);
+	color: yellow;
+	text-shadow: .75px .75px red, 0 0 35px red;
+}
+
+/*Displays the start screen dirst*/
 #start_menu
 {
 	display: initial;
@@ -61,6 +76,7 @@ body
 	display: initial;
 }
 
+/*Sets the styles for the text in the number of players screen*/
 .num_of_players h3
 {
 	margin-top: 30px;
@@ -68,6 +84,7 @@ body
 	font-size: 3em;
 }
 
+/*Sets the styles for the buttons in the number of players screen*/
 .num_of_players_btn
 {
 	width: 200px;
@@ -83,11 +100,25 @@ body
 .num_of_players button:active {border-color: white;}
 .num_of_players button:focus {outline:0;}
 
+/*Sets the styles for the buttons in the number of players screen when the cursor hovers over them*/
+.num_of_players button:hover
+{
+	box-shadow: 0 5px 15px white;
+}
+
+/*Set the color and size of the buttons in the number of players screen*/
 .num_of_players_btn span
 {
 	color: white;
 	font-size: 40px;
-	text-decoration: underline;
+}
+
+/*Sets the styles for the text in the number of players screen when the cursor hovers over them*/
+#num_of_players_home_btn h3:hover
+{
+	transform: scale(1.2);
+	color: yellow;
+	text-shadow: .75px .75px red, 0 0 35px red;
 }
 /*End Player Select Menu */
 
@@ -136,12 +167,26 @@ body
 {
 	font-size: 3em;
 }
+.select_players #player_select_play_btn:hover
+{
+	transform: scale(1.2);
+	color: yellow;
+	text-shadow: .75px .75px red, 0 0 35px red;
+}
+
 .select_players #player_select_home_btn
 {
 	position: fixed;
 	font-size: 2em;
 	bottom: 20px;
 	left: 20px;
+}
+
+.select_players #player_select_home_btn:hover
+{
+	transform: scale(1.2);
+	color: yellow;
+	text-shadow: .75px .75px red, 0 0 35px red;
 }
 
 .select_players .player_select_btn_not_selected
@@ -895,6 +940,17 @@ body
 	font-family:'GrotesqueNo9T', sans-serif;
 }
 
+#action_container .charlie_special_move_btn
+{
+	font-size: 33px;
+	font-weight: bold;
+	color: black;
+	background-color: red;
+	border-color: red;
+	width: 100%;
+	height: 50%;
+	font-family:'GrotesqueNo9T', sans-serif;
+}
 #action_container button:focus {outline:0;}
 /*End action area CSS*/
 

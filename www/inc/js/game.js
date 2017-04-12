@@ -608,7 +608,7 @@ function game_layout_setup()
   document.getElementById("player_color_box").style.bottom = Math.floor(border_width + (window_h * .28)) + "px";
 
 	//Zoom Button Container
-	document.getElementById("zoom_container").style.bottom = Math.floor(border_width + (window_h * .28)) + "px";
+	//document.getElementById("zoom_container").style.bottom = Math.floor(border_width + (window_h * .28)) + "px";
 
 	// document.getElementById("zoom_container").style.right = Math.floor(border_width + (window_w * .02)) + "px";
 	// document.getElementById("zoom_container").style.width = Math.floor(border_width + (window_w * .06)) + "px";
@@ -748,7 +748,7 @@ class Game{
         if(this.player_array[this.current_turn].alive == false)
           this.exec_state('turn_4');
 		this.last_state=state;
-        this.next_state = 'turn_1';
+
         this.switch_player(this.current_turn);
         document.getElementById('current_player_id').innerHTML = this.current_player;
         document.getElementById('current_player_box_color').style.color = this.player_array[this.current_turn].player_color;
@@ -757,17 +757,25 @@ class Game{
         this.has_attacked = 0;
         this.be_attacked = false;
         this.add_info_message(this.current_turn, 'Starting your turn.');
-        this.show_roll_btn();
-        this.add_info_message(this.current_turn, 'Click "ROLL" to roll and move your player.');
+	if(this.player_array[this.current_player].character.char_name == 'CIA Charlie' && this.player_array[this.current_player].used_special == 1) {
+		this.show_charlie_special_move_btn();
+		this.add_info_message(this.current_turn, 'Click "ROLL" to roll and move your player or "ADJACENT" to move to an adjacent zone.');
+	}
+    	else {
+		this.show_roll_btn();
+		this.add_info_message(this.current_turn, 'Click "ROLL" to roll and move your player.');
+		this.next_state = 'turn_1';
+	}
+
         if(this.player_array[this.current_turn].hand.length > 0)
           this.add_info_message(this.current_turn, 'You can change your equipment card before you roll.');
         break;
       case 'turn_1':
-	    this.last_state=state;
-        rollWhiteDice(this.player_array[this.current_turn].player_color);
-        this.player_array[this.current_turn].current_region = dice1Value + dice2Value;
-        this.add_info_message(this.current_player, 'You rolled a ' + this.player_array[this.current_turn].current_region + '!');
-        var r = this.player_array[this.current_player].current_region;
+	this.last_state=state;
+	rollWhiteDice(this.player_array[this.current_turn].player_color);
+	this.player_array[this.current_turn].current_region = dice1Value + dice2Value;
+	this.add_info_message(this.current_player, 'You rolled a ' + this.player_array[this.current_turn].current_region + '!');
+	var r = this.player_array[this.current_player].current_region;
 
 			if(r == 2 || r == 3 || r == 4 || r == 5 || r == 6 || r == 8)
 			{
@@ -831,6 +839,76 @@ class Game{
 		this.last_state=state;
         this.exec_state();
         break;
+
+	//Special state for Charlie's movement
+      case 'charlie_movement_0':
+   	this.add_info_message(this.current_turn, "BUTTON WORKED");
+	this.last_state = state;
+	var current = this.player_array[this.current_player].current_region;
+
+ 	if (current == 2 || current == 3) {
+		// options of 4
+		this.player_array[this.current_player].current_region = 4; // this is for testing, should show pop up
+	}
+    	else if (current == 4 || current == 5) {
+		// options of 2 or 6
+	}
+	else if (current == 6) {
+		// options of 4, 7, or 8
+	}
+    	else if (current == 7) {
+		// options of 6 or 8
+	}
+    	else if (current == 8) {
+		// options of 6, 7, or 9
+	}
+    	else if (current == 9 || current == 10) {
+		// options of 8 or 11
+	}
+    	else if (current == 11 || current == 12) {
+		// options of 9
+		this.player_array[this.current_player].current_region = 9;
+	}
+    	else {
+		this.add_info_message(this.current_turn, 'What have you done, this should have never happened.');
+	}
+
+    	var new_region = this.player_array[this.current_player].current_region;
+
+	if(new_region == 2 || new_region == 3 || new_region == 4 || new_region == 5 || new_region == 6 || new_region == 8)
+	{
+	  	this.next_state = 'draw_card_0';
+	  	this.show_draw_btn();
+	  	this.add_info_message(this.current_turn, 'Click "DRAW" to choose a card.');
+	}
+	else if(new_region == 11 || new_region == 12)
+	{
+	  	var anyone_have_cards = false;
+	  	for(var i = 1; i <= this.num_of_players; i++)
+	  	{
+			if(this.player_array[i].hand.length > 0) {
+		  		anyone_have_cards = true;
+			}
+	  	}
+	  	if(anyone_have_cards == true) {
+			this.exec_state('steal_region_0');
+		}
+	  	else {
+			this.next_state = 'turn_2';
+			this.exec_state();
+		}
+	}
+	else if(new_region == 9 || new_region == 10)
+	{
+	  	this.exec_state('damage_region_0');
+	}
+	else
+	{
+	  	this.next_state = 'turn_3';
+	  	this.exec_state();
+	}
+ 	this.check_win_or_dead();
+	break;
 
       //Draw
       case 'draw_card_0':
@@ -936,7 +1014,7 @@ class Game{
         else
         {
             //this.player_array[this.selected_player].hp = this.player_array[this.selected_player].hp + 1;
-            moveDamage(this.player_array[this.selected_player].player_color, 1);
+            moveDamage(this.player_array[this.selected_player].player_color, 2);
         }
 		this.last_state=state;
         this.check_win_or_dead();
@@ -1071,7 +1149,7 @@ class Game{
             this.next_state = 'sam_special_0';
             break;
           case 'CIA Charlie':
-            this.next_state = 'tori_special_0';
+            this.next_state = 'charlie_special_0';
             break;
           case 'FBI Fred':
             this.next_state = 'fred_special_0';
@@ -1317,6 +1395,27 @@ class Game{
           this.add_info_message(this.current_player, "You may now attack again!");
           this.add_info_message(this.current_player, "You've used your special!");
         }
+		this.last_state=state;
+        this.check_win_or_dead();
+        this.exec_state();
+        break;
+
+      case 'charlie_special_0':	// reveal and allows charlie to move to an adjacent zone instead of rolling
+ 	this.next_state = 'turn_3';
+	if(this.player_array[this.current_player].used_special == 1)
+    	{
+	   this.add_info_message(this.current_player, "You've already used your special");
+    	}
+        else if (this.current_player != this.current_turn)
+    	{
+	    this.add_info_message(this.current_player, "You've can only use this special during your turn");
+    	}
+    	else
+    	{
+	    this.reveal_player();
+	    this.player_array[this.current_player].used_special = 1;
+	    this.add_info_message(this.current_player, "You've used your special!");
+    	}
 		this.last_state=state;
         this.check_win_or_dead();
         this.exec_state();
@@ -2405,6 +2504,9 @@ class Game{
     document.getElementById("action_attack_btn").style.display = "none";
     document.getElementById("action_special_btn").style.display = "none";
     document.getElementById("action_end_turn_btn").style.display = "none";
+    document.getElementById("action_adjacent_btn").style.display = "none";
+    document.getElementById("action_special_roll_btn").style.display = "none";
+
   }
 
   //Shows draw btn and hides other buttons
@@ -2416,6 +2518,8 @@ class Game{
     document.getElementById("action_attack_btn").style.display = "none";
     document.getElementById("action_special_btn").style.display = "none";
     document.getElementById("action_end_turn_btn").style.display = "none";
+    document.getElementById("action_adjacent_btn").style.display = "none";
+    document.getElementById("action_special_roll_btn").style.display = "none";
 	setTimeout(function(){
     document.getElementById("action_draw_btn").style.display = "initial"; },7000);
   }
@@ -2428,6 +2532,8 @@ class Game{
     document.getElementById("action_special_btn").style.display = "none";
     document.getElementById("action_end_turn_btn").style.display = "none";
     document.getElementById("action_offense_pass_btn").style.display = "none";
+    document.getElementById("action_adjacent_btn").style.display = "none";
+    document.getElementById("action_special_roll_btn").style.display = "none";
 	setTimeout(function(){
     document.getElementById("action_defense_pass_btn").style.display = "initial"; },3500);
   }
@@ -2439,6 +2545,8 @@ class Game{
     document.getElementById("action_special_btn").style.display = "none";
     document.getElementById("action_end_turn_btn").style.display = "none";
     document.getElementById("action_defense_pass_btn").style.display = "none";
+    document.getElementById("action_adjacent_btn").style.display = "none";
+    document.getElementById("action_special_roll_btn").style.display = "none";
   setTimeout(function(){
     document.getElementById("action_offense_pass_btn").style.display = "initial";
     if(character=='Osama Bin Laden'){
@@ -2454,6 +2562,8 @@ class Game{
     document.getElementById("action_defense_pass_btn").style.display = "none";
     document.getElementById("action_roll_btn").style.display = "none";
     document.getElementById("action_draw_btn").style.display = "none";
+    document.getElementById("action_adjacent_btn").style.display = "none";
+    document.getElementById("action_special_roll_btn").style.display = "none";
   	if(previous_state=="turn_1"){
   	  setTimeout(function(){
   	  document.getElementById("action_attack_btn").style.display = "initial";
@@ -2471,6 +2581,19 @@ class Game{
   	  document.getElementById("action_special_btn").style.display = "initial";
         document.getElementById("action_end_turn_btn").style.display = "initial";
   	}
+  }
+
+  show_charlie_special_move_btn()
+  {
+    document.getElementById("action_adjacent_btn").style.display = "initial";
+    document.getElementById("action_special_roll_btn").style.display = "initial";
+    document.getElementById("action_roll_btn").style.display = "none";
+    document.getElementById("action_offense_pass_btn").style.display = "none";
+    document.getElementById("action_defense_pass_btn").style.display = "none";
+    document.getElementById("action_draw_btn").style.display = "none";
+    document.getElementById("action_attack_btn").style.display = "none";
+    document.getElementById("action_special_btn").style.display = "none";
+    document.getElementById("action_end_turn_btn").style.display = "none";
   }
 
   //Sets the game objects select player variable and hides the select player screen.
