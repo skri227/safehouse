@@ -534,7 +534,7 @@ function hide_select_player_screen()
 	document.getElementById("select_player_overlay_container").style.display = "none";
 }
 
-//Start select zone screen S17
+//Start of select zone screen S17
 function show_select_zone_screen() {
   	document.getElementById("select_zone_overlay_container").style.display = "initial";
 	//initially hide all zone buttons. There is no button for 3, 5, or 10 because those are the second numbers in the given zone
@@ -547,8 +547,7 @@ function show_select_zone_screen() {
     			document.getElementById(zone_string).style.display = "none";
 		}
   	}
-	
-	
+}
 
 
 function hide_select_zone_screen()
