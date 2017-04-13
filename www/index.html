@@ -125,6 +125,7 @@
 			</div>
 
 			<!--Select players Screen-->
+			<!--This is for when AI is implemented and the player(s) will have more options in their gameplay opponents-->
 			<div class="select_players">
 				<div class="player_select_row">
 					<div class="player_select" id="player_1_select">
@@ -242,6 +243,7 @@
 			</div>
 
 			<!--Select player Screen-->
+			<!--This if for when you select a player to steal or give cards to-->
 			<div id="select_player_overlay_container">
 				<div id="select_player_overlay_area">
 					<h1>SELECT PLAYER</h1>
@@ -271,6 +273,7 @@
 			</div>
 	
 			<!--Select Options Screen-->
+			<!--This is not implemented into the game yet-->
 			<div id="select_options_overlay_container">
 				<div id="select_options_overlay_area">
 					<h1 id="select_option_header">MESSAGE HERE</h1>
@@ -282,11 +285,14 @@
 			</div>
 
 			<!--Menu btn-->
+			<!--Shows the menu of the current player-->
 			<div id="menu_container">
 				<button onclick="game_menu_screen_overlay(game.current_player)">MENU</button>
 			</div>
 
 			<!--Info box-->
+			<!--This displays what has happen on the turn of the current player.-->
+			<!--It also gives directions to the current player on what to click.-->
 			<div id="info_messages">
 				<div id="info_messages_player_1"></div>
 				<div id="info_messages_player_2"></div>
@@ -306,6 +312,7 @@
 			</div>
 
 			<!--Revealed box-->
+			<!--This shows what character and affiliation a player is associated with once they are revealed.-->
 			<div id="revealed_box">
 				<h3>Revealed:</h3>
 				<!--Populated in game-->
@@ -346,12 +353,8 @@
 				<!--Code from Three.js gets loaded here-->
 			</div>
 
-			<!--Zoom btn-->
-			<div id="zoom_container">
-					<button onclick="move_screen()">ZOOM</button>
-			</div>
-
 			<!--Player info area-->
+			<!--For the current player, it displays their character, affiliation, health, and special/reveal perk.-->
 			<div id="player_container">
 				<div id="player">
 					<h3 id="player_title"><span id="player_type"></span> - <span id="player_name"></span></h3>
@@ -369,6 +372,7 @@
 			</div>
 
 			<!--Card info area-->
+			<!--This shows the current player's hand of cards along with arrows in case the player has many cards.-->
 			<div id="cards_container">
 				<div id="card_area_scroll_left" onclick="card_area_scroll_left()">
 					<img src="inc/images/Left_Arrow.png">
@@ -387,6 +391,8 @@
 			</div>
 
 			<!--Action btns area-->
+			<!--This shows all the player related actions they can take during their turn.-->
+			<!--Certain buttons appear at different times and events.-->
 			<div id="action_container">
 				<button id="action_adjacent_btn" class="charlie_special_move_btn" onclick="game.exec_state('charlie_movement_0')">ADJACENT</button>
 				<button id="action_special_roll_btn" class="charlie_special_move_btn" onclick="game.exec_state('turn_1')">ROLL</button>

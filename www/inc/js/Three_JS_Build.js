@@ -33,7 +33,7 @@ var greenDie2;
 var whitePiece;
 var redPiece;
 var greenPiece;
-var pinkPiece;
+var pinkPiece; //not implemented yet, use for 9th player
 var bluePiece;
 var orangePiece;
 var blackPiece;
@@ -91,7 +91,7 @@ var diceYLocation = -.55;
 //set dice block size
 var diceSize = .15;
 
-
+var damageMeterSpaceSize = .42;
 
 
 /************Setup For all movable pieces of geometry in the scene**********/
@@ -1290,7 +1290,7 @@ function moveDamage(color, damageAdded){
 			if(((game.player_array[i].hp + damageAdded) > 0) && ((game.player_array[i].hp + damageAdded) < game.player_array[i].character.hp))
 			{
 				game.player_array[i].hp = game.player_array[i].hp + damageAdded;
-				damage.position.x = damage.position.x + (damageAdded*.33);
+				damage.position.x = damage.position.x + (damageAdded*damageMeterSpaceSize);
 			}
 			else if((game.player_array[i].hp + damageAdded) >= game.player_array[i].character.hp)
 			{
