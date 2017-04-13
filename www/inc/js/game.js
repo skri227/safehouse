@@ -920,7 +920,8 @@ class Game{
 	this.last_state = state;
 	this.player_array[this.current_turn].current_region = this.selected_zone;	    
   var new_region = this.player_array[this.current_turn].current_region;
-	this.add_info_message(this.current_turn, 'You picked Zone ' + this.selected_zone +'.');	    
+	this.add_info_message(this.current_turn, 'You picked Zone ' + this.selected_zone +'.');	   
+	movePiece(this.player_array[this.current_turn].player_color);
 		    
 	if(new_region == 2 || new_region == 3 || new_region == 4 || new_region == 5 || new_region == 6 || new_region == 8)
 	{
