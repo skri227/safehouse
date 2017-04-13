@@ -912,6 +912,7 @@ class Game{
    	this.add_info_message(this.current_turn, "ADJACENT worked");
 	this.last_state = state;
 	show_select_zone_screen(); // shows charlie the options of the adjacent zones and sets this.selected_zone to choice
+	hide_select_zone_screen();
  	this.check_win_or_dead();
 	break;
 	    
