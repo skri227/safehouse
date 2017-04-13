@@ -913,7 +913,7 @@ class Game{
 	this.last_state = state;
 	show_select_zone_screen(); // shows charlie the options of the adjacent zones and sets this.selected_zone to choice
 	this.next_state = 'charlie_movement_1';
-	this.exec_state();
+	
 		    
  	this.check_win_or_dead();
 	break;
@@ -2661,6 +2661,7 @@ class Game{
   {
 	this.selected_zone = zone;
 	hide_select_zone_screen();
+	this.exec_state();
 	//this.exec_state('charlie_movement_1');
 
   }
