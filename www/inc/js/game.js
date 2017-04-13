@@ -2662,7 +2662,7 @@ class Game{
   {
 	this.selected_zone = zone;
 	hide_select_zone_screen();
-	this.exec_state('charlie_movement_1');
+	//this.exec_state('charlie_movement_1');
 
   }
 
