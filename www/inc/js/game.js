@@ -590,7 +590,6 @@ function show_select_zone_screen() {
 	else {
 		game.add_info_message(this.current_turn, 'You broke it, this should not happen.');
 	}
-	hide_select_zone_screen();
 	
 }
 
