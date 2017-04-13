@@ -590,6 +590,7 @@ function show_select_zone_screen() {
 	else {
 		game.add_info_message(this.current_turn, 'You broke it, this should not happen.');
 	}
+	hide_select_zone_screen();
 	
 }
 
@@ -2653,9 +2654,6 @@ class Game{
   {
 	this.selected_zone = zone;
 	hide_select_zone_screen();
-	if (this.next_state != 'turn_3') {
-		this.exec_state();
-	}
   }
 
   //Display hand for current player
