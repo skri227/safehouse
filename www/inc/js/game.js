@@ -912,11 +912,14 @@ class Game{
    	this.add_info_message(this.current_turn, "ADJACENT worked");
 	this.last_state = state;
 	show_select_zone_screen(); // shows charlie the options of the adjacent zones and sets this.selected_zone to choice
-	
+	this.next_state = 'charlie_movement_1';
+	this.exec_sate();
+		    
  	this.check_win_or_dead();
 	break;
 	    
       case 'charlie_movement_1':
+	this.last_state = state;
 	hide_select_zone_screen();
 	this.add_info_message(this.current_turn, "In charlie_movement_1");
 	this.player_array[this.current_turn].current_region = this.selected_zone;	    
