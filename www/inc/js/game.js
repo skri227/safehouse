@@ -200,6 +200,7 @@ function game_screen_setup()
 
   document.getElementById("select_player_overlay_container").style.display = "none";
   document.getElementById("select_options_overlay_container").style.display = "none";
+  document.getElementById("select_zone_overlay_container").style.display = "none";
   //document.getElementById("attack_select_player_overlay_container").style.display = "none";
   //document.getElementById("invest_select_player_overlay_container").style.display = "none";
 
@@ -208,6 +209,8 @@ function game_screen_setup()
   document.getElementById("action_attack_btn").style.display = "none";
   document.getElementById("action_special_btn").style.display = "none";
   document.getElementById("action_end_turn_btn").style.display = "none";
+  document.getElementById("action_adjacent_btn").style.display = "none";
+  document.getElementById("action_special_roll_btn").style.display = "none";
 
   document.getElementById("card_area_scroll_left").style.display = "none";
   document.getElementById("card_area_scroll_right").style.display = "none";
@@ -335,7 +338,7 @@ function show_select_player_screen(selection)
         var player_string = 'select_player_' + i + '_btn';
         var r = game.player_array[game.current_turn].current_region;
         var y = game.player_array[i].current_region;
-        if(i <= game.num_of_players && i != game.current_F && game.player_array[i].current_region != 7 && game.player_array[i].alive == true)
+        if(i <= game.num_of_players && i != game.current_turn && game.player_array[i].current_region != 7 && game.player_array[i].alive == true)
         {
           // var r = game.player_array[game.current_turn].current_region;
           // var y = game.player_array[i].current_region;
@@ -343,7 +346,7 @@ function show_select_player_screen(selection)
           {
             if(y == 4 || y == 5)
             {
-              be_attacked = true;
+              be_attacked = true;	
               document.getElementById(player_string).style.display = "initial";
             }
 
@@ -534,6 +537,70 @@ function hide_select_player_screen()
 	document.getElementById("select_player_overlay_container").style.display = "none";
 }
 
+//Start of select zone screen S17
+function show_select_zone_screen() {
+  	document.getElementById("select_zone_overlay_container").style.display = "initial";
+
+	//initially hide all zone buttons. There is no button for 3, 5, 10, or 12 because those are the second numbers in the given zone
+	document.getElementById("select_zone_2_btn").style.display = "none";
+	document.getElementById("select_zone_4_btn").style.display = "none";
+	document.getElementById("select_zone_6_btn").style.display = "none";
+	document.getElementById("select_zone_7_btn").style.display = "none";
+	document.getElementById("select_zone_8_btn").style.display = "none";
+	document.getElementById("select_zone_9_btn").style.display = "none";
+	document.getElementById("select_zone_11_btn").style.display = "none";
+	
+	
+        var current = game.player_array[game.current_turn].current_region;
+	if (current == 2 || current == 3) { // 2/3 is only bordered by 4
+		document.getElementById("select_zone_4_btn").style.display = "initial";
+		game.add_info_message(this.current_turn, 'Currently Zone 2');
+	}
+	else if (current == 4 || current == 5) { // 4/5 is borderd by 2/3 and 6
+		document.getElementById("select_zone_2_btn").style.display = "initial";
+		document.getElementById("select_zone_6_btn").style.display = "initial";
+		game.add_info_message(this.current_turn, 'Currently Zone 4');
+	}
+	else if (current == 6) { // 6 is borderd by 4/5, 7, and 8
+		document.getElementById("select_zone_4_btn").style.display = "initial";
+		document.getElementById("select_zone_7_btn").style.display = "initial";
+		document.getElementById("select_zone_8_btn").style.display = "initial";
+		game.add_info_message(this.current_turn, 'Currently Zone 6');
+	}
+	else if (current == 7) { //7 is bordered by 6 and 8
+		document.getElementById("select_zone_6_btn").style.display = "initial";
+		document.getElementById("select_zone_8_btn").style.display = "initial";
+		game.add_info_message(this.current_turn, 'Currently Zone 7');
+	}
+	else if (current == 8) {// 8 is bordered by 6, 7, and 9/10
+		document.getElementById("select_zone_6_btn").style.display = "initial";
+		document.getElementById("select_zone_7_btn").style.display = "initial";
+		document.getElementById("select_zone_9_btn").style.display = "initial";
+		game.add_info_message(this.current_turn, 'Currently Zone 8');
+	}
+	else if (current == 9 || current == 10) { // 9/10 is bordered by 8 and 11/12
+		document.getElementById("select_zone_8_btn").style.display = "initial";
+		document.getElementById("select_zone_11_btn").style.display = "initial";
+		game.add_info_message(this.current_turn, 'Currently Zone 9');
+	}
+	else if (current == 11 || current == 12) { // only bordered by 9/10
+		document.getElementById("select_zone_9_btn").style.display = "initial";
+		game.add_info_message(this.current_turn, 'Currently Zone 11');
+	}
+	else {
+		game.add_info_message(this.current_turn, 'You broke it, this should not happen.');
+	}
+	hide_select_zone_screen();
+	
+}
+
+
+function hide_select_zone_screen()
+{
+	document.getElementById("select_zone_overlay_container").style.display = "none";
+	game.add_info_message(this.current_turn, 'Hiding select_zone_screen()');
+}
+
 //Shows general options screen
 //This is a customizable screen that shows custom text for each button
 //and the header text.
@@ -678,7 +745,8 @@ class Game{
 		this.current_player = 1; //Current on screen player
     this.current_turn = 1; //Current players turn
     this.num_of_rotations = 0; //Number of turns that have happened
-    this.select_player; //Selected player
+    this.selected_player; //Selected player
+    this.selected_zone; //Selected zone
     this.current_attacking_player = 0; //Player attacking
     this.current_defending_player = 0; //Player defending
     this.current_attacking_player_pts = 0; //Attacking pts
@@ -748,7 +816,7 @@ class Game{
         if(this.player_array[this.current_turn].alive == false)
           this.exec_state('turn_4');
 		this.last_state=state;
-        this.next_state = 'turn_1';
+        
         this.switch_player(this.current_turn);
         document.getElementById('current_player_id').innerHTML = this.current_player;
         document.getElementById('current_player_box_color').style.color = this.player_array[this.current_turn].player_color;
@@ -757,17 +825,25 @@ class Game{
         this.has_attacked = 0;
         this.be_attacked = false;
         this.add_info_message(this.current_turn, 'Starting your turn.');
-        this.show_roll_btn();
-        this.add_info_message(this.current_turn, 'Click "ROLL" to roll and move your player.');
+	if(this.player_array[this.current_player].character.char_name == 'CIA Charlie' && this.player_array[this.current_player].used_special == 1) {
+		this.show_charlie_special_move_btn();
+		this.add_info_message(this.current_turn, 'Click "ROLL" to roll and move your player or "ADJACENT" to move to an adjacent zone.');
+	}
+    	else {
+		this.show_roll_btn();
+		this.add_info_message(this.current_turn, 'Click "ROLL" to roll and move your player.');
+		this.next_state = 'turn_1';
+	}
+        
         if(this.player_array[this.current_turn].hand.length > 0)
           this.add_info_message(this.current_turn, 'You can change your equipment card before you roll.');
         break;
       case 'turn_1':
-	    this.last_state=state;
-        rollWhiteDice(this.player_array[this.current_turn].player_color);
-        this.player_array[this.current_turn].current_region = dice1Value + dice2Value;
-        this.add_info_message(this.current_player, 'You rolled a ' + this.player_array[this.current_turn].current_region + '!');
-        var r = this.player_array[this.current_player].current_region;
+	this.last_state=state;
+	rollWhiteDice(this.player_array[this.current_turn].player_color);
+	this.player_array[this.current_turn].current_region = dice1Value + dice2Value;
+	this.add_info_message(this.current_player, 'You rolled a ' + this.player_array[this.current_turn].current_region + '!');
+	var r = this.player_array[this.current_player].current_region;
 
 			if(r == 2 || r == 3 || r == 4 || r == 5 || r == 6 || r == 8)
 			{
@@ -831,7 +907,52 @@ class Game{
 		this.last_state=state;
         this.exec_state();
         break;
+      
+	//Special state for Charlie's movement
+      case 'charlie_movement_0':
+   	this.add_info_message(this.current_turn, "ADJACENT worked");
+	this.last_state = state;
+	show_select_zone_screen(); // shows charlie the options of the adjacent zones and sets this.selected_zone to choice
 
+	this.player_array[this.current_turn].current_region = this.selected_zone;	    
+    	var new_region = this.player_array[this.current_turn].current_region;
+	this.add_info_message(this.current_turn, 'You picked Zone ' + this.selected_zone +'.');	    
+		    
+	if(new_region == 2 || new_region == 3 || new_region == 4 || new_region == 5 || new_region == 6 || new_region == 8)
+	{
+	  	this.next_state = 'draw_card_0';
+	  	this.show_draw_btn();
+	  	this.add_info_message(this.current_turn, 'Click "DRAW" to choose a card.');
+	}
+	else if(new_region == 11 || new_region == 12)
+	{
+	  	var anyone_have_cards = false;
+	  	for(var i = 1; i <= this.num_of_players; i++)
+	  	{
+			if(this.player_array[i].hand.length > 0) {
+		  		anyone_have_cards = true;
+			}
+	  	}
+	  	if(anyone_have_cards == true) {
+			this.exec_state('steal_region_0');
+		}
+	  	else {
+			this.next_state = 'turn_2';
+			this.exec_state();
+		}
+	}
+	else if(new_region == 9 || new_region == 10)
+	{
+	  	this.exec_state('damage_region_0');
+	}
+	else
+	{
+	  	this.next_state = 'turn_3';
+	  	this.exec_state();
+	}
+ 	this.check_win_or_dead();
+	break;
+		    
       //Draw
       case 'draw_card_0':
         this.next_state = 'draw_card_1';
@@ -870,7 +991,7 @@ class Game{
         this.next_state = 'turn_2';
         hide_draw_card_screen_overlay();
         this.check_win_or_dead();
-		this.last_state=state;
+		      this.last_state=state;
         this.exec_state();
         break;
 
@@ -878,7 +999,7 @@ class Game{
       case 'draw_invest_card_only':
         this.next_state = 'draw_card_1';
         draw_card_screen_overlay(1,0,0);
-		this.last_state=state;
+		      this.last_state=state;
         this.check_win_or_dead();
         break;
 
@@ -894,7 +1015,7 @@ class Game{
         hide_select_player_screen();
         this.steal_equip_card();
         this.check_win_or_dead();
-		this.last_state=state;
+		    this.last_state=state;
         //this.add_info_message(this.current_turn, 'Select which player to steal card from.');
         this.exec_state();
         break;
@@ -936,7 +1057,7 @@ class Game{
         else
         {
             //this.player_array[this.selected_player].hp = this.player_array[this.selected_player].hp + 1;
-            moveDamage(this.player_array[this.selected_player].player_color, 1);
+            moveDamage(this.player_array[this.selected_player].player_color, 2);
         }
 		this.last_state=state;
         this.check_win_or_dead();
@@ -1071,7 +1192,7 @@ class Game{
             this.next_state = 'sam_special_0';
             break;
           case 'CIA Charlie':
-            this.next_state = 'tori_special_0';
+            this.next_state = 'charlie_special_0';
             break;
           case 'FBI Fred':
             this.next_state = 'fred_special_0';
@@ -1321,7 +1442,28 @@ class Game{
         this.check_win_or_dead();
         this.exec_state();
         break;
-
+	
+      case 'charlie_special_0':	// reveal and allows charlie to move to an adjacent zone instead of rolling
+ 	this.next_state = 'turn_3';
+	if(this.player_array[this.current_player].used_special == 1)
+    	{
+	   this.add_info_message(this.current_player, "You've already used your special");
+    	}
+        else if (this.current_player != this.current_turn) 
+    	{
+	    this.add_info_message(this.current_player, "You've can only use this special during your turn");
+    	}
+    	else 
+    	{
+	    this.reveal_player();
+	    this.player_array[this.current_player].used_special = 1;
+	    this.add_info_message(this.current_player, "You've used your special!");
+    	}
+		this.last_state=state;
+        this.check_win_or_dead();
+        this.exec_state();
+        break;
+	
       case 'tori_special_0':
         //this.next_state = 'ayman_special_1';
         this.next_state = 'turn_3';
@@ -1426,13 +1568,13 @@ class Game{
             this.next_state = 'draw_card_1';
             break;
         }
-		this.last_state=state;
+		      this.last_state=state;
         this.check_win_or_dead();
         this.exec_state();
         break;
 
       case 'invest_1':
-		this.last_state=state;
+		    this.last_state=state;
         if((this.player_array[this.current_player].equipped.card_title == 'Water Board' || this.player_array[this.current_player].equipped.card_title == 'Cattle Prod') && this.used_equip_card == 0)
         {
           this.used_equip_card = 1;
@@ -1446,7 +1588,7 @@ class Game{
         break;
       case 'invest_2':
         this.next_state = 'draw_invest_card_only';
-		this.last_state=state;
+		      this.last_state=state;
         this.show_draw_btn();
         this.check_win_or_dead();
         break;
@@ -1501,19 +1643,19 @@ class Game{
 
       case 'select_option_1':
         this.selected_option = 1;
-		this.last_state=state;
+		    this.last_state=state;
         this.check_win_or_dead();
         this.exec_state();
         break;
       case 'select_option_2':
         this.selected_option = 2;
-		this.last_state=state;
+		    this.last_state=state;
         this.check_win_or_dead();
         this.exec_state();
         break;
       case 'select_option_3':
         this.selected_option = 3;
-		this.last_state=state;
+		    this.last_state=state;
         this.check_win_or_dead();
         this.exec_state();
         break;
@@ -1525,7 +1667,7 @@ class Game{
         hide_draw_card_screen_overlay();
         show_zoomed_card(this.drawn_invest_card);
         this.add_info_message(this.current_player, 'Click card to use it.');
-		this.last_state=state;
+		    this.last_state=state;
         this.check_win_or_dead();
         break;
       //Let player select who to investigate.
@@ -1534,7 +1676,7 @@ class Game{
         hide_zoomed_card();
         this.add_info_message(this.current_player, 'Select player to investigate.');
         show_select_player_screen();
-		this.last_state=state;
+		    this.last_state=state;
         this.check_win_or_dead();
         break;
       //Switch to the player selected. If player can lie, show lie btn.
@@ -1544,19 +1686,23 @@ class Game{
         this.add_info_message(this.current_player, "Player " + this.current_turn + ": " + this.drawn_invest_card.card_text);
         if(this.player_array[this.current_player].character.char_name ==  "Hassan Nasrallah")
         {
-          this.add_info_message(this.current_player, "You can lie! Press 'OK' or 'LIE'.");
-          show_select_options_screen("YOU'RE BEING INVESTIGATED, SELECT OPTION", 'OK', 'LIE');
+          this.add_info_message(this.current_player, "You can lie! Press 'TAKE 1 DAMAGE' or 'LIE'.");
+          show_select_options_screen("YOU'RE BEING INVESTIGATED AS BEING A TERRORIST! SELECT AN OPTION.", 'TAKE ONE DAMAGE', 'LIE');
         }
         else
         {
           if(this.player_array[this.current_player].character.affiliation == 'Terrorist')
-            this.add_info_message(this.current_player, "You cannot lie! Press 'OK'.");
+          {
+            this.add_info_message(this.current_player, "You cannot lie! Press 'TAKE 1 DAMAGE'.");
+            show_select_options_screen("YOU'RE BEING INVESTIGATED AS BEING A TERRORIST!", "TAKE 1 DAMAGE");
+          }
           else
-            this.add_info_message(this.current_player, "You cannot lie but you're not a Terrorist! Press 'OK'.");
-
-          show_select_options_screen("YOU'RE BEING INVESTIGATED, SELECT OPTION", "OK");
+          {
+            this.add_info_message(this.current_player, "You cannot lie but you're not a Terrorist! Press 'OK'.")
+            show_select_options_screen("YOU'RE BEING INVESTIGATED AS BEING A TERRORIST!", "OK");
+          }
         }
-		this.last_state=state;
+		    this.last_state=state;
         this.check_win_or_dead();
         break;
       //Calculate damage then switch back to current turn player.
@@ -1572,7 +1718,7 @@ class Game{
             moveDamage(this.player_array[this.current_player].player_color, 1);
           }
         }
-		this.last_state=state;
+		    this.last_state=state;
         this.check_win_or_dead();
         this.switch_player(this.current_turn);
         this.exec_state('invest_1');
@@ -1588,7 +1734,7 @@ class Game{
         hide_draw_card_screen_overlay();
         show_zoomed_card(this.drawn_invest_card);
         this.add_info_message(this.current_player, 'Click card to use it.');
-		this.last_state=state;
+		    this.last_state=state;
         this.check_win_or_dead();
         break;
       //Let player select who to investigate.
@@ -1596,7 +1742,7 @@ class Game{
         this.next_state = 'accuse3_2';
         hide_zoomed_card();
         this.add_info_message(this.current_player, 'Select player to investigate.');
-		this.last_state=state;
+		    this.last_state=state;
         show_select_player_screen();
         this.check_win_or_dead();
         break;
@@ -1605,19 +1751,20 @@ class Game{
           this.switch_player(this.selected_player);
           this.add_info_message(this.current_player, "Player " + this.current_turn + ": " + this.drawn_invest_card.card_text);
           if(this.player_array[this.current_player].character.char_name == "Hassan Nasrallah"){
-            this.add_info_message(this.current_player, "You can lie! Press 'OK' or 'Lie'");
-            show_select_options_screen("You're being Investigated! Select your Option.", 'OK', 'LIE');
+            this.add_info_message(this.current_player, "You can lie! Press 'HEAL/TAKE 1 DAMAGE' or 'LIE'");
+            show_select_options_screen("YOU'RE BEING INVESTIGATED AS BEING A NEUTRAL! SELECT AN OPTION. (YOU TAKE DAMAGE INSTEAD OF HEAL IF YOU HAVE NO DAMAGE)", 'HEAL/TAKE 1 DAMAGE', 'LIE');
           }
           else{
             if(this.player_array[this.current_player].character.affiliation == 'Neutral'){
-              this.add_info_message(this.current_player, "You cannot lie! Press 'OK'.");
+              this.add_info_message(this.current_player, "You cannot lie! Press 'HEAL/TAKE 1 DAMAGE'.");
+              show_select_options_screen("YOU'RE BEING INVESTIGATED AS BEING A NEUTRAL! (YOU TAKE DAMAGE INSTEAD OF HEAL IF YOU HAVE NO DAMAGE)", "HEAL/TAKE 1 DAMAGE");
             }
             else{
-              this.add_info_message(this.current_player, "you cannot lie but you are not Neutral.  Press 'OK'.")
+              this.add_info_message(this.current_player, "You cannot lie, but you are not Neutral.  Press 'OK'.")
+              show_select_options_screen("YOU'RE BEING INVESTIGATED AS BEING A NEUTRAL!", "OK");
             }
-            show_select_options_screen("You're being Investigated!  Select your option!", "OK");
           }
-		  this.last_state=state;
+		      this.last_state=state;
           this.check_win_or_dead();
           break;
       case 'accuse3_3':
@@ -1644,7 +1791,7 @@ class Game{
               }
             }
           }
-		  this.last_state=state;
+		      this.last_state=state;
           this.check_win_or_dead();
           this.switch_player(this.current_turn);
           this.exec_state('invest_1');
@@ -1660,8 +1807,7 @@ class Game{
           hide_draw_card_screen_overlay();
           show_zoomed_card(this.drawn_invest_card);
           this.add_info_message(this.current_player, 'Click card to use it.');
-		  this.last_state=state;
-
+		      this.last_state=state;
           this.check_win_or_dead();
           break;
         //Let player select who to investigate.
@@ -1679,16 +1825,17 @@ class Game{
             this.add_info_message(this.current_player, "Player " + this.current_turn + ": " + this.drawn_invest_card.card_text);
             if(this.player_array[this.current_player].character.char_name == "Hassan Nasrallah"){
               this.add_info_message(this.current_player, "You can lie! Press 'OK' or 'Lie'");
-              show_select_options_screen("You're being Investigated! Select your Option.", 'OK', 'LIE');
+              show_select_options_screen("YOU'RE BEING INVESTIGATED AS A TERRORIST! SELECT AN OPTION.(YOU TAKE DAMAGE INSTEAD OF HEAL IF YOU HAVE NO DAMAGE)", 'HEAL/TAKE 1 DAMAGE', 'LIE');
             }
             else{
               if(this.player_array[this.current_player].character.affiliation == 'Terrorist'){
-                this.add_info_message(this.current_player, "You cannot lie! Press 'OK'.");
+                this.add_info_message(this.current_player, "You cannot lie! Press 'HEAL/TAKE 1 DAMAGE'.");
+                show_select_options_screen("YOU'RE BEING INVESTIGATED AS A TERRORIST! (YOU TAKE DAMAGE INSTEAD OF HEAL IF YOU HAVE NO DAMAGE).", "HEAL/TAKE 1 DAMAGE");
               }
               else{
-                this.add_info_message(this.current_player, "you cannot lie but you are not Terrorist.  Press 'OK'.")
+                this.add_info_message(this.current_player, "You cannot lie, but you are not Terrorist.  Press 'OK'.");
+                show_select_options_screen("YOU'RE BEING INVESTIGATED AS A TERRORIST!", "OK");
               }
-              show_select_options_screen("You're being Investigated!  Select your option!", "OK");
             }
             break;
         case 'accuse4_3':
@@ -1708,7 +1855,7 @@ class Game{
                 }
               }
             }
-			this.last_state=state;
+			      this.last_state=state;
             this.check_win_or_dead();
             this.switch_player(this.current_turn);
             this.exec_state('invest_1');
@@ -1718,7 +1865,7 @@ class Game{
         //Show card and wait for user to click card
         case 'accuse5_0':
           this.next_state = 'accuse5_1';
-		  this.last_state=state;
+		      this.last_state=state;
           hide_draw_card_screen_overlay();
           show_zoomed_card(this.drawn_invest_card);
           this.add_info_message(this.current_player, 'Click card to use it.');
@@ -1728,7 +1875,7 @@ class Game{
           this.next_state = 'accuse5_2';
           hide_zoomed_card();
           this.add_info_message(this.current_player, 'Select player to investigate.');
-		  this.last_state=state;
+		      this.last_state=state;
           show_select_player_screen();
           break;
         //Switch to the player selected. If player can lie, show lie btn.
@@ -1739,28 +1886,32 @@ class Game{
           if(this.player_array[this.current_player].character.char_name ==  "Hassan Nasrallah")
           {
             this.add_info_message(this.current_player, "You can lie! Select an option or press 'LIE'.");
-            if(this.player_array[this.current_player].hand.length != 0) //Check if players hand is empty
-              show_select_options_screen("YOU'RE BEING INVESTIGATED, SELECT OPTION", 'TAKE 1 DAMAGE', 'LIE', 'GIVE EQUIPMENT CARD');
+            //Check if players hand is empty
+            //If empty, then only show take 1 damage and lie buttons
+            if(this.player_array[this.current_player].hand.length != 0)
+              show_select_options_screen("YOU'RE BEING INVESTIGATED AS A TERRORIST OR NEUTRAL! SELECT AN OPTION.", 'TAKE 1 DAMAGE', 'LIE', 'GIVE EQUIPMENT CARD');
             else
-              show_select_options_screen("YOU'RE BEING INVESTIGATED, SELECT OPTION", 'TAKE 1 DAMAGE', 'LIE');
+              show_select_options_screen("YOU'RE BEING INVESTIGATED AS A TERRORIST OR NEUTRAL! SELECT AN OPTION.", 'TAKE 1 DAMAGE', 'LIE');
           }
           else
           {
             if(this.player_array[this.current_player].character.affiliation == 'Terrorist' || this.player_array[this.current_player].character.affiliation == 'Neutral')
             {
               this.add_info_message(this.current_player, "You cannot lie! Select an option.");
-              if(this.player_array[this.current_player].hand.length != 0) //Check if players hand is empty
-                show_select_options_screen("YOU'RE BEING INVESTIGATED, SELECT OPTION", 'TAKE 1 DAMAGE', 'GIVE EQUIPMENT CARD');
+              //Check if players hand is empty
+              //If empty, then only show take 1 damage and lie buttons
+              if(this.player_array[this.current_player].hand.length != 0)
+                show_select_options_screen("YOU'RE BEING INVESTIGATED AS A TERRORIST OR NEUTRAL! SELECT AN OPTION.", 'TAKE 1 DAMAGE', 'GIVE EQUIPMENT CARD');
               else
-                show_select_options_screen("YOU'RE BEING INVESTIGATED, SELECT OPTION", 'TAKE 1 DAMAGE');
+                show_select_options_screen("YOU'RE BEING INVESTIGATED AS A TERRORIST OR NEUTRAL! SELECT OPTION.", 'TAKE 1 DAMAGE');
             }
             else
             {
                 this.add_info_message(this.current_player, "You cannot lie, but you don't need to! Press 'OK'.");
-                show_select_options_screen("YOU'RE BEING INVESTIGATED, SELECT OPTION", 'OK');
+                show_select_options_screen("YOU'RE BEING INVESTIGATED AS A TERRORIST OR NEUTRAL! SELECT OPTION.", 'OK');
             }
           }
-		  this.last_state=state;
+		        this.last_state=state;
           break;
         //Calculate damage then switch back to current turn player.
         case 'accuse5_3':
@@ -1791,7 +1942,7 @@ class Game{
           }
           else
             this.player_array[this.current_player].hp = this.player_array[this.current_player].hp + 0;
-		  this.last_state=state;
+          this.last_state=state;
           this.check_win_or_dead();
           this.switch_player(this.current_turn);
           this.exec_state('invest_1');
@@ -1822,19 +1973,20 @@ class Game{
               this.switch_player(this.selected_player);
               this.add_info_message(this.current_player, "Player " + this.current_turn + ": " + this.drawn_invest_card.card_text);
               if(this.player_array[this.current_player].character.char_name == "Hassan Nasrallah"){
-                this.add_info_message(this.current_player, "You can lie! Press 'OK' or 'Lie'");
-                show_select_options_screen("You're being Investigated! Select your Option.", 'OK', 'LIE');
+                this.add_info_message(this.current_player, "You can lie! Press 'HEAL/TAKE 1 DAMAGE' or 'LIE'");
+                show_select_options_screen("YOU'RE BEING INVESTIGATED AS A COUNTER-TERRORIST! SELECT AN OPTION.(YOU TAKE DAMAGE INSTEAD OF HEAL IF YOU HAVE NO DAMAGE)", 'HEAL/TAKE 1 DAMAGE', 'LIE');
               }
               else{
                 if(this.player_array[this.current_player].character.affiliation == 'Counter-Terrorist'){
-                  this.add_info_message(this.current_player, "You cannot lie! Press 'OK'.");
+                  this.add_info_message(this.current_player, "You cannot lie! Press 'HEAL/TAKE 1 DAMAGE'.");
+                  show_select_options_screen("YOU'RE BEING INVESTIGATED AS A COUNTER-TERRORIST! (YOU TAKE DAMAGE INSTEAD OF HEAL IF YOU HAVE NO DAMAGE)", "HEAL/TAKE 1 DAMAGE");
                 }
                 else{
-                  this.add_info_message(this.current_player, "you cannot lie but you are not Counter-Terrorist.  Press 'OK'.")
+                  this.add_info_message(this.current_player, "You cannot lie, but you are not Counter-Terrorist.  Press 'OK'.")
+                  show_select_options_screen("YOU'RE BEING INVESTIGATED AS A COUNTER-TERRORIST!", "OK");
                 }
-                show_select_options_screen("You're being Investigated!  Select your option!", "OK");
               }
-			  this.last_state=state;
+			        this.last_state=state;
               break;
           case 'accuse6_3':
               hide_select_options_screen();
@@ -1876,7 +2028,7 @@ class Game{
               //     }
               //   }
               // }
-			  this.last_state=state;
+			        this.last_state=state;
               this.check_win_or_dead();
               this.switch_player(this.current_turn);
               this.exec_state('invest_1');
@@ -1886,7 +2038,7 @@ class Game{
           //Show card and wait for user to click card
           case 'accuse10_0':
             this.next_state = 'accuse10_1';
-			this.last_state=state;
+			      this.last_state=state;
             hide_draw_card_screen_overlay();
             show_zoomed_card(this.drawn_invest_card);
             this.add_info_message(this.current_player, 'Click card to use it.');
@@ -1894,7 +2046,7 @@ class Game{
           //Let player select who to investigate.
           case 'accuse10_1':
             this.next_state = 'accuse10_2';
-			this.last_state=state;
+			      this.last_state=state;
             hide_zoomed_card();
             this.add_info_message(this.current_player, 'Select player to investigate.');
             show_select_player_screen();
@@ -1906,17 +2058,21 @@ class Game{
             this.add_info_message(this.current_player, "Player " + this.current_turn + ": " + this.drawn_invest_card.card_text);
             if(this.player_array[this.current_player].character.char_name ==  "Hassan Nasrallah")
             {
-              this.add_info_message(this.current_player, "You can lie! Press 'OK' or 'LIE'.");
-              show_select_options_screen("YOU'RE BEING INVESTIGATED, SELECT OPTION", 'OK', 'LIE');
+              this.add_info_message(this.current_player, "You can lie! Press 'TAKE 1 DAMAGE' or 'LIE'.");
+              show_select_options_screen("YOU'RE BEING INVESTIGATED AS A COUNTER-TERRORIST! SELECT AN OPTION.", 'TAKE 1 DAMAGE', 'LIE');
             }
             else
             {
               if(this.player_array[this.current_player].character.affiliation == 'Counter-Terrorist')
-                this.add_info_message(this.current_player, "You cannot lie! Press 'OK'.");
+              {
+                this.add_info_message(this.current_player, "You cannot lie! Press 'TAKE 1 DAMAGE'.");
+                show_select_options_screen("YOU'RE BEING INVESTIGATED AS A COUNTER-TERRORIST!", "TAKE 1 DAMAGE");
+              }
               else
-                this.add_info_message(this.current_player, "You cannot lie but you're not a Counter-Terrorist! Press 'OK'.");
-
-              show_select_options_screen("YOU'RE BEING INVESTIGATED, SELECT OPTION", "OK");
+              {
+                this.add_info_message(this.current_player, "You cannot lie, but you're not a Counter-Terrorist! Press 'OK'.");
+                show_select_options_screen("YOU'RE BEING INVESTIGATED AS A COUNTER-TERRORIST!", "OK");
+              }
             }
 			this.last_state=state;
             break;
@@ -1939,7 +2095,7 @@ class Game{
                 moveDamage(this.player_array[this.current_player].player_color, 1);
               }
             }
-			this.last_state=state;
+			      this.last_state=state;
             this.check_win_or_dead();
             this.switch_player(this.current_turn);
             this.exec_state('invest_1');
@@ -1949,7 +2105,7 @@ class Game{
           //Show card and wait for user to click card
           case 'accuse11_0':
             this.next_state = 'accuse11_1';
-			this.last_state=state;
+			      this.last_state=state;
             hide_draw_card_screen_overlay();
             show_zoomed_card(this.drawn_invest_card);
             this.add_info_message(this.current_player, 'Click card to use it.');
@@ -1957,7 +2113,7 @@ class Game{
           //Let player select who to investigate.
           case 'accuse11_1':
             this.next_state = 'accuse11_2';
-			this.last_state=state;
+			      this.last_state=state;
             hide_zoomed_card();
             this.add_info_message(this.current_player, 'Select player to investigate.');
             show_select_player_screen();
@@ -1970,17 +2126,21 @@ class Game{
             this.add_info_message(this.current_player, "Player " + this.current_turn + ": " + this.drawn_invest_card.card_text);
             if(this.player_array[this.current_player].character.char_name ==  "Hassan Nasrallah")
             {
-              this.add_info_message(this.current_player, "You can lie! Press 'OK' or 'LIE'.");
-              show_select_options_screen("YOU'RE BEING INVESTIGATED, SELECT OPTION", 'OK', 'LIE');
+              this.add_info_message(this.current_player, "You can lie! Press 'TAKE 1 DAMAGE' or 'LIE'.");
+              show_select_options_screen("YOU'RE BEING INVESTIGATED AS A NEUTRAL! SELECT AN OPTION.", 'TAKE 1 DAMAGE', 'LIE');
             }
             else
             {
               if(this.player_array[this.current_player].character.affiliation == 'Neutral')
-                this.add_info_message(this.current_player, "You cannot lie! Press 'OK'.");
+              {
+                this.add_info_message(this.current_player, "You cannot lie! Press 'TAKE 1 DAMAGE'.");
+                show_select_options_screen("YOU'RE BEING INVESTIGATED AS A NEUTRAL!", "TAKE 1 DAMAGE");
+              }
               else
+              {
                 this.add_info_message(this.current_player, "You cannot lie but you're not a Neutral! Press 'OK'.");
-
-              show_select_options_screen("YOU'RE BEING INVESTIGATED, SELECT OPTION", "OK");
+                show_select_options_screen("YOU'RE BEING INVESTIGATED AS A NEUTRAL!", "OK");
+              }
             }
             break;
           //Calculate damage then switch back to current turn player.
@@ -2002,7 +2162,7 @@ class Game{
                 moveDamage(this.player_array[this.current_player].player_color, 1);
               }
             }
-			this.last_state=state;
+			      this.last_state=state;
             this.check_win_or_dead();
             this.switch_player(this.current_turn);
             this.exec_state('invest_1');
@@ -2141,7 +2301,7 @@ class Game{
             var damage = (Math.floor(Math.random() * 6) + 1);
             //this.player_array[this.selected_player].hp = this.player_array[this.selected_player].hp - damage;
             moveDamage(this.player_array[this.selected_player].player_color, (-1 * damage));
-            var message_string = "You healed Player" + this.selected_player + ".";
+            var message_string = "You healed Player " + this.selected_player + ".";
             this.add_info_message(this.current_player, message_string);
 			this.last_state=state;
             this.check_win_or_dead();
@@ -2258,12 +2418,12 @@ class Game{
               hide_draw_card_screen_overlay();
               show_zoomed_card(this.drawn_action_card);
               this.add_info_message(this.current_player, 'Click card to use it.');
-			  this.last_state=state;
+			         this.last_state=state;
               break;
             case 'action_thatsmine_1':
               this.next_state = 'action_thatsmine_2';
               hide_zoomed_card();
-			  this.last_state=state;
+			         this.last_state=state;
               show_select_player_screen();
               break;
             case 'action_thatsmine_2':
@@ -2272,11 +2432,11 @@ class Game{
               if(this.player_array[this.selected_player].hand.length > 0)
               {
                 this.steal_equip_card();
-                var message_string = "You stole a card from Player" + this.selected_player + ".";
+                var message_string = "You stole a card from Player " + this.selected_player + ".";
                 this.add_info_message(this.current_player, message_string);
               }
               else{
-                var message_string = "Player" + this.selected_player + " has no cards.";
+                var message_string = "Player " + this.selected_player + " has no cards.";
                 this.add_info_message(this.current_player, message_string);
               }
 			  this.last_state=state;
@@ -2387,6 +2547,9 @@ class Game{
     document.getElementById("action_attack_btn").style.display = "none";
     document.getElementById("action_special_btn").style.display = "none";
     document.getElementById("action_end_turn_btn").style.display = "none";
+    document.getElementById("action_adjacent_btn").style.display = "none";
+    document.getElementById("action_special_roll_btn").style.display = "none";
+	  
   }
 
   //Shows draw btn and hides other buttons
@@ -2398,6 +2561,8 @@ class Game{
     document.getElementById("action_attack_btn").style.display = "none";
     document.getElementById("action_special_btn").style.display = "none";
     document.getElementById("action_end_turn_btn").style.display = "none";
+    document.getElementById("action_adjacent_btn").style.display = "none";
+    document.getElementById("action_special_roll_btn").style.display = "none";
 	setTimeout(function(){
     document.getElementById("action_draw_btn").style.display = "initial"; },7000);
   }
@@ -2410,6 +2575,8 @@ class Game{
     document.getElementById("action_special_btn").style.display = "none";
     document.getElementById("action_end_turn_btn").style.display = "none";
     document.getElementById("action_offense_pass_btn").style.display = "none";
+    document.getElementById("action_adjacent_btn").style.display = "none";
+    document.getElementById("action_special_roll_btn").style.display = "none";
 	setTimeout(function(){
     document.getElementById("action_defense_pass_btn").style.display = "initial"; },3500);
   }
@@ -2421,6 +2588,8 @@ class Game{
     document.getElementById("action_special_btn").style.display = "none";
     document.getElementById("action_end_turn_btn").style.display = "none";
     document.getElementById("action_defense_pass_btn").style.display = "none";
+    document.getElementById("action_adjacent_btn").style.display = "none";
+    document.getElementById("action_special_roll_btn").style.display = "none";
   setTimeout(function(){
     document.getElementById("action_offense_pass_btn").style.display = "initial";
     if(character=='Osama Bin Laden'){
@@ -2436,6 +2605,8 @@ class Game{
     document.getElementById("action_defense_pass_btn").style.display = "none";
     document.getElementById("action_roll_btn").style.display = "none";
     document.getElementById("action_draw_btn").style.display = "none";
+    document.getElementById("action_adjacent_btn").style.display = "none";
+    document.getElementById("action_special_roll_btn").style.display = "none";
   	if(previous_state=="turn_1"){
   	  setTimeout(function(){
   	  document.getElementById("action_attack_btn").style.display = "initial";
@@ -2455,6 +2626,19 @@ class Game{
   	}
   }
 
+  show_charlie_special_move_btn()
+  {	
+    document.getElementById("action_adjacent_btn").style.display = "initial";
+    document.getElementById("action_special_roll_btn").style.display = "initial";
+    document.getElementById("action_roll_btn").style.display = "none";
+    document.getElementById("action_offense_pass_btn").style.display = "none";
+    document.getElementById("action_defense_pass_btn").style.display = "none";
+    document.getElementById("action_draw_btn").style.display = "none";
+    document.getElementById("action_attack_btn").style.display = "none";
+    document.getElementById("action_special_btn").style.display = "none";  
+    document.getElementById("action_end_turn_btn").style.display = "none";
+  }
+		
   //Sets the game objects select player variable and hides the select player screen.
   select_player(player)
   {
@@ -2464,6 +2648,12 @@ class Game{
     //hide_invest_select_player_screen();
     if(this.next_state != 'attack_1')
       this.exec_state();
+  }
+
+  select_zone(zone) //S17
+  {
+	this.selected_zone = zone;
+	hide_select_zone_screen();
   }
 
   //Display hand for current player
