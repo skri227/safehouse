@@ -912,7 +912,11 @@ class Game{
    	this.add_info_message(this.current_turn, "ADJACENT worked");
 	this.last_state = state;
 	show_select_zone_screen(); // shows charlie the options of the adjacent zones and sets this.selected_zone to choice
-
+ 	this.check_win_or_dead();
+	break;
+	    
+      case 'charlie_movement_1':
+	this.add_info_message(this.current_turn, "In charlie_movement_1");
 	this.player_array[this.current_turn].current_region = this.selected_zone;	    
     	var new_region = this.player_array[this.current_turn].current_region;
 	this.add_info_message(this.current_turn, 'You picked Zone ' + this.selected_zone +'.');	    
@@ -2653,7 +2657,7 @@ class Game{
   {
 	this.selected_zone = zone;
 	hide_select_zone_screen();
-	this.next_state = this.last_state;
+	this.exec_state('charlie_movement_1');
 
   }
 
