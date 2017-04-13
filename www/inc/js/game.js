@@ -744,7 +744,7 @@ class Game{
 		this.current_player = 1; //Current on screen player
     this.current_turn = 1; //Current players turn
     this.num_of_rotations = 0; //Number of turns that have happened
-    this.select_player; //Selected player
+    this.selected_player; //Selected player
     this.selected_zone; //Selected zone
     this.current_attacking_player = 0; //Player attacking
     this.current_defending_player = 0; //Player defending
