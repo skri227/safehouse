@@ -920,7 +920,6 @@ class Game{
 	    
       case 'charlie_movement_1':
 	this.last_state = state;
-	hide_select_zone_screen();
 	this.add_info_message(this.current_turn, "In charlie_movement_1");
 	this.player_array[this.current_turn].current_region = this.selected_zone;	    
     	var new_region = this.player_array[this.current_turn].current_region;
