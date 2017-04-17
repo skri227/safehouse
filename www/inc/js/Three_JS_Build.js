@@ -33,11 +33,7 @@ var greenDie2;
 var whitePiece;
 var redPiece;
 var greenPiece;
-<<<<<<< HEAD
-var pinkPiece; //not used yet, for future increase to 9 players
-=======
 var pinkPiece; //not implemented yet, use for 9th player
->>>>>>> origin/master
 var bluePiece;
 var orangePiece;
 var blackPiece;
