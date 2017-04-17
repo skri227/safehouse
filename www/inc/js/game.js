@@ -1174,6 +1174,12 @@ class Game{
         this.switch_player(this.current_turn);
         this.exec_state();
         break;
+		   
+      case 'osama_attack_0':
+	this.next_state = 'turn_3';
+    	this.exec_state();
+    	break;
+		    
 
       //Specials
       case 'special_0':
@@ -1186,7 +1192,7 @@ class Game{
             this.next_state = 'hassan_special_0';
             break;
           case 'Osama Bin Laden':
-            this.next_state = 'tori_special_0';
+            this.next_state = 'osama_special_0';
             break;
           case 'Sam Seal':
             this.next_state = 'sam_special_0';
@@ -1213,7 +1219,28 @@ class Game{
 		this.last_state=state;
         this.exec_state();
         break;
-
+	    
+      case 'osama_special_0':
+	this.next_state = 'turn_3';
+	
+	if(this.player_array[this.current_player].used_special == 1)
+        {
+          this.add_info_message(this.current_player, "You've already used your special");
+        }
+        else if(this.current_player == this.current_turn)
+        {
+          this.add_info_message(this.current_player, "You can only use this special when being attacked!");
+        }
+	else {
+	  this.next_state = 'osama_attack_0';
+	  this.reveal_player();
+	  this.player_array[this.current_player].used_special = 1;
+	  this.add_info_message(this.current_player, "You've used your special!");
+	}
+	this.check_win_or_dead();	    
+	this.exec_state();
+    	break;
+		    
       case 'ayman_special_0':
         this.next_state = 'turn_3';
         //this.next_state = 'ayman_special_1';
