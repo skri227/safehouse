@@ -95,7 +95,15 @@ var diceSize = .15;
 
 //width of damage meter, needs change if map size changed
 //distance each damage counter will travel in x direction per damage point taken
-var damageMeterSpaceSize = .42;
+var damageMeterSpaceSize = .45;
+
+//for setup and zone seven location
+var SEVENCENTERX = -.25;
+var SEVENCENTERZ = .2;
+
+//spaces player pieces so they never overlap on board
+var offsetX = 0.0;
+var offsetZ = 0.0;
 
 
 /************Setup For all movable pieces of geometry in the scene**********/
@@ -194,7 +202,8 @@ scene.add( greenDice2 );
 var whiteGeo = new THREE.BoxGeometry(.1,.2,.1);
 var whiteMat = new THREE.MeshPhongMaterial({color: 0xffffff});
 whitePiece = new THREE.Mesh(whiteGeo, whiteMat);
-whitePiece.position.set(-2.8,.11,-.1);
+whitePiece.position.set(-2.5+.2,.11,-.25+.2);
+//whitePiece.position.set(-2.8,.11,-.1);
 scene.add(whitePiece);
 
 //white damage piece
@@ -1147,14 +1156,13 @@ function movePiece(color){
 	var twoThreeCenterX = -2.5;
 	var twoThreeCenterZ = .2;
 
-	var sevenCenterX = -.15;
-	var sevenCenterZ = .2;
+	var sevenCenterX = SEVENCENTERX;
+	var sevenCenterZ = SEVENCENTERZ; //just changed from .2
 
 	var elevenTwelveCenterX = 2.2;
 	var elevenTwelveCenterZ = .4;
 
-	var offsetX = 0.0;
-	var offsetZ = 0.0;
+
 
 	//sets the correct piece and offset based on the color passed
 	if(color == "white"){
