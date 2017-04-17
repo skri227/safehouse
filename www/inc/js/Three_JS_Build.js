@@ -97,7 +97,7 @@ var diceYLocation = -.55;
 //set dice block size
 var diceSize = .15;
 
-<<<<<<< HEAD
+
 //width of damage meter, needs change if map size changed
 //distance each damage counter will travel in x direction per damage point taken
 var damageMeterSpaceSize = .45;
@@ -109,9 +109,7 @@ var SEVENCENTERZ = .2;
 //spaces player pieces so they never overlap on board
 var offsetX = 0.0;
 var offsetZ = 0.0;
-=======
-var damageMeterSpaceSize = .42;
->>>>>>> origin/master
+
 
 
 /************Setup For all movable pieces of geometry in the scene**********/
@@ -431,7 +429,6 @@ function canvas_init(){
 	//set the scene so that it starts at birds eye point of view because the camera was initialized
 	//so that it started in the 3D view
 	scene.rotation.x = (50*Math.PI/180);
-	//scene.rotation.x = (50*Math.PI/180);
 
 
 }
@@ -467,7 +464,7 @@ function animate(){
 		//zDistance = zVelocity*(time/100) + .5*zAcceleration*Math.pow((time/100), 2);
 
 
-		//white dice are only ever moved used on a turn roll
+		//white dice are only ever moved/used on a turn roll
 		//this determines when the dice should stop moving after the have begun animation
 		if(turn){
 			if(whiteDice1.position.y <= .25 && time > 100){
@@ -1310,11 +1307,8 @@ function moveDamage(color, damageAdded){
 			if(((game.player_array[i].hp + damageAdded) > 0) && ((game.player_array[i].hp + damageAdded) < game.player_array[i].character.hp))
 			{
 				game.player_array[i].hp = game.player_array[i].hp + damageAdded;
-<<<<<<< HEAD
 				damage.position.x = damage.position.x + (damageAdded*damageMeterSpaceSize); //.33
-=======
-				damage.position.x = damage.position.x + (damageAdded*damageMeterSpaceSize);
->>>>>>> origin/master
+
 			}
 			else if((game.player_array[i].hp + damageAdded) >= game.player_array[i].character.hp)
 			{
