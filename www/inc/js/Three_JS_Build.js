@@ -33,7 +33,11 @@ var greenDie2;
 var whitePiece;
 var redPiece;
 var greenPiece;
+<<<<<<< HEAD
 var pinkPiece; //not used yet, for future increase to 9 players
+=======
+var pinkPiece; //not implemented yet, use for 9th player
+>>>>>>> origin/master
 var bluePiece;
 var orangePiece;
 var blackPiece;
@@ -93,6 +97,7 @@ var diceYLocation = -.55;
 //set dice block size
 var diceSize = .15;
 
+<<<<<<< HEAD
 //width of damage meter, needs change if map size changed
 //distance each damage counter will travel in x direction per damage point taken
 var damageMeterSpaceSize = .45;
@@ -104,6 +109,9 @@ var SEVENCENTERZ = .2;
 //spaces player pieces so they never overlap on board
 var offsetX = 0.0;
 var offsetZ = 0.0;
+=======
+var damageMeterSpaceSize = .42;
+>>>>>>> origin/master
 
 
 /************Setup For all movable pieces of geometry in the scene**********/
@@ -1302,7 +1310,11 @@ function moveDamage(color, damageAdded){
 			if(((game.player_array[i].hp + damageAdded) > 0) && ((game.player_array[i].hp + damageAdded) < game.player_array[i].character.hp))
 			{
 				game.player_array[i].hp = game.player_array[i].hp + damageAdded;
+<<<<<<< HEAD
 				damage.position.x = damage.position.x + (damageAdded*damageMeterSpaceSize); //.33
+=======
+				damage.position.x = damage.position.x + (damageAdded*damageMeterSpaceSize);
+>>>>>>> origin/master
 			}
 			else if((game.player_array[i].hp + damageAdded) >= game.player_array[i].character.hp)
 			{
