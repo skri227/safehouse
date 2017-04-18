@@ -33,7 +33,7 @@ var greenDie2;
 var whitePiece;
 var redPiece;
 var greenPiece;
-var pinkPiece;
+var pinkPiece; //not implemented yet, use for 9th player
 var bluePiece;
 var orangePiece;
 var blackPiece;
@@ -83,14 +83,28 @@ var battleAttackSpecial = false;
 var battleDefense = false;
 var battleDefenseSpecial = false;
 
+// s17
 //used to determine dice location
 //as set in dice settings below, dice are .2 apart
+//keep in mind origin is cetner screen, negative is left/up, positive is right/down
 var diceXLocation = -4;
 var diceYLocation = -.55;
 
 //set dice block size
 var diceSize = .15;
 
+
+//width of damage meter, needs change if map size changed
+//distance each damage counter will travel in x direction per damage point taken
+var damageMeterSpaceSize = .45;
+
+//for setup and zone seven location
+var SEVENCENTERX = -.25;
+var SEVENCENTERZ = .2;
+
+//spaces player pieces so they never overlap on board
+var offsetX = 0.0;
+var offsetZ = 0.0;
 
 
 
@@ -190,7 +204,8 @@ scene.add( greenDice2 );
 var whiteGeo = new THREE.BoxGeometry(.1,.2,.1);
 var whiteMat = new THREE.MeshPhongMaterial({color: 0xffffff});
 whitePiece = new THREE.Mesh(whiteGeo, whiteMat);
-whitePiece.position.set(-2.8,.11,-.1);
+whitePiece.position.set(-2.5+.2,.11,-.25+.2);
+//whitePiece.position.set(-2.8,.11,-.1);
 scene.add(whitePiece);
 
 //white damage piece
@@ -316,7 +331,7 @@ function drawTable(){
 	var tableTop = new THREE.Mesh( tableTopGeo, tableTopMat );
 	scene.add( tableTop );
 
-
+//not visible since zoom feature removed s17, but still needed for room draw
 	//left front leg
 	var lfGeo = new THREE.BoxGeometry( .15, 2.25, .15 );
 	var lfMat = new THREE.MeshBasicMaterial( { map: tableTopTex} );
@@ -375,11 +390,10 @@ function drawBoard(){
 	//var boardMesh = new THREE.PlaneGeometry(5,2); //5 wide, 2 tall
 	var boardMesh = new THREE.PlaneGeometry(7,3.4); //7 wide, 3.4 tall - close to tabletop size
 	THREE.ImageUtils.crossOrigin = '';
-	var mapOverlay = THREE.ImageUtils.loadTexture('http://i.imgur.com/9e9CDIo.jpg');
+	var mapOverlay = THREE.ImageUtils.loadTexture('http://i.imgur.com/sM7pySL.jpg');
 	var boardMaterial = new THREE.MeshBasicMaterial({map: mapOverlay})
 	var board = new THREE.Mesh(boardMesh,boardMaterial);
 	board.rotation.x = (-90*Math.PI/180);
-	//board.position.set(0,.08,.25); //moved up
 	board.position.set(0,.08,.05);
 	scene.add(board);
 }
@@ -402,10 +416,6 @@ function canvas_init(){
 	var directionalLight = new THREE.DirectionalLight(0xc0c0c0);
 	directionalLight.position.set(0,7,2).normalize();
 	scene.add(directionalLight);
-
-	//ambient lighting
-	//var ambientLight = new THREE.AmbientLight( 0x404040 ); // soft white light
-	//scene.add( ambientLight );
 
 	//draw all stationary elements from functions above
 	drawRoom();
@@ -450,7 +460,7 @@ function animate(){
 		//zDistance = zVelocity*(time/100) + .5*zAcceleration*Math.pow((time/100), 2);
 
 
-		//white dice are only ever moved used on a turn roll
+		//white dice are only ever moved/used on a turn roll
 		//this determines when the dice should stop moving after the have begun animation
 		if(turn){
 			if(whiteDice1.position.y <= .25 && time > 100){
@@ -994,6 +1004,7 @@ function render(){
 }
 
 //increments the counter so the scene can move between birds eye and table
+//zoom button no longer appears, removed s17
 function move_screen()
 {
 	zoomClicked = true;
@@ -1129,6 +1140,7 @@ function movePiece(color){
 	//variable to hold piece to be moved
 	var whoseTurn = whitePiece;
 
+//each area needs a unique center set since areas are not equal or symmetric
 	//specific centers for each region
 	var fourFiveCenterX = -2.6;
 	var fourFiveCenterZ = -1.1;
@@ -1145,14 +1157,13 @@ function movePiece(color){
 	var twoThreeCenterX = -2.5;
 	var twoThreeCenterZ = .2;
 
-	var sevenCenterX = -.15;
-	var sevenCenterZ = .2;
+	var sevenCenterX = SEVENCENTERX;
+	var sevenCenterZ = SEVENCENTERZ; //just changed from .2
 
 	var elevenTwelveCenterX = 2.2;
 	var elevenTwelveCenterZ = .4;
 
-	var offsetX = 0.0;
-	var offsetZ = 0.0;
+
 
 	//sets the correct piece and offset based on the color passed
 	if(color == "white"){
@@ -1282,6 +1293,8 @@ function moveDamage(color, damageAdded){
 		damage = blueDamagePiece;
 	}
 
+	// pink to be implemented with 9th player option
+
 	//Find correct player based on color
 	for(var i = 1; i <= game.num_of_players; i++)
 	{
@@ -1290,7 +1303,8 @@ function moveDamage(color, damageAdded){
 			if(((game.player_array[i].hp + damageAdded) > 0) && ((game.player_array[i].hp + damageAdded) < game.player_array[i].character.hp))
 			{
 				game.player_array[i].hp = game.player_array[i].hp + damageAdded;
-				damage.position.x = damage.position.x + (damageAdded*.33);
+				damage.position.x = damage.position.x + (damageAdded*damageMeterSpaceSize); //.33
+
 			}
 			else if((game.player_array[i].hp + damageAdded) >= game.player_array[i].character.hp)
 			{
