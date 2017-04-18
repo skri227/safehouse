@@ -87,22 +87,30 @@ var battleDefenseSpecial = false;
 //used to determine dice location
 //as set in dice settings below, dice are .2 apart
 //keep in mind origin is cetner screen, negative is left/up, positive is right/down
+//all left/right/up/down movement on board is accomplished in X, Z planes respectively
 var diceXLocation = -4;
-var diceYLocation = -.55;
+var diceZLocation = -.55;
+//Note - this Y setting is used to elevate pieces above the map/board Y settings.
+// less than .11 will go "below" the map
+//Don't change this unless you know what you're doing
+var diceYLocation = .11;
+//seriously leave this alone
+
 
 //set dice block size
 var diceSize = .15;
-
-
-//width of damage meter, needs change if map size changed
-//distance each damage counter will travel in x direction per damage point taken
-var damageMeterSpaceSize = .45;
 
 //S17 - for setup and zone seven location
 // for minor map resizes, change the mapSizeX & mapSizeZ and all zones will adjust
 //if any map alterations other than simple resizing are made, you will need to find correct centers for new zone locations
 var mapSizeX = 7;
 var mapSizeZ = 3.4;
+
+//width of damage meter
+//distance each damage counter will travel in x direction per damage point taken
+var damageMeterSpaceSize = mapSizeX/15;
+
+
 
 //S17 - since the top zones are all in series, the X center is the same
 // storing this multiple to reduce chance of mistype
@@ -132,9 +140,15 @@ var twoThreeCenterZ = mapSizeZ*.058824;
 
 var elevenTwelveCenterX = mapSizeX*.31429;
 var elevenTwelveCenterZ = mapSizeZ*.11765;
-//spaces player pieces so they never overlap on board
+//spaces player pieces so they never overlap on board, set and reset with dice roll
 var offsetX = 0.0;
 var offsetZ = 0.0;
+
+//S17 offset between dice to ensure they never overlap
+var DiceOffsetX = .2;
+var DiceOffsetZ = .2;
+
+
 
 
 
@@ -160,13 +174,13 @@ var whiteDiceMat6 = new THREE.MeshBasicMaterial({ map: whiteDiceTex6} );
 var whiteDieFaces = [whiteDiceMat1, whiteDiceMat2, whiteDiceMat3, whiteDiceMat4, whiteDiceMat5, whiteDiceMat6];
 var whiteDieFaceMat = new THREE.MeshFaceMaterial(whiteDieFaces);
 whiteDice1 = new THREE.Mesh( dieOneGeo, whiteDieFaceMat );
-whiteDice1.position.set(diceXLocation+.4,.11,diceYLocation);
+whiteDice1.position.set(diceXLocation+2*DiceOffsetX,.11,diceZLocation);
 scene.add( whiteDice1 );
 
 //Dice 2
 var dieTwoGeo = new THREE.BoxGeometry(diceSize,diceSize,diceSize );
 whiteDice2 = new THREE.Mesh( dieTwoGeo, whiteDieFaceMat );
-whiteDice2.position.set(diceXLocation+.4,.11,diceYLocation+.2);
+whiteDice2.position.set(diceXLocation+2*DiceOffsetX,.11,diceZLocation+DiceOffsetZ);
 scene.add( whiteDice2 );
 
 //RedDice
@@ -187,13 +201,13 @@ var redDieMat6 = new THREE.MeshBasicMaterial({ map: redDieTex6} );
 var redDieFaces = [redDieMat1, redDieMat2, redDieMat3, redDieMat4, redDieMat5, redDieMat6];
 var redDieFaceMat = new THREE.MeshFaceMaterial(redDieFaces);
 redDice1 = new THREE.Mesh( dieOneGeo, redDieFaceMat );
-redDice1.position.set(diceXLocation+.2,.11,diceYLocation);
+redDice1.position.set(diceXLocation+DiceOffsetX,.11,diceZLocation);
 scene.add( redDice1 );
 
 //Dice2
 var dieTwoGeo = new THREE.BoxGeometry(diceSize, diceSize,diceSize );
 redDice2 = new THREE.Mesh( dieTwoGeo, redDieFaceMat );
-redDice2.position.set(diceXLocation+.2,.11,diceYLocation+.2);
+redDice2.position.set(diceXLocation+DiceOffsetX,.11,diceZLocation+DiceOffsetZ);
 scene.add( redDice2 );
 
 //GreenDice
@@ -214,14 +228,13 @@ var greenDieMat6 = new THREE.MeshBasicMaterial({ map: greenDieTex6} );
 var greenDieFaces = [greenDieMat1, greenDieMat2, greenDieMat3, greenDieMat4, greenDieMat5, greenDieMat6];
 var greenDieFaceMat = new THREE.MeshFaceMaterial(greenDieFaces);
 greenDice1 = new THREE.Mesh( dieOneGeo, greenDieFaceMat );
-greenDice1.position.set(diceXLocation,.11,diceYLocation);
-//greenDice1.position.set(-3.2,.11,-.55);
+greenDice1.position.set(diceXLocation,.11,diceZLocation);
 scene.add( greenDice1 );
 
 //Dice2
 var dieTwoGeo = new THREE.BoxGeometry(diceSize, diceSize, diceSize);
 greenDice2 = new THREE.Mesh( dieTwoGeo, greenDieFaceMat );
-greenDice2.position.set(diceXLocation,.11,diceYLocation+.2);
+greenDice2.position.set(diceXLocation,.11,diceZLocation+DiceOffsetZ);
 scene.add( greenDice2 );
 
 
@@ -983,12 +996,12 @@ function animate(){
 			movePiece(playerColor);
 		}
 
-		whiteDice1.position.set(diceXLocation+.4,.11,diceYLocation);
-		whiteDice2.position.set(diceXLocation+.4,.11,diceYLocation+.2);
-		redDice1.position.set(diceXLocation+.2,.11,diceYLocation);
-		greenDice1.position.set(diceXLocation,.11,diceYLocation);
-		greenDice2.position.set(diceXLocation,.11,diceYLocation+.2);
-		redDice2.position.set(diceXLocation+.2,.11,diceYLocation+.2);
+		whiteDice1.position.set(diceXLocation+.4,.11,diceZLocation);
+		whiteDice2.position.set(diceXLocation+.4,.11,diceZLocation+.2);
+		redDice1.position.set(diceXLocation+.2,.11,diceZLocation);
+		greenDice1.position.set(diceXLocation,.11,diceZLocation);
+		greenDice2.position.set(diceXLocation,.11,diceZLocation+.2);
+		redDice2.position.set(diceXLocation+.2,.11,diceZLocation+.2);
 
 		whiteDice1.rotation.x = 0;
 		whiteDice1.rotation.y = 0;
@@ -1361,9 +1374,15 @@ function moveDamage(color, damageAdded){
 */
 function resetDamage(colorsPlaying){
 
+  //S17
 	//since the damage map consists of squares we only need the starting center and an offset
-	var centerZ = 1.5;
-	var centerX = -3.25;
+  //this number is arbitrary, just trying to center each damage block cluster within damage bar
+	//any changes here must also be reflected in setDamage()
+	var centerZ = mapSizeZ*.45588;
+	//var centerZ = 1.5;
+	//starting from left die of board, set right half of one damage block (half of 1/15 of board width)
+	var centerX = -mapSizeX/2 + mapSizeX/(15*2);
+	//var centerX = -3.25;
 
 		//if a piece is playing set it to the correct position in the zero square
 		if(colorsPlaying == "white"){
@@ -1436,8 +1455,14 @@ so that there is no overlap of the pieces if they are in the same square
 function setDamage(colorsPlaying){
 
 	//since the damage map consists of squares we only need the starting center and an offset
-	var centerZ = 1.5;
+	//this multiplier is arbitrary, just trying to center the damage blocks within each damage zone
+	var centerZ = mapSizeZ*.45588;
+	//var centerZ = 1.5;
+	//starting from left die of board, set right half of one damage block (half of 1/15 of board width)
+	var centerX = -mapSizeX/2 + mapSizeX/(15*2);
+	/*var centerZ = 1.5;
 	var centerX = -3.25;
+	*/
 
 	//looks through an array to find all of the colors playing
 	for(i = 0; i < colorsPlaying.length; i++){
