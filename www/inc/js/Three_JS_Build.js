@@ -98,10 +98,40 @@ var diceSize = .15;
 //distance each damage counter will travel in x direction per damage point taken
 var damageMeterSpaceSize = .45;
 
-//for setup and zone seven location
-var SEVENCENTERX = -.25;
-var SEVENCENTERZ = .2;
+//S17 - for setup and zone seven location
+// for minor map resizes, change the mapSizeX & mapSizeZ and all zones will adjust
+//if any map alterations other than simple resizing are made, you will need to find correct centers for new zone locations
+var mapSizeX = 7;
+var mapSizeZ = 3.4;
 
+//S17 - since the top zones are all in series, the X center is the same
+// storing this multiple to reduce chance of mistype
+var centerOfMapTopRowMultiple = .32353;
+//same for bottom row of zones
+var centerOfMapBottomRowMultiples = .35714;
+
+//S17 - for resizing current map
+//all locations variables will be dependent on map size
+var sevenCenterX = -mapSizeX*.042857;
+var sevenCenterZ = mapSizeZ* .057143;
+
+var fourFiveCenterX = -mapSizeX*.37143;
+var fourFiveCenterZ = -mapSizeZ*centerOfMapTopRowMultiple;
+
+var sixCenterX = -mapSizeX*.07857;
+var sixCenterZ = -mapSizeZ*centerOfMapTopRowMultiple;
+
+var eightCenterX = mapSizeX*.10714;
+var eightCenterZ = -mapSizeZ*centerOfMapTopRowMultiple;
+
+var nineTenCenterX = mapSizeX*centerOfMapBottomRowMultiples;
+var nineTenCenterZ = -mapSizeZ*centerOfMapTopRowMultiple;
+
+var twoThreeCenterX = -mapSizeX*centerOfMapBottomRowMultiples;
+var twoThreeCenterZ = mapSizeZ*.058824;
+
+var elevenTwelveCenterX = mapSizeX*.31429;
+var elevenTwelveCenterZ = mapSizeZ*.11765;
 //spaces player pieces so they never overlap on board
 var offsetX = 0.0;
 var offsetZ = 0.0;
@@ -387,14 +417,14 @@ function drawRoom(){
 
 function drawBoard(){
 	//board - map
-	//var boardMesh = new THREE.PlaneGeometry(5,2); //5 wide, 2 tall
-	var boardMesh = new THREE.PlaneGeometry(7,3.4); //7 wide, 3.4 tall - close to tabletop size
+
+	var boardMesh = new THREE.PlaneGeometry(mapSizeX,mapSizeZ); //7 wide, 3.4 tall - close to tabletop size
 	THREE.ImageUtils.crossOrigin = '';
 	var mapOverlay = THREE.ImageUtils.loadTexture('http://i.imgur.com/sM7pySL.jpg');
 	var boardMaterial = new THREE.MeshBasicMaterial({map: mapOverlay})
 	var board = new THREE.Mesh(boardMesh,boardMaterial);
 	board.rotation.x = (-90*Math.PI/180);
-	board.position.set(0,.08,.05);
+	board.position.set(0,.08,.05); // S17 - set in relation to table & background
 	scene.add(board);
 }
 
@@ -1140,11 +1170,11 @@ function movePiece(color){
 	//variable to hold piece to be moved
 	var whoseTurn = whitePiece;
 
-//each area needs a unique center set since areas are not equal or symmetric
+  //each area needs a unique center set since areas are not equal or symmetric
 	//specific centers for each region
-	var fourFiveCenterX = -2.6;
-	var fourFiveCenterZ = -1.1;
-
+	//var fourFiveCenterX = -2.6;
+	//var fourFiveCenterZ = -1.1;
+/*
 	var sixCenterX = -.55;
 	var sixCenterZ = -1.1;
 
@@ -1157,13 +1187,13 @@ function movePiece(color){
 	var twoThreeCenterX = -2.5;
 	var twoThreeCenterZ = .2;
 
-	var sevenCenterX = SEVENCENTERX;
-	var sevenCenterZ = SEVENCENTERZ; //just changed from .2
+	var sevenCenterX = sevenCenterX;
+	var sevenCenterZ = sevenCenterZ; //just changed from .2
 
 	var elevenTwelveCenterX = 2.2;
 	var elevenTwelveCenterZ = .4;
 
-
+*/
 
 	//sets the correct piece and offset based on the color passed
 	if(color == "white"){

@@ -715,7 +715,7 @@ body
 #menu_container button:focus {outline:0;}
 /*End menu btn CSS*/
 
-/*removed zoom button container*/
+/* S17 removed zoom button container*/
 
 /*Player info area CSS*/
 #player_container
@@ -745,7 +745,7 @@ body
 /*possible fix here for better player image sizing*/
 #player #player_image
 {
-	position: absolute;
+	position: absolute; 
 	top: 30%;
 	left: 5%;
 	width: 30%;

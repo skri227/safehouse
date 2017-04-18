@@ -332,7 +332,7 @@ function show_select_player_screen(selection)
   }
   else if(selection == 'attacking')
   {
-      var be_attacked = false;
+      var current_player_can_be_attacked = false;
       for(var i = 1; i <= game.num_of_players; i++)
       {
         var player_string = 'select_player_' + i + '_btn';
@@ -346,7 +346,7 @@ function show_select_player_screen(selection)
           {
             if(y == 4 || y == 5)
             {
-              be_attacked = true;	
+              current_player_can_be_attacked = true;
               document.getElementById(player_string).style.display = "initial";
             }
 
@@ -354,7 +354,7 @@ function show_select_player_screen(selection)
             {
               if(y == 2 || y == 3 || y == 6)
               {
-                be_attacked = true;
+                current_player_can_be_attacked = true;
                 document.getElementById(player_string).style.display = "initial";
               }
             }
@@ -362,7 +362,7 @@ function show_select_player_screen(selection)
             {
               if(y == 2 || y == 3 || y == 6 || y == 8)
               {
-                be_attacked = true;
+                current_player_can_be_attacked = true;
                 document.getElementById(player_string).style.display = "initial";
               }
             }
@@ -371,7 +371,7 @@ function show_select_player_screen(selection)
           {
             if(y == 2 || y == 3)
             {
-              be_attacked = true;
+              current_player_can_be_attacked = true;
               document.getElementById(player_string).style.display = "initial";
             }
 
@@ -379,7 +379,7 @@ function show_select_player_screen(selection)
             {
               if(y == 4 || y == 5)
               {
-                be_attacked = true;
+                current_player_can_be_attacked = true;
                 document.getElementById(player_string).style.display = "initial";
               }
             }
@@ -387,7 +387,7 @@ function show_select_player_screen(selection)
             {
               if(y == 4 || y == 5 || y == 6)
               {
-                be_attacked = true;
+                current_player_can_be_attacked = true;
                 document.getElementById(player_string).style.display = "initial";
               }
             }
@@ -396,7 +396,7 @@ function show_select_player_screen(selection)
           {
             if(y == 6)
             {
-              be_attacked = true;
+              current_player_can_be_attacked = true;
               document.getElementById(player_string).style.display = "initial";
             }
 
@@ -404,7 +404,7 @@ function show_select_player_screen(selection)
             {
               if(y == 4 || y == 5 || y == 8)
               {
-                be_attacked = true;
+                current_player_can_be_attacked = true;
                 document.getElementById(player_string).style.display = "initial";
               }
             }
@@ -412,7 +412,7 @@ function show_select_player_screen(selection)
             {
               if(y == 4 || y == 5 || y == 8 || y == 2 || y == 3 || y == 9 || y == 10)
               {
-                be_attacked = true;
+                current_player_can_be_attacked = true;
                 document.getElementById(player_string).style.display = "initial";
               }
             }
@@ -421,7 +421,7 @@ function show_select_player_screen(selection)
           {
             if(y == 8)
             {
-              be_attacked = true;
+              current_player_can_be_attacked = true;
               document.getElementById(player_string).style.display = "initial";
             }
 
@@ -429,7 +429,7 @@ function show_select_player_screen(selection)
             {
               if(y == 6 || y == 9 || y == 10)
               {
-                be_attacked = true;
+                current_player_can_be_attacked = true;
                 document.getElementById(player_string).style.display = "initial";
               }
             }
@@ -437,7 +437,7 @@ function show_select_player_screen(selection)
             {
               if(y == 6 || y == 9 || y == 10 || y == 4 || y == 5 || y == 11 || y == 12)
               {
-                be_attacked = true;
+                current_player_can_be_attacked = true;
                 document.getElementById(player_string).style.display = "initial";
               }
             }
@@ -446,7 +446,7 @@ function show_select_player_screen(selection)
           {
             if(y == 9 || y == 10)
             {
-              be_attacked = true;
+              current_player_can_be_attacked = true;
               document.getElementById(player_string).style.display = "initial";
             }
 
@@ -454,7 +454,7 @@ function show_select_player_screen(selection)
             {
               if(y == 8 || y == 11 || y == 12)
               {
-                be_attacked = true;
+                current_player_can_be_attacked = true;
                 document.getElementById(player_string).style.display = "initial";
               }
             }
@@ -462,7 +462,7 @@ function show_select_player_screen(selection)
             {
               if(y == 8 || y == 11 || y == 12 || y == 6)
               {
-                be_attacked = true;
+                current_player_can_be_attacked = true;
                 document.getElementById(player_string).style.display = "initial";
               }
             }
@@ -471,7 +471,7 @@ function show_select_player_screen(selection)
           {
             if(y == 11 || y == 12)
             {
-              be_attacked = true;
+              current_player_can_be_attacked = true;
               document.getElementById(player_string).style.display = "initial";
             }
 
@@ -479,7 +479,7 @@ function show_select_player_screen(selection)
             {
               if(y == 9 || y == 10)
               {
-                be_attacked = true;
+                current_player_can_be_attacked = true;
                 document.getElementById(player_string).style.display = "initial";
               }
             }
@@ -487,7 +487,7 @@ function show_select_player_screen(selection)
             {
               if(y == 9 || y == 10 || y == 8)
               {
-                be_attacked = true;
+                current_player_can_be_attacked = true;
                 document.getElementById(player_string).style.display = "initial";
               }
             }
@@ -495,7 +495,7 @@ function show_select_player_screen(selection)
         }
       }
 
-      if(be_attacked == false)
+      if(current_player_can_be_attacked == false)
       {
         hide_select_player_screen();
         game.add_info_message(game.current_turn, 'There is no one you can attack');
@@ -508,7 +508,7 @@ function show_select_player_screen(selection)
         game.add_info_message(game.current_turn, 'Roll for damage.');
       }
 
-      game.be_attacked = be_attacked;
+      game.be_attacked = current_player_can_be_attacked;
   }
   else if(selection == 'region_stealing')
   {
@@ -549,9 +549,9 @@ function show_select_zone_screen() {
 	document.getElementById("select_zone_8_btn").style.display = "none";
 	document.getElementById("select_zone_9_btn").style.display = "none";
 	document.getElementById("select_zone_11_btn").style.display = "none";
-	
+
 	var current = game.player_array[game.current_turn].current_region; //this variable holds the current zone the player is in
-	
+
 	if (current == 2 || current == 3) { // 2/3 is only bordered by 4
 		document.getElementById("select_zone_4_btn").style.display = "initial";
 	}
@@ -583,7 +583,7 @@ function show_select_zone_screen() {
 	else {
 		game.add_info_message(this.current_turn, 'You broke it, this should not happen.');
 	}
-	
+
 }
 
 function hide_select_zone_screen()
@@ -591,7 +591,7 @@ function hide_select_zone_screen()
 	document.getElementById("select_zone_overlay_container").style.display = "none";
 	game.add_info_message(this.current_turn, 'Hiding select_zone_screen()');
 }
-// end select zone 
+// end select zone
 
 //Shows general options screen
 //This is a customizable screen that shows custom text for each button
@@ -744,7 +744,7 @@ class Game{
     this.current_attacking_player_pts = 0; //Attacking pts
     this.current_defending_player_pts = 0; //Defending pts
     this.has_attacked = 0;
-    this.be_attacked = false;
+    this.current_player_can_be_attacked = false;
     this.selected_option = 0;
 
     //Used for sam's special
@@ -754,7 +754,7 @@ class Game{
     this.drawn_invest_card; //Current drawn Investigation card
     this.drawn_equip_card; //Current equip card
     this.drawn_action_card; //Current drawn action card
-    this.used_equip_card = 0;
+    this.used_equip_card = 0; //start with no equipped card
 	}
 
   //Called when user clicks start game. This simply starts the state machine.
@@ -815,7 +815,7 @@ class Game{
         document.getElementById('current_player_box_color').innerHTML = this.player_array[this.current_turn].player_color.toUpperCase();
         this.check_win_or_dead();
         this.has_attacked = 0;
-        this.be_attacked = false;
+        this.current_player_can_be_attacked = false;
         this.add_info_message(this.current_turn, 'Starting your turn.');
 	if(this.player_array[this.current_player].character.char_name == 'CIA Charlie' && this.player_array[this.current_player].used_special == 1) {
 		this.show_charlie_special_move_btn();
@@ -905,19 +905,19 @@ class Game{
    	this.add_info_message(this.current_turn, "ADJACENT worked");
 	this.last_state = state;
 	show_select_zone_screen(); // shows charlie the options of the adjacent zones and sets this.selected_zone to choice
-	this.next_state = 'charlie_movement_1';	    
+	this.next_state = 'charlie_movement_1';
  	this.check_win_or_dead();
 	break;
-	    
+
       case 'charlie_movement_1':
 	this.last_state = state;
-	this.player_array[this.current_turn].current_region = this.selected_zone;	    
+	this.player_array[this.current_turn].current_region = this.selected_zone;
   	var new_region = this.selected_zone;
 	turnValue = this.selected_zone;
 	movePiece(this.player_array[this.current_turn].player_color);
-		    
+
 	this.add_info_message(this.current_turn, 'You picked Zone ' + this.selected_zone +'.');
-		    
+
 	if(new_region == 2 || new_region == 3 || new_region == 4 || new_region == 5 || new_region == 6 || new_region == 8)
 	{
 	  	this.next_state = 'draw_card_0';
@@ -1071,18 +1071,19 @@ class Game{
 
 
       //Attacking
-      case'attack_0': // After Attack is pressed
+      case'attack_0': // After Attack is pressed - prevent attacks while in Safe House
         if(this.player_array[this.current_turn].current_region == 7)
         {
-          this.add_info_message(this.current_turn, 'You cannot attack while in safehouse.');
+          this.add_info_message(this.current_turn, 'You cannot attack while in the Safe House.');
         }
+        //otherwise if they havent attacked already
         else if(this.has_attacked == 0)
         {
           this.next_state = 'attack_1';
           this.add_info_message(this.current_turn, 'Select which player to attack.');
           //show_attack_select_player_screen();
           show_select_player_screen('attacking');
-          if(this.be_attacked == true)
+          if(this.current_player_can_be_attacked == true)
             this.has_attacked = 1;
         }
         else
@@ -1432,7 +1433,7 @@ class Game{
           this.reveal_player();
           this.player_array[this.current_player].used_special = 1;
           this.has_attacked = 0;
-          this.be_attacked = false;
+          this.current_player_can_be_attacked = false;
 	  moveDamage(this.player_array[this.selected_player].player_color, 2); // billy takes 2 damage to use special
 
           this.add_info_message(this.current_player, "You may now attack again!");
