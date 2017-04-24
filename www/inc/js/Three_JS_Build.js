@@ -1391,49 +1391,49 @@ function resetDamage(colorsPlaying){
 		if(colorsPlaying == "white"){
 			offsetX = .05;
 			offsetZ = -.05;
-			whiteDamagePiece.position.set(centerX+offsetX,.11,centerZ+offsetZ);
+			whiteDamagePiece.position.set(centerX+offsetX,pieceVisible,centerZ+offsetZ);
 		}
 
 		if(colorsPlaying == "yellow"){
 			offsetX = .05;
 			offsetZ = 0.0;
-			yellowDamagePiece.position.set(centerX+offsetX,.11,centerZ+offsetZ);
+			yellowDamagePiece.position.set(centerX+offsetX,pieceVisible,centerZ+offsetZ);
 		}
 
 		if(colorsPlaying == "orange"){
 			offsetX = .05;
 			offsetZ = .05;
-			orangeDamagePiece.position.set(centerX+offsetX,.11,centerZ+offsetZ);
+			orangeDamagePiece.position.set(centerX+offsetX,pieceVisible,centerZ+offsetZ);
 		}
 
 		if(colorsPlaying == "green"){
 			offsetX = 0.0;
 			offsetZ = -.05;
-			greenDamagePiece.position.set(centerX+offsetX,.11,centerZ+offsetZ);
+			greenDamagePiece.position.set(centerX+offsetX,pieceVisible,centerZ+offsetZ);
 		}
 
 		if(colorsPlaying == "purple"){
 			offsetX = -.05;
 			offsetZ = .05;
-			purpleDamagePiece.position.set(centerX+offsetX,.11,centerZ+offsetZ);
+			purpleDamagePiece.position.set(centerX+offsetX,pieceVisible,centerZ+offsetZ);
 		}
 
 		if(colorsPlaying == "red"){
 			offsetX = -.05;
 			offsetZ = 0.0;
-			redDamagePiece.position.set(centerX+offsetX,.11,centerZ+offsetZ);
+			redDamagePiece.position.set(centerX+offsetX,pieceVisible,centerZ+offsetZ);
 		}
 
 		if(colorsPlaying == "black"){
 			offsetX = -.05;
 			offsetZ = -.05;
-			blackDamagePiece.position.set(centerX+offsetX,.11,centerZ+offsetZ);
+			blackDamagePiece.position.set(centerX+offsetX,pieceVisible,centerZ+offsetZ);
 		}
 
 		if(colorsPlaying == "blue"){
 			offsetX = 0.0;
 			offsetZ = .05;
-			blueDamagePiece.position.set(centerX+offsetX,.11,centerZ+offsetZ);
+			blueDamagePiece.position.set(centerX+offsetX,pieceVisible,centerZ+offsetZ);
 		}
 
 		//Find correct player based on color
@@ -1473,49 +1473,49 @@ function setDamage(colorsPlaying){
 		if(colorsPlaying[i] == "white"){
 			offsetX = .05;
 			offsetZ = -.05;
-			whiteDamagePiece.position.set(centerX+offsetX,.11,centerZ+offsetZ);
+			whiteDamagePiece.position.set(centerX+offsetX,pieceVisible,centerZ+offsetZ);
 		}
 
 		if(colorsPlaying[i] == "yellow"){
 			offsetX = .05;
 			offsetZ = 0.0;
-			yellowDamagePiece.position.set(centerX+offsetX,.11,centerZ+offsetZ);
+			yellowDamagePiece.position.set(centerX+offsetX,pieceVisible,centerZ+offsetZ);
 		}
 
 		if(colorsPlaying[i] == "orange"){
 			offsetX = .05;
 			offsetZ = .05;
-			orangeDamagePiece.position.set(centerX+offsetX,.11,centerZ+offsetZ);
+			orangeDamagePiece.position.set(centerX+offsetX,pieceVisible,centerZ+offsetZ);
 		}
 
 		if(colorsPlaying[i] == "green"){
 			offsetX = 0.0;
 			offsetZ = -.05;
-			greenDamagePiece.position.set(centerX+offsetX,.11,centerZ+offsetZ);
+			greenDamagePiece.position.set(centerX+offsetX,pieceVisible,centerZ+offsetZ);
 		}
 
 		if(colorsPlaying[i] == "purple"){
 			offsetX = -.05;
 			offsetZ = .05;
-			purpleDamagePiece.position.set(centerX+offsetX,.11,centerZ+offsetZ);
+			purpleDamagePiece.position.set(centerX+offsetX,pieceVisible,centerZ+offsetZ);
 		}
 
 		if(colorsPlaying[i] == "red"){
 			offsetX = -.05;
 			offsetZ = 0.0;
-			redDamagePiece.position.set(centerX+offsetX,.11,centerZ+offsetZ);
+			redDamagePiece.position.set(centerX+offsetX,pieceVisible,centerZ+offsetZ);
 		}
 
 		if(colorsPlaying[i] == "black"){
 			offsetX = -.05;
 			offsetZ = -.05;
-			blackDamagePiece.position.set(centerX+offsetX,.11,centerZ+offsetZ);
+			blackDamagePiece.position.set(centerX+offsetX,pieceVisible,centerZ+offsetZ);
 		}
 
 		if(colorsPlaying[i] == "blue"){
 			offsetX = 0.0;
 			offsetZ = .05;
-			blueDamagePiece.position.set(centerX+offsetX,.11,centerZ+offsetZ);
+			blueDamagePiece.position.set(centerX+offsetX,pieceVisible,centerZ+offsetZ);
 		}
 	}
 }
@@ -1532,42 +1532,42 @@ Sets the piece of the color called back to the starting position
 */
 function playerDied(color){
 	if(color == "white"){
-		whitePiece.position.set(-(mapSizeX+1),.11,-offsetZ);
+		whitePiece.position.set(-(mapSizeX+1),pieceVisible,-offsetZ);
 		//whiteDamagePiece.position.set(-2.8,.11,.7);
 	}
 
 	if(color == "yellow"){
-		yellowPiece.position.set(-(mapSizeX+1),.11, -offsetZ);
+		yellowPiece.position.set(-(mapSizeX+1),pieceVisible, -offsetZ);
 		//yellowDamagePiece.position.set(-2.8,.11,.8);
 	}
 
 	if(color == "orange"){
-		orangePiece.position.set(-(mapSizeX+1),.11,.3);
+		orangePiece.position.set(-(mapSizeX+1),pieceVisible,.3);
 		//orangeDamagePiece.position.set(-2.8,.11,.9);
 	}
 
 	if(color == "green"){
-		greenPiece.position.set(-(mapSizeX+1+offsetX),.11,-.1);
+		greenPiece.position.set(-(mapSizeX+1+offsetX),pieceVisible,-.1);
 		//greenDamagePiece.position.set(-2.9,.11,.7);
 	}
 
 	if(color == "blue"){
-		bluePiece.position.set(-(mapSizeX+1+offsetX),.11,.3);
+		bluePiece.position.set(-(mapSizeX+1+offsetX),pieceVisible,.3);
 		//blueDamagePiece.position.set(-2.9,.11,.9);
 	}
 
 	if(color == "black"){
-		blackPiece.position.set(-(mapSizeX+1+2*offsetX),.11,-.1);
+		blackPiece.position.set(-(mapSizeX+1+2*offsetX),pieceVisible,-.1);
 		//blackDamagePiece.position.set(-3,.11,.7);
 	}
 
 	if(color == "red"){
-		redPiece.position.set(-(mapSizeX+1+2*offsetX),.11,.1);
+		redPiece.position.set(-(mapSizeX+1+2*offsetX),pieceVisible,.1);
 		//redDamagePiece.position.set(-3,.11,.8);
 	}
 
 	if(color == "purple"){
-		purplePiece.position.set(-(mapSizeX+1+2*offsetX),.11,.3);
+		purplePiece.position.set(-(mapSizeX+1+2*offsetX),pieceVisible,.3);
 		//purpleDamagePiece.position.set(-3,.11,.9);
 	}
 }
