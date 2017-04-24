@@ -201,7 +201,7 @@ function game_screen_setup()
   document.getElementById("select_player_overlay_container").style.display = "none";
   document.getElementById("select_options_overlay_container").style.display = "none";
   document.getElementById("select_zone_overlay_container").style.display = "none";
-  //document.getElementById("attack_select_player_overlay_container").style.display = "none";
+  document.getElementById("select_player_steal_container").style.display = "none";
   //document.getElementById("invest_select_player_overlay_container").style.display = "none";
 
   document.getElementById("action_roll_btn").style.display = "initial";
@@ -346,7 +346,7 @@ function show_select_player_screen(selection)
           {
             if(y == 4 || y == 5)
             {
-              be_attacked = true;	
+              be_attacked = true;
               document.getElementById(player_string).style.display = "initial";
             }
 
@@ -549,9 +549,9 @@ function show_select_zone_screen() {
 	document.getElementById("select_zone_8_btn").style.display = "none";
 	document.getElementById("select_zone_9_btn").style.display = "none";
 	document.getElementById("select_zone_11_btn").style.display = "none";
-	
+
 	var current = game.player_array[game.current_turn].current_region; //this variable holds the current zone the player is in
-	
+
 	if (current == 2 || current == 3) { // 2/3 is only bordered by 4
 		document.getElementById("select_zone_4_btn").style.display = "initial";
 	}
@@ -583,7 +583,7 @@ function show_select_zone_screen() {
 	else {
 		game.add_info_message(this.current_turn, 'You broke it, this should not happen.');
 	}
-	
+
 }
 
 function hide_select_zone_screen()
@@ -591,7 +591,7 @@ function hide_select_zone_screen()
 	document.getElementById("select_zone_overlay_container").style.display = "none";
 	game.add_info_message(this.current_turn, 'Hiding select_zone_screen()');
 }
-// end select zone 
+// end select zone
 
 //Shows general options screen
 //This is a customizable screen that shows custom text for each button
@@ -667,10 +667,7 @@ function game_layout_setup()
   document.getElementById("player_color_box").style.bottom = Math.floor(border_width + (window_h * .28)) + "px";
 
 	//Zoom Button Container
-<<<<<<< HEAD
   //Commented out since the zoom feature has been removed
-=======
->>>>>>> refs/remotes/origin/master
 	//document.getElementById("zoom_container").style.bottom = Math.floor(border_width + (window_h * .28)) + "px";
 
 	// document.getElementById("zoom_container").style.right = Math.floor(border_width + (window_w * .02)) + "px";
@@ -909,19 +906,19 @@ class Game{
    	this.add_info_message(this.current_turn, "ADJACENT worked");
 	this.last_state = state;
 	show_select_zone_screen(); // shows charlie the options of the adjacent zones and sets this.selected_zone to choice
-	this.next_state = 'charlie_movement_1';	    
+	this.next_state = 'charlie_movement_1';
  	this.check_win_or_dead();
 	break;
-	    
+
       case 'charlie_movement_1':
 	this.last_state = state;
-	this.player_array[this.current_turn].current_region = this.selected_zone;	    
+	this.player_array[this.current_turn].current_region = this.selected_zone;
   	var new_region = this.selected_zone;
 	turnValue = this.selected_zone;
 	movePiece(this.player_array[this.current_turn].player_color);
-		    
+
 	this.add_info_message(this.current_turn, 'You picked Zone ' + this.selected_zone +'.');
-		    
+
 	if(new_region == 2 || new_region == 3 || new_region == 4 || new_region == 5 || new_region == 6 || new_region == 8)
 	{
 	  	this.next_state = 'draw_card_0';

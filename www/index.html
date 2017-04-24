@@ -258,6 +258,29 @@
 				</div>
 			</div>
 
+			<!--Steal cards by player area-->
+			<!--This is to show cards for each player when choosing which card to steal-->
+						<div id="select_player_steal_container">
+							<div id="select_player_steal_area">
+								<h1>CHOOSE A CARD TO STEAL OR CLICK BACK TO SEE OTHER PLAYERS' CARDS</h1>
+									<!--CARDS FUNCTION HERE-->
+									<!--This shows the current player's hand of cards along with arrows in case the player has many cards.-->
+									<div id="steal_cards_container">
+										<div id="steal_card_area_scroll_left" onclick="card_area_scroll_left()">
+											<img src="inc/images/Left_Arrow.png">
+										</div>
+										<div id="steal_cards_area">
+											<!--Populated in game-->
+										</div>
+										<div id="steal_card_area_scroll_right" onclick="card_area_scroll_right()">
+											<img src="inc/images/Right_Arrow.png">
+										</div>
+									</div>
+									<!--END CARDS FUNCTION-->
+								<button id="select_player_back_btn" onclick="">BACK</button>
+							</div>
+						</div>
+
 			<!--Select Zone Screen-->
 			<div id="select_zone_overlay_container">
 				<div id="select_zone_overlay_area">
@@ -271,7 +294,7 @@
 					<button id="select_zone_11_btn" onclick="game.select_zone(11)">ZONE 11/12</button>
 				</div>
 			</div>
-	
+
 			<!--Select Options Screen-->
 			<!--This is not implemented into the game yet-->
 			<div id="select_options_overlay_container">
