@@ -333,6 +333,7 @@ redPiece.position.set(-3.2,pieceHidden,.1);
 scene.add(redPiece);
 
 //red damage piece
+//test
 var redDamage = new THREE.BoxGeometry(.05,.05,.05);
 var redDamagePiece = new THREE.Mesh(redDamage, redMat);
 redDamagePiece.position.set(-3,pieceHidden,.8);
