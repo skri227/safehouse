@@ -211,6 +211,8 @@ function game_screen_setup()
   document.getElementById("action_end_turn_btn").style.display = "none";
   document.getElementById("action_adjacent_btn").style.display = "none";
   document.getElementById("action_special_roll_btn").style.display = "none";
+  document.getElementById("action_counter_attack_btn").style.display = "none";
+  document.getElementById("action_osama_offense_pass_btn").style.display = "none";	
 
   document.getElementById("card_area_scroll_left").style.display = "none";
   document.getElementById("card_area_scroll_right").style.display = "none";
@@ -1118,7 +1120,13 @@ class Game{
         rollOneGreenDice();
         this.current_defending_player_pts = dice1Value;
         this.add_info_message(this.current_player, 'You rolled a ' + this.current_defending_player_pts + '!');
-        this.show_offense_pass_btn(this.player_array[this.current_defending_player].character.char_name);
+	if (this.player_array[this.current_defending_player].character.char_name != 'Osama') {
+		
+		this.show_offense_pass_btn(this.player_array[this.current_defending_player].character.char_name);
+	}
+    	else {
+		show_osama_special_attack_btn()
+	}
         var damage = 0;
 
         //Check if Balance Suit is equipped
@@ -1231,6 +1239,10 @@ class Game{
         {
           this.add_info_message(this.current_player, "You can only use this special when being attacked!");
         }
+    	else if(this.player_array[this.current_defending_player].character.char_name != 'Osama')
+	{
+	  this.add_info_message(this.current_player, "Only Osama can counter-attack");
+	}
 	else {
 	  this.next_state = 'osama_attack_0';
 	  this.reveal_player();
@@ -2576,6 +2588,8 @@ class Game{
     document.getElementById("action_end_turn_btn").style.display = "none";
     document.getElementById("action_adjacent_btn").style.display = "none";
     document.getElementById("action_special_roll_btn").style.display = "none";
+    document.getElementById("action_counter_attack_btn").style.display = "none";
+    document.getElementById("action_osama_offense_pass_btn").style.display = "none";
 
   }
 
@@ -2590,6 +2604,8 @@ class Game{
     document.getElementById("action_end_turn_btn").style.display = "none";
     document.getElementById("action_adjacent_btn").style.display = "none";
     document.getElementById("action_special_roll_btn").style.display = "none";
+    document.getElementById("action_counter_attack_btn").style.display = "none";
+    document.getElementById("action_osama_offense_pass_btn").style.display = "none";  
 	setTimeout(function(){
     document.getElementById("action_draw_btn").style.display = "initial"; },7000);
   }
@@ -2604,6 +2620,8 @@ class Game{
     document.getElementById("action_offense_pass_btn").style.display = "none";
     document.getElementById("action_adjacent_btn").style.display = "none";
     document.getElementById("action_special_roll_btn").style.display = "none";
+    document.getElementById("action_counter_attack_btn").style.display = "none";
+    document.getElementById("action_osama_offense_pass_btn").style.display = "none";
 	setTimeout(function(){
     document.getElementById("action_defense_pass_btn").style.display = "initial"; },3500);
   }
@@ -2617,6 +2635,8 @@ class Game{
     document.getElementById("action_defense_pass_btn").style.display = "none";
     document.getElementById("action_adjacent_btn").style.display = "none";
     document.getElementById("action_special_roll_btn").style.display = "none";
+    document.getElementById("action_counter_attack_btn").style.display = "none";
+    document.getElementById("action_osama_offense_pass_btn").style.display = "none";
   setTimeout(function(){
     document.getElementById("action_offense_pass_btn").style.display = "initial";
     if(character=='Osama Bin Laden'){
@@ -2634,6 +2654,8 @@ class Game{
     document.getElementById("action_draw_btn").style.display = "none";
     document.getElementById("action_adjacent_btn").style.display = "none";
     document.getElementById("action_special_roll_btn").style.display = "none";
+    document.getElementById("action_counter_attack_btn").style.display = "none";
+    document.getElementById("action_osama_offense_pass_btn").style.display = "none";
   	if(previous_state=="turn_1"){
   	  setTimeout(function(){
   	  document.getElementById("action_attack_btn").style.display = "initial";
@@ -2664,6 +2686,23 @@ class Game{
     document.getElementById("action_attack_btn").style.display = "none";
     document.getElementById("action_special_btn").style.display = "none";
     document.getElementById("action_end_turn_btn").style.display = "none";
+    document.getElementById("action_counter_attack_btn").style.display = "none";
+    document.getElementById("action_osama_offense_pass_btn").style.display = "none";
+  }
+
+  show_osama_special_attack_btn()
+  {
+    document.getElementById("action_counter_attack_btn").style.display = "initial";
+    document.getElementById("action_osama_offense_pass_btn").style.display = "initial";
+    document.getElementById("action_adjacent_btn").style.display = "none";
+    document.getElementById("action_special_roll_btn").style.display = "none";
+    document.getElementById("action_roll_btn").style.display = "none";
+    document.getElementById("action_offense_pass_btn").style.display = "none";
+    document.getElementById("action_defense_pass_btn").style.display = "none";
+    document.getElementById("action_draw_btn").style.display = "none";
+    document.getElementById("action_attack_btn").style.display = "none";
+    document.getElementById("action_special_btn").style.display = "none";
+    document.getElementById("action_end_turn_btn").style.display = "none";	
   }
 
   //Sets the game objects select player variable and hides the select player screen.
