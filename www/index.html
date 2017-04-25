@@ -394,6 +394,8 @@
 			<!--This shows all the player related actions they can take during their turn.-->
 			<!--Certain buttons appear at different times and events.-->
 			<div id="action_container">
+				<button id="action_counter_attack_btn" class="osama_special_move_btn" onclick="game.exec_state('osama_counter_attack_0')">SPECIAL</button>
+				<button id="action_osama_offense_pass_btn" class="osama_special_move_btn" onclick="game.exec_state()">PASS TO OFFENSE</button>
 				<button id="action_adjacent_btn" class="charlie_special_move_btn" onclick="game.exec_state('charlie_movement_0')">ADJACENT</button>
 				<button id="action_special_roll_btn" class="charlie_special_move_btn" onclick="game.exec_state('turn_1')">ROLL</button>
 				<button id="action_roll_btn" onclick="game.exec_state()">ROLL</button>
