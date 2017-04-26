@@ -512,6 +512,7 @@ function show_select_player_screen(selection)
   }
   else if(selection == 'region_stealing')
   {
+
       var found_player = false;
       for(var i = 1; i <= game.num_of_players; i++)
       {
@@ -1014,6 +1015,7 @@ class Game{
 	    this.last_state=state;
         this.next_state = 'turn_2';
         hide_select_player_screen();
+        document.getElementById("select_player_steal_container").style.display = "initial";
         this.steal_equip_card();
         this.check_win_or_dead();
 		    this.last_state=state;
@@ -1400,6 +1402,7 @@ class Game{
           {
             this.reveal_player();
             this.player_array[this.current_player].used_special = 1;
+            document.getElementById("select_player_steal_container").style.display = "initial";
             this.steal_equip_card();
             this.add_info_message(this.current_player, "You've used your special!");
           }
@@ -1929,6 +1932,7 @@ class Game{
               //moveDamage(this.player_array[this.current_player].player_color, 1);
             }
             else
+              document.getElementById("select_player_steal_container").style.display = "initial";
               this.steal_equip_card();
           }
           else if(this.player_array[this.current_player].character.affiliation == 'Terrorist' || this.player_array[this.current_player].character.affiliation == 'Neutral')
@@ -1939,6 +1943,7 @@ class Game{
               moveDamage(this.player_array[this.current_player].player_color, 1);
             }
             else
+              document.getElementById("select_player_steal_container").style.display = "initial";
               this.steal_equip_card();
           }
           else
@@ -2432,6 +2437,7 @@ class Game{
               hide_select_player_screen();
               if(this.player_array[this.selected_player].hand.length > 0)
               {
+                document.getElementById("select_player_steal_container").style.display = "initial";
                 this.steal_equip_card();
                 var message_string = "You stole a card from Player " + this.selected_player + ".";
                 this.add_info_message(this.current_player, message_string);
@@ -2663,7 +2669,7 @@ class Game{
   //Display hand for current player
   display_hand()
   {
-    //Create Arrows and remove beginning text.
+    //Create Arrows and removes beginning text.
     if(this.player_array[this.current_player].hand.length == 0)
     {
       document.getElementById("card_area_beginning_text").style.display = "initial";
@@ -2680,6 +2686,7 @@ class Game{
     //Empty current hand, if exist
     document.getElementById('cards_area').innerHTML = '';
 
+    //Sets the headers, images, texts, and next action for the cards
     for(var i = 0; i < this.player_array[this.current_player].hand.length; i++)
     {
       var header = this.player_array[this.current_player].hand[i].card_title;
@@ -2747,11 +2754,91 @@ class Game{
     }
   }
 
+
+//Display hand of another player
+  display_other_hand(player_num)
+  {
+    //Create Arrows and remove beginning text.
+    if(this.player_array[player_num].hand.length == 0)
+    {
+      document.getElementById("card_area_beginning_text").style.display = "initial";
+      document.getElementById("card_area_scroll_left").style.display = "none";
+      document.getElementById("card_area_scroll_right").style.display = "none";
+    }
+    else
+    {
+      document.getElementById("card_area_beginning_text").style.display = "none";
+      document.getElementById("card_area_scroll_left").style.display = "initial";
+      document.getElementById("card_area_scroll_right").style.display = "initial";
+    }
+
+    //Empty current hand, if exist
+    document.getElementById('steal_cards_area').innerHTML = '';
+
+    for(var i = 0; i < this.player_array[player_num].hand.length; i++)
+    {
+      var header = this.player_array[player_num].hand[i].card_title;
+      var img = this.player_array[player_num].hand[i].img;
+      var text = this.player_array[player_num].hand[i].card_text;
+      var onclickfunction = '';
+
+      switch(header)
+      {
+        case 'Compass':
+          onclickfunction = 'compass';
+          break;
+        case 'Predator Drone':
+          onclickfunction = 'predatordrone';
+          break;
+        case 'Water Board':
+          onclickfunction = 'waterboard';
+          break;
+        case 'Good Luck Charm':
+          onclickfunction = 'goodluckcharm';
+          break;
+        case 'Balance Suit':
+          onclickfunction = 'balancesuit';
+          break;
+        case 'Duffle Bag':
+          onclickfunction = 'dufflebag';
+          break;
+        case 'Special Vest':
+          onclickfunction = 'specialvest';
+          break;
+        case 'Handgun':
+          onclickfunction = 'handgun';
+          break;
+        case 'Cattle Prod':
+          onclickfunction = 'cattleprod';
+          break;
+        case 'Sniper Rifle':
+          onclickfunction = 'sniperrifle';
+          break;
+        case 'Garrote':
+          onclickfunction = 'garrote';
+          break;
+        case 'Machine Gun':
+          onclickfunction = 'machinegun';
+          break;
+        case 'Blow Gun':
+          onclickfunction = 'blowgun';
+          break;
+        case 'Cursed Dagger':
+          onclickfunction = 'curseddagger';
+          break;
+
+      }
+
+      //Displays the cards
+      document.getElementById('steal_cards_area').innerHTML += '<div class="card card_equip" onclick="game.equip_card_to_player(' + onclickfunction + ')"><h1>' + header + '</h1><img src="' + img + '"></img><p>' + text + '</p></div>';
+    }
+  }
+
   //Adds a card to the players hand.
   add_card_to_hand()
   {
     //this.drawn_equip_card = compass;
-    this.player_array[this.current_player].hand.push(this.drawn_equip_card);
+    this.player_array[player_num].hand.push(this.drawn_equip_card);
 
     var last = this.player_array[this.current_player].hand.length - 1;
     var header = this.player_array[this.current_player].hand[last].card_title;

@@ -1,3 +1,10 @@
+<!--This is the main file that displays the visuals for Safe House.
+It is set up by the order of which overlays appears. For example,
+start screen, number of players, players or CPU, and main game screens.
+Each tag refers to a different file. The id and classes refer to the
+game.css file.The onLoad and onclick refer to game.js, classes.js, and
+Three_JS_Build.js. -S17-->
+
 <html>
 	<head>
 		<meta charset="UTF-8">
@@ -94,7 +101,9 @@
 					1 - Random
 					<br>
 				</button>
-
+				<!--There are two version of the 8 player mode. Mode one has 3 terrorists,
+				3 Counter-Terrorists, and 2 Neutrals. Mode 2 has 2 terrorists, 3 Counter-Terrorists,
+				2 Neutrals, and 2 Randoms from any of the 3 affiliations. -S17-->
 				<button class="num_of_players_btn" onclick="player_select_screen_setup(81)">
 					<span>8</span>
 					<br>
@@ -126,6 +135,7 @@
 
 			<!--Select players Screen-->
 			<!--This is for when AI is implemented and the player(s) will have more options in their gameplay opponents-->
+			<!--For now AI is not implemented, but the screen still appears before starting the game. -S17-->
 			<div class="select_players">
 				<div class="player_select_row">
 					<div class="player_select" id="player_1_select">
@@ -243,7 +253,7 @@
 			</div>
 
 			<!--Select player Screen-->
-			<!--This if for when you select a player to steal or give cards to-->
+			<!--This is for when you select a player to steal or give cards to-->
 			<div id="select_player_overlay_container">
 				<div id="select_player_overlay_area">
 					<h1>SELECT PLAYER</h1>
@@ -260,7 +270,7 @@
 
 			<!--Steal cards by player area-->
 			<!--This is to show cards for each player when choosing which card to steal-->
-						<div id="select_player_steal_container">
+						<div id="select_player_steal_container" style="display:initial">
 							<div id="select_player_steal_area">
 								<h1>CHOOSE A CARD TO STEAL OR CLICK BACK TO SEE OTHER PLAYERS' CARDS</h1>
 									<!--CARDS FUNCTION HERE-->
@@ -269,7 +279,7 @@
 										<div id="steal_card_area_scroll_left" onclick="card_area_scroll_left()">
 											<img src="inc/images/Left_Arrow.png">
 										</div>
-										<div id="steal_cards_area">
+										<div id="steal_cards_area" onclick="">
 											<!--Populated in game-->
 										</div>
 										<div id="steal_card_area_scroll_right" onclick="card_area_scroll_right()">
@@ -277,7 +287,7 @@
 										</div>
 									</div>
 									<!--END CARDS FUNCTION-->
-								<button id="select_player_back_btn" onclick="">BACK</button>
+								<button id="select_player_back_btn" onclick="game.show_select_player_screen()">BACK</button>
 							</div>
 						</div>
 
