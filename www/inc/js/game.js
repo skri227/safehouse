@@ -1120,9 +1120,6 @@ class Game{
         rollOneGreenDice();
         this.current_defending_player_pts = dice1Value;
         this.add_info_message(this.current_player, 'You rolled a ' + this.current_defending_player_pts + '!');
-	this.add_info_message(this.current_turn, 'Show osama special button.');
-	this.show_osama_special_attack_btn();
-
         var damage = 0;
 
         //Check if Balance Suit is equipped
@@ -1165,7 +1162,9 @@ class Game{
 
         }
 		    this.last_state=state;
+	this.show_osama_special_attack_btn();	    
         this.check_win_or_dead();
+		 
         this.add_info_message(this.current_player, 'Press "PASS TO OFFENSE" and pass to attacking player.');
         //ADD WAIT FOR DICE ROLL!!!
         break;
@@ -1173,18 +1172,44 @@ class Game{
 	    this.last_state=state;
         this.next_state = 'turn_2';
         //this.add_info_message(this.current_turn, 'You BlANK your attack! You gave BLANK damage to BLANK');
-		this.last_state=state;
+	this.last_state=state;
         this.check_win_or_dead();
         this.switch_player(this.current_turn);
         this.exec_state();
         break;
 		   
-      case 'osama_attack_0':
-	this.next_state = 'turn_3';
+      case 'osama_attack_0': //These states should happen between attack_3 and attack_4
+	this.next_state = 'osama_attack_1';
+	this.last_state=state;
+	rollOneRedDice();
+	this.current_attacking_player_pts = dice1Value;
+        this.current_attacking_player = this.selected_player;
+        this.current_defending_player = this.current_turn;
+        this.add_info_message(this.current_player, 'You rolled a ' + this.current_attacking_player_pts + '!');
+        this.add_info_message(this.current_turn, 'Press "PASS TO DEFENSE" and pass to defending player.');	    
+	this.show_defense_pass_btn();
+	this.check_win_or_dead();	    
     	this.exec_state();
     	break;
 		    
-
+      case 'osama_attack_1':
+	this.last_state=state;
+    	this.next_state='osama_attack_2';
+    	this.switch_player(this.current_turn);
+        this.show_roll_btn();
+        this.add_info_message(this.current_player, 'You are being counter-attacked by Osama! They rolled a ' + this.current_attacking_player_pts + '. \rRoll to defend!.');
+        this.check_win_or_dead();
+        break;
+		    
+      case 'osama_attack_2': 
+    	this.next_state = 'attack_4';
+	rollOneGreenDice();
+        this.current_defending_player_pts = dice1Value;
+        this.add_info_message(this.current_player, 'You rolled a ' + this.current_defending_player_pts + '!');
+        var damage = 0;	    
+	this.exec_state();
+    	break;
+		    
       //Specials
       case 'special_0':
         switch(this.player_array[this.current_player].character.char_name)
