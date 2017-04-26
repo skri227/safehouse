@@ -1126,7 +1126,7 @@ class Game{
 	}
     	else 
 	{
-		show_osama_special_attack_btn()
+		this.show_osama_special_attack_btn();
 	}
         var damage = 0;
 
