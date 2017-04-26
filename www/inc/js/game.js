@@ -1120,15 +1120,9 @@ class Game{
         rollOneGreenDice();
         this.current_defending_player_pts = dice1Value;
         this.add_info_message(this.current_player, 'You rolled a ' + this.current_defending_player_pts + '!');
-	if (this.player_array[this.current_defending_player].character.char_name != 'Osama') 
-	{	
-		this.show_offense_pass_btn(this.player_array[this.current_defending_player].character.char_name);
-	}
-    	else 
-	{
-		this.add_info_message(this.current_turn, 'Show osama special button.');
-		this.show_osama_special_attack_btn();
-	}
+	this.add_info_message(this.current_turn, 'Show osama special button.');
+	this.show_osama_special_attack_btn();
+
         var damage = 0;
 
         //Check if Balance Suit is equipped
@@ -1241,10 +1235,6 @@ class Game{
         {
           this.add_info_message(this.current_player, "You can only use this special when being attacked!");
         }
-    	else if(this.player_array[this.current_defending_player].character.char_name != 'Osama')
-	{
-	  this.add_info_message(this.current_player, "Only Osama can counter-attack");
-	}
 	else {
 	  this.next_state = 'osama_attack_0';
 	  this.reveal_player();
