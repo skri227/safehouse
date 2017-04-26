@@ -120,8 +120,8 @@ var centerOfMapBottomRowMultiples = .35714;
 
 //S17 - for resizing current map
 //all locations variables will be dependent on map size
-var sevenCenterX = -mapSizeX*.042857;
-var sevenCenterZ = mapSizeZ* .057143;
+var sevenCenterX = -mapSizeX*(.06666);
+var sevenCenterZ = mapSizeZ*.013333;
 
 var fourFiveCenterX = -mapSizeX*.37143;
 var fourFiveCenterZ = -mapSizeZ*centerOfMapTopRowMultiple;
@@ -247,9 +247,7 @@ scene.add( greenDice2 );
 var whiteGeo = new THREE.BoxGeometry(.1,.2,.1);
 var whiteMat = new THREE.MeshPhongMaterial({color: 0xffffff});
 whitePiece = new THREE.Mesh(whiteGeo, whiteMat);
-whitePiece.position.set(-((mapSizeX/2)+DiceOffsetX),pieceHidden,-.25+.2);
-//whitePiece.position.set(-(mapSizeX+offsetX),.11,-.25+.2);
-//whitePiece.position.set(-2.8,.11,-.1);
+whitePiece.position.set(sevenCenterX+DiceOffsetX,pieceVisible,sevenCenterZ-DiceOffsetZ); //always visible, must have at least 3 pieces to play
 scene.add(whitePiece);
 
 //white damage piece
@@ -288,7 +286,7 @@ scene.add(orangeDamagePiece);
 var greenGeo = new THREE.BoxGeometry(.1,.2,.1);
 var greenMat = new THREE.MeshPhongMaterial({color: 0x00ff00});
 greenPiece = new THREE.Mesh(greenGeo, greenMat);
-greenPiece.position.set(-3,pieceHidden,-.1);
+greenPiece.position.set(sevenCenterX,pieceVisible,sevenCenterZ-DiceOffsetZ); //changed
 scene.add(greenPiece);
 
 //green damage piece
@@ -329,7 +327,7 @@ scene.add(blackDamagePiece);
 var redGeo = new THREE.BoxGeometry(.1,.2,.1);
 var redMat = new THREE.MeshPhongMaterial({color: 0xff0000});
 redPiece = new THREE.Mesh(redGeo, redMat);
-redPiece.position.set(-3.2,pieceHidden,.1);
+redPiece.position.set(sevenCenterX-DiceOffsetX,pieceVisible,sevenCenterZ); //changed
 scene.add(redPiece);
 
 //red damage piece
