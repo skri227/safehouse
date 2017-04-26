@@ -113,6 +113,15 @@ body
 	font-size: 40px;
 }
 
+/* s17 sets styles for rules page */
+#rules_screen
+{
+	display: none;
+	color: red;
+	margin-left: auto ;
+	margin-right: auto ;
+}
+
 /*Sets the styles for the text in the number of players screen when the cursor hovers over them*/
 #num_of_players_home_btn h3:hover
 {
@@ -745,7 +754,7 @@ body
 /*possible fix here for better player image sizing*/
 #player #player_image
 {
-	position: absolute; 
+	position: absolute;
 	top: 30%;
 	left: 5%;
 	width: 30%;

@@ -109,6 +109,14 @@ function player_select_btn_toggle(id, selection)
 	// }
 }
 
+//S17 adds Rule page
+function rules_screen_setup()
+{
+  document.getElementById("start_menu").style.display = "none";
+  document.getElementById("rules_screen").style.display = "initial";
+}
+
+
 //Sets up the number of players screen
 function num_of_players_screen_setup()
 {
