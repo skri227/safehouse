@@ -14,7 +14,7 @@ body
 	font-family:'GrotesqueNo9T', sans-serif;
 	background-color: black;
 	/*Start Menu */
-	background-image: url("../images/background.png");
+	background-image: url("../images/Maps/background.png");
 	background-repeat: no-repeat;
 	background-size:100% 100%;
 	text-align: center;
@@ -118,8 +118,16 @@ body
 {
 	display: none;
 	color: red;
+	padding-bottom:10%;
 	margin-left: auto ;
 	margin-right: auto ;
+}
+
+#rules_back_btn h1:hover
+{
+	transform: scale(1.2);
+	color: yellow;
+	text-shadow: .75px .75px red, 0 0 35px red;
 }
 
 /*Sets the styles for the text in the number of players screen when the cursor hovers over them*/
