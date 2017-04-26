@@ -1120,13 +1120,13 @@ class Game{
         rollOneGreenDice();
         this.current_defending_player_pts = dice1Value;
         this.add_info_message(this.current_player, 'You rolled a ' + this.current_defending_player_pts + '!');
-	if (this.player_array[this.current_defending_player].character.char_name != 'Osama') {
+	//if (this.player_array[this.current_defending_player].character.char_name != 'Osama') {
 		
-		this.show_offense_pass_btn(this.player_array[this.current_defending_player].character.char_name);
-	}
+	this.show_offense_pass_btn(this.player_array[this.current_defending_player].character.char_name);
+/*	}
     	else {
 		show_osama_special_attack_btn()
-	}
+	}*/
         var damage = 0;
 
         //Check if Balance Suit is equipped
@@ -2690,7 +2690,7 @@ class Game{
     document.getElementById("action_osama_offense_pass_btn").style.display = "none";
   }
 
-  show_osama_special_attack_btn()
+ /* show_osama_special_attack_btn()
   {
     document.getElementById("action_counter_attack_btn").style.display = "initial";
     document.getElementById("action_osama_offense_pass_btn").style.display = "initial";
@@ -2704,7 +2704,7 @@ class Game{
     document.getElementById("action_special_btn").style.display = "none";
     document.getElementById("action_end_turn_btn").style.display = "none";	
   }
-
+*/
   //Sets the game objects select player variable and hides the select player screen.
   select_player(player)
   {
