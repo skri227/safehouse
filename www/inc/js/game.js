@@ -1126,6 +1126,7 @@ class Game{
 	}
     	else 
 	{
+		this.add_info_message(this.current_turn, 'Show osama special button.');
 		this.show_osama_special_attack_btn();
 	}
         var damage = 0;
