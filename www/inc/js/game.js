@@ -1168,17 +1168,17 @@ class Game{
         this.add_info_message(this.current_player, 'Press "PASS TO OFFENSE" and pass to attacking player.');
         //ADD WAIT FOR DICE ROLL!!!
         break;
-      case 'attack_4': // Transition back to attacker
+      case 'attack_4': // Transition back to attacker and continue turn 
 	    this.last_state=state;
         this.next_state = 'turn_2';
-        //this.add_info_message(this.current_turn, 'You BlANK your attack! You gave BLANK damage to BLANK');
 	this.last_state=state;
         this.check_win_or_dead();
         this.switch_player(this.current_turn);
         this.exec_state();
         break;
 		   
-      case 'osama_attack_0': //These states should happen between attack_3 and attack_4
+      case 'osama_attack_0': //These states should happen between attack_3 and attack_4 S17
+	//Rolls attack diece, sets attack value and shows pass to defense button
 	this.next_state = 'osama_attack_1';
 	this.last_state=state;
 	rollOneRedDice();
@@ -1192,10 +1192,11 @@ class Game{
     	this.exec_state();
     	break;
 		    
-      case 'osama_attack_1':
+      case 'osama_attack_1': // Switches to defending player, informs player of counter attack and shows roll button. Allows defender to use special before rolling
 	this.last_state=state;
     	this.next_state='osama_attack_2';
     	this.switch_player(this.current_turn);
+    	//allow players with Attack Modyfing specials to use their special before the counter attack.
         this.show_roll_btn();
         this.add_info_message(this.current_player, 'You are being counter-attacked by Osama! They rolled a ' + this.current_attacking_player_pts + '. \rRoll to defend!.');
         this.check_win_or_dead();
@@ -1206,7 +1207,46 @@ class Game{
 	rollOneGreenDice();
         this.current_defending_player_pts = dice1Value;
         this.add_info_message(this.current_player, 'You rolled a ' + this.current_defending_player_pts + '!');
-        var damage = 0;	    
+        var counter_attack_damage = 0;	   
+	
+	//Check if Balance Suit is equipped
+        if(this.player_array[this.current_defending_player].equipped.card_title == 'Balance Suit' || this.player_array[this.current_attacking_player].equipped.card_title == 'Balance Suit')
+          counter_attack_damage = (this.current_attacking_player_pts - this.current_defending_player_pts) - 1;
+        else
+          counter_attack_damage = (this.current_attacking_player_pts - this.current_defending_player_pts);
+
+        //Check if Good Luck Charm is equipped
+        if((this.player_array[this.current_player].current_region == 9 || this.player_array[this.current_player].current_region == 10) && this.player_array[this.current_player].equipped.card_title == 'Good Luck Charm')
+        {
+            this.add_info_message(this.current_player, 'You have "Good Luck Charm" equipped! You take no damage!');
+        }
+        else
+        {
+            if(this.current_attacking_player_pts > this.current_defending_player_pts)
+            {
+              //Check if Garrote or Blow Gun is equipped
+              if(this.player_array[this.current_turn].equipped.card_title == 'Garrote' || this.player_array[this.current_turn].equipped.card_title == 'Blow Gun')
+                counter_attack_damage=counter_attack_damage+1;
+
+              //Check if Hand Gun or Sniper Rifle is equipped
+              if(this.player_array[this.current_turn].equipped.card_title == 'Sniper Rifle' || this.player_array[this.current_turn].equipped.card_title == 'Handgun')
+                counter_attack_damage=counter_attack_damage+1;
+
+              moveDamage(this.player_array[this.current_player].player_color, counter_attack_damage);
+              //this.player_array[this.current_player].hp = this.player_array[this.current_player].hp + damage;
+              this.add_info_message(this.current_player, 'You lost the attack! You took ' + counter_attack_damage + ' point(s) of damage.');
+              this.add_info_message(this.current_turn, 'You won the attack! You gave ' + counter_attack_damage + ' damage to Player ' + this.current_player + '.');
+
+              var total_hp = this.player_array[this.current_player].character.hp;
+              document.getElementById("player_hp").innerHTML = total_hp - this.player_array[this.current_player].hp;
+            }
+            else
+            {
+              this.add_info_message(this.current_player, 'You won the attack! You lost 0 point(s) of health.');
+              this.add_info_message(this.current_turn, 'You lost the attack! You gave 0 damage to Player ' + this.current_player + '.');
+            }
+
+        }		    
 	this.exec_state();
     	break;
 		    
