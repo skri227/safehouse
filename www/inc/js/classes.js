@@ -264,21 +264,17 @@ var investigationArray = [accuse1, accuse2, accuse3, accuse4, accuse5, accuse6, 
 var new_deck_investigationArray = [accuse1, accuse2, accuse3, accuse4, accuse5, accuse6, accuse10, accuse11, accuse13, accuse15];
 
 //The Terrorists array is composed of the 3 terrorist characters in the game
-//var terroristsArray = [Ayman, Hassan, Osama];
-var terroristsArray = [Hassan]; // only for testing DELETE AFTER
+var terroristsArray = [Ayman, Hassan, Osama];
 
 //The Counter-Terrorist array is composed of the 3 Counter-Terrorist characters available in the game
-//var counterterroristArray = [Sam, Charlie, Fred];
-var counterterroristArray = [Charlie]; // *** FOR PRESENTATION
+var counterterroristArray = [Sam, Charlie, Fred];
 
 //The Neutral array is composed of the 4 Neutral characters that are available in the game
-//var neutralArray = [Daniel, George, Tori, Billy];
-var neutralArray = [Tori]; // *** FOR PRESENTATION
+var neutralArray = [Daniel, George, Tori, Billy];
 
 
 //The Characters Array is a list of all available characters in the game
-//var charactersArray = [Ayman, Hassan, Osama, Sam, Charlie, Fred, Daniel, George, Tori, Billy];
-var charactersArray = [Hassan, Charlie, Tori]; // *** FOR PRESENTATION
+var charactersArray = [Ayman, Hassan, Osama, Sam, Charlie, Fred, Daniel, George, Tori, Billy];
 
 //These 7 function calls shuffle all the arrays for a random order that can be drawn from.
 array_shuffle(charactersArray);
