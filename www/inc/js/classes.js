@@ -173,6 +173,22 @@ class Equipment{
 
 //These 10 variables are the 10 instances of the 10 characters created in the game.  They are passed their names, HP,
 //images, affiliations, win conditions, speical abilities, and then the text that is displayed on the card.
+var Ayman = new Character("Ayman al-Zawahiri", 2, "inc/images/character_ayman.JPG", "Terrorist", "terrorist_win_condition", "special", "All the Counter-Terrorist are dead or 3 Neutral are dead.", "Reveal - If you attack a player and inflict 3 or more damage, you heal 2 points of your own damage.");
+var Hassan = new Character("Hassan Nasrallah", 2, "inc/images/character_hassan.jpg", "Terrorist", "terrorist_win_condition", "special", "All the Counter-Terrorist are dead or 3 Neutral are dead.", "You may lie when given an Investigation card.  You do not have to reveal yourself to do this.");
+//var Osama = new Character("Osama Bin Laden", 14, "inc/images/character_osama.jpg", "Terrorist", "terrorist_win_condition", "special", "All the Counter-Terrorist are dead or 3 Neutral are dead.", "Reveal - When you are attacked, you may counter-attack immediately, once the initial attack resolves.");
+var Osama = new Character("Osama Bin Laden", 2, "inc/images/character_osama.jpg", "Terrorist", "terrorist_win_condition", "special", "All the Counter-Terrorist are dead or 3 Neutral are dead.", "Reveal - Once only, fully heal your damage.");
+var Sam = new Character("Sam Seal", 2, "inc/images/character_samseal.jpg", "Counter-Terrorist", "counter_terrorist_win_condition", "special", "All the Terrorists are dead.", "Once only, you may choose to double the damage done for your attack.");
+var Charlie = new Character("CIA Charlie", 2, "inc/images/character_ciacharlie.jpg", "Counter-Terrorist", "counter_terrorist_win_condition", "special", "All the Terrorists are dead.", "Reveal - When you move you can roll dice as normal or move to an adjacent area.");
+var Fred = new Character("FBI Fred", 2, "inc/images/character_fbifred.jpeg", "Counter-Terrorist", "counter_terrorist_win_condition", "special", "All the Terrorists are dead.", "Once only, at the start of your turn, pick any player to inflict a random amount of damage between 1-6.");
+var Daniel = new Character("Daniel Doomsday", 2, "inc/images/character_danieldoomsday.png", "Neutral", "win_condition", "special","You are the first character to die OR all the Terrorists are dead and you survive.", "Reveal - If you inflict damage on a known Terrorist you heal 1 damage to yourself.");
+var George = new Character("Gatherin' George", 2, "inc/images/character_gatheringeorge.png", "Neutral", "win_condition", "special", "When you have more than 5 equipment cards.", "Reveal - If you inflict 2 or more damage, you may steal an equipment card.");
+var Tori = new Character("Totally Tori", 2, "inc/images/character_toritotally.jpg", "Neutral", "win_condition", "special", "When the game ends you're 'like totally still alive'", "Reveal - Once only, fully heal your damage.");
+var Billy = new Character("Billy-Bob Badass", 2, "inc/images/character_billybobbadass.jpg", "Neutral", "win_condition", "special", "When you kill a character, you win if the total number of dead characters is 3 or more.", "Reveal - After you attack you may give yourself 2 damage to attack again.");
+
+
+/*
+//These 10 variables are the 10 instances of the 10 characters created in the game.  They are passed their names, HP,
+//images, affiliations, win conditions, speical abilities, and then the text that is displayed on the card.
 var Ayman = new Character("Ayman al-Zawahiri", 13, "inc/images/character_ayman.JPG", "Terrorist", "terrorist_win_condition", "special", "All the Counter-Terrorist are dead or 3 Neutral are dead.", "Reveal - If you attack a player and inflict 3 or more damage, you heal 2 points of your own damage.");
 var Hassan = new Character("Hassan Nasrallah", 11, "inc/images/character_hassan.jpg", "Terrorist", "terrorist_win_condition", "special", "All the Counter-Terrorist are dead or 3 Neutral are dead.", "You may lie when given an Investigation card.  You do not have to reveal yourself to do this.");
 //var Osama = new Character("Osama Bin Laden", 14, "inc/images/character_osama.jpg", "Terrorist", "terrorist_win_condition", "special", "All the Counter-Terrorist are dead or 3 Neutral are dead.", "Reveal - When you are attacked, you may counter-attack immediately, once the initial attack resolves.");
@@ -184,7 +200,7 @@ var Daniel = new Character("Daniel Doomsday", 12, "inc/images/character_danieldo
 var George = new Character("Gatherin' George", 10, "inc/images/character_gatheringeorge.png", "Neutral", "win_condition", "special", "When you have more than 5 equipment cards.", "Reveal - If you inflict 2 or more damage, you may steal an equipment card.");
 var Tori = new Character("Totally Tori", 8, "inc/images/character_toritotally.jpg", "Neutral", "win_condition", "special", "When the game ends you're 'like totally still alive'", "Reveal - Once only, fully heal your damage.");
 var Billy = new Character("Billy-Bob Badass", 11, "inc/images/character_billybobbadass.jpg", "Neutral", "win_condition", "special", "When you kill a character, you win if the total number of dead characters is 3 or more.", "Reveal - After you attack you may give yourself 2 damage to attack again.");
-
+*/
 
 
 //The following variables are created instances for each Investigation card in the game.  They are passed the card type, the image
