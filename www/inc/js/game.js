@@ -803,8 +803,9 @@ class Game{
           if(i > this.num_of_players)
             document.getElementById(color_string).style.display = "none";
         }
-        setDamage(players_playing_colors)
+        setDamage(players_playing_colors);
         game_screen_setup();
+	board_pieces_setup();
         //testing game
         //this.player_array[2].character = Daniel;
         //this.player_array[2].alive = true;
