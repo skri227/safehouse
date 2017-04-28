@@ -1161,8 +1161,13 @@ class Game{
             }
 
         }
-		    this.last_state=state;
-	this.show_osama_special_attack_btn();	    
+		    this.last_state=state;	
+	if (this.player_array[this.current_player].character.char_name != "Osama Bin Laden") {
+		this.show_offense_pass_btn();
+	}
+    	else {
+		this.show_osama_special_attack_btn();	    
+	}
         this.check_win_or_dead();
 		 
         this.add_info_message(this.current_player, 'Press "PASS TO OFFENSE" and pass to attacking player.');
@@ -2683,7 +2688,7 @@ class Game{
     document.getElementById("action_defense_pass_btn").style.display = "initial"; },3500);
   }
 
-  show_offense_pass_btn(character){
+  show_offense_pass_btn(){
     document.getElementById("action_roll_btn").style.display = "none";
     document.getElementById("action_draw_btn").style.display = "none";
     document.getElementById("action_attack_btn").style.display = "none";
