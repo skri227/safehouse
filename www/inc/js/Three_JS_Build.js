@@ -1175,7 +1175,34 @@ function rollOneGreenDice(){
 	diceMove = true;
 }
 
+//sets up board pieces in Safe House - only called at start of game
 
+//since num_of_players is set up with multiple options for 7-8 players, reset to singular option for piece purposes
+function board_pieces_setup(){
+	if(game.num_of_players == 71 || game.num_of_players == 72)
+    game.num_of_players = 7;
+
+  if(game.num_of_players == 81 || game.num_of_players == 82)
+    game.num_of_players = 8;
+
+	if(game.num_of_players > 3) //since we only need 4+ players to run this check, bc 3 is the minimum number needed to play
+	{
+		bluePiece.position.set(sevenCenterX, pieceVisible, sevenCenterZ+DiceOffsetZ); //redrawing needed pieces visibly in Safe House
+	}
+	if(game.num_of_players > 4){
+		orangePiece.position.set(sevenCenterX+DiceOffsetX, pieceVisible, sevenCenterZ+DiceOffsetZ);
+	}
+	if(game.num_of_players > 5){
+		purplePiece.position.set(sevenCenterX-DiceOffsetX, pieceVisible, sevenCenterZ+DiceOffsetZ);
+	}
+	if(game.num_of_players > 6){
+		yellowPiece.position.set(sevenCenterX+DiceOffsetX, pieceVisible, sevenCenterZ);
+	}
+	if(game.num_of_players > 7){
+		blackPiece.position.set(sevenCenterX-DiceOffsetX, pieceVisible, sevenCenterZ-DiceOffsetZ);
+	}
+	//if 9th player added, follow suit
+}
 /****************************************************************************IMPORTANT FOR ZACH AND KAMERON********************************************************/
 //moves whatever color piece is passed to it to the correct location on the board based on the dice roll
 //the player just had.
