@@ -2859,7 +2859,7 @@ class Game{
     {
       var affiliation = this.player_array[i].character.affiliation;
       var name = this.player_array[i].character.char_name;
-      if(this.player_array[i].hp == this.player_array[i].character.hp && this.player_array[i].alive == true)
+      if(this.player_array[i].hp >= this.player_array[i].character.hp && this.player_array[i].alive == true) //S17 updated, kills at max health
       {
         this.player_array[i].alive = false;
         playerDied(this.player_array[i].player_color);
