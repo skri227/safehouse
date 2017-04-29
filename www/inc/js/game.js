@@ -1604,7 +1604,7 @@ class Game{
     	this.last_state=state;
 	hide_draw_card_screen_overlay();	    
     	var is_equipment_card = false; // set flag
-    	this.offense_or_defense == "offense";
+    	this.offense_or_defense = "offense";
 	for (var i = 0; i < equipmentArray.length; i++) {
 		if (offenseArray[0] == equipmentArray[i]) {
 			is_equipment_card = true;
@@ -1623,7 +1623,7 @@ class Game{
     	this.last_state=state;
 	hide_draw_card_screen_overlay();	    
     	var is_equipment_card = false; // set flag
-    	this.offense_or_defense == "defense";
+    	this.offense_or_defense = "defense";
 	for (var i = 0; i < equipmentArray.length; i++) {
 		if (defenseArray[0] == equipmentArray[i]) {
 			is_equipment_card = true;
