@@ -253,13 +253,17 @@ var deadlysurprise3 = new Action("Deadly Surprise", "inc/images/action_deadlysur
 //The action array is composed of each action card available in the game.
 //var actionArray = [rnr, illhelp, guardianangel, luckyday, spotted, firstaid, judgementday, energyboost, doctorsvisit, firstaid2, dynamite, jihad, deadlysurprise, deadlysurprise2, thatsnotgood, thatsmine, deadlysurprise3, deadlygame, jihadjihad];
 var actionArray = [rnr, illhelp, luckyday, spotted, firstaid, judgementday, firstaid2, deadlysurprise, deadlysurprise2, thatsmine, deadlysurprise3];
-var new_deck_actionArray = [rnr, illhelp, luckyday, spotted, firstaid, judgementday, firstaid2, deadlysurprise, deadlysurprise2, thatsmine, deadlysurprise3];
 
 //The equipment array is composed of each Equipment card that is available in the game
 var equipmentArray = [waterboard, goodluckcharm, balancesuit, handgun, cattleprod, sniperrifle, garrote, blowgun];
 
-var offense_array = [sniperrifle, garrote, cattleprod, handgun, blowgun, deadlysurprise, deadlysurprise2, deadlysurprise3, thatsmine];
-var deffense_array = [goodluckcharm, firstaid, firstaid2, judgementday, rnr, luckyday, illhelp, spotted, waterboard, balancesuit];
+//The offense and defense array are both composed of Equipment and One Time Action Cards and are two of the three decks in the game S17
+var offenseArray = [sniperrifle, garrote, cattleprod, handgun, blowgun, deadlysurprise, deadlysurprise2, deadlysurprise3, thatsmine];
+var defenseArray = [goodluckcharm, firstaid, firstaid2, judgementday, rnr, luckyday, illhelp, spotted, waterboard, balancesuit];
+
+// after the offense and defense decks run out, this becomes the new deck and is reshuffled. S17
+var newDeckOffenseArray = [deadlysurprise, deadlysurprise2, deadlysurprise3, thatsmine];
+var newDeckDefenseArray = [firstaid, firstaid2, judgementday, rnr, luckyday, illhelp, spotted]; 
 
 //The investigation array is composed of every Investigation card that is available in the game
 //var investigationArray = [accuse1, accuse2, accuse3, accuse4, accuse5, accuse6, accuse7, accuse8, accuse9, accuse10, accuse11, accuse12, accuse13, accuse14, accuse15, reveal1, reveal2];
@@ -284,6 +288,8 @@ array_shuffle(charactersArray);
 array_shuffle(terroristsArray);
 array_shuffle(counterterroristArray);
 array_shuffle(neutralArray);
+array_shuffle(offenseArray);
+array_shuffle(defenseArray);
 array_shuffle(actionArray);
 array_shuffle(equipmentArray);
 array_shuffle(investigationArray);

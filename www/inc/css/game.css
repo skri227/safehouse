@@ -360,7 +360,7 @@ body
 	color: red;
 }
 
-#draw_invest_card, #draw_equip_card, #draw_onetime_card
+#draw_invest_card, #draw_defense_card, #draw_offense_card
 {
 	display: inline-block;
 	width: 150px;
@@ -376,12 +376,12 @@ body
 	border: 6px solid yellow;
 }
 
-#draw_equip_card
+#draw_defense_card
 {
 	border: 6px solid silver;
 }
 
-#draw_onetime_card
+#draw_offense_card
 {
 	border: 6px solid black;
 }
