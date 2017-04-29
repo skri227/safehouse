@@ -1599,6 +1599,12 @@ class Game{
         this.exec_state();
         break;
 
+      case 'equip_or_action_0':		    
+    	this.last_state=state;
+		    
+    	this.exec_state();
+   	break;
+		    
       //Investigation
       case 'invest_0':
         hide_draw_card_screen_overlay();
