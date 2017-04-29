@@ -1739,9 +1739,11 @@ class Game{
         this.next_state = 'equip_1';
 	if(this.offense_or_defense == "defense") {
 		this.drawn_equip_card = defenseArray[0];
+		defenseArray.shift();
 	}
     	else if (this.offense_or_defense == "offense") {
 		this.drawn_equip_card = offenseArray[0];
+		offenseArray.shift();
 	}
     
         /*switch(this.drawn_equip_card.card_title)
@@ -2304,9 +2306,11 @@ class Game{
           case 'action_0':
 	    if (this.offense_or_defense == "defense") {
 		this.drawn_action_card = defenseArray[0];
+	    	defenseArray.shift();
 	    }
 	    else if (this.offense_or_defense == "offense") {
 	    	this.drawn_action_card = offenseArray[0];
+		offenseArray.shift();
 	    }
             /*else
             {
