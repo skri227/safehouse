@@ -280,15 +280,15 @@ function hide_next_player_screen_overlay()
 function draw_card_screen_overlay(invest, equip, onetime)
 {
   document.getElementById("draw_invest_card").style.display = 'none';
-  document.getElementById("draw_equip_card").style.display = 'none';
-  document.getElementById("draw_onetime_card").style.display = 'none';
+  document.getElementById("draw_defense_card").style.display = 'none';
+  document.getElementById("draw_offense_card").style.display = 'none';
 
   if(invest == 1)
     document.getElementById("draw_invest_card").style.display = 'inline-block';
   if(equip == 1)
-    document.getElementById("draw_equip_card").style.display = 'inline-block';
+    document.getElementById("draw_defense_card").style.display = 'inline-block';
   if(onetime == 1)
-    document.getElementById("draw_onetime_card").style.display = 'inline-block';
+    document.getElementById("draw_offense_card").style.display = 'inline-block';
 
 	var x = document.getElementById("draw_card_overlay_container");
 	function show_draw_card_screen(){
