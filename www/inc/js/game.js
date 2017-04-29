@@ -1604,23 +1604,30 @@ class Game{
 
       case 'equip_or_action_0':  // This state checks to see if the card drawn is equipment or one time action S17
     	this.last_state=state;
-    	var is_equipment_Card = false; // set flag
+	hide_draw_card_screen_overlay();	    
+    	var is_equipment_card = false; // set flag
     	
     	if (this.offense_or_defense == "defense") { // loops through equipmentArray to see if the card drawn is an equipment
 		for (var i = 0; i < equipmentArray.length; i++) {
 			if (defenseArray[0] == equipmentArray[i]) {
-				is_equipment_Card = true;
+				is_equipment_card = true;
 			}
 		}
 	}
     	else if (this.offense_or_defense == "offense") {
 		for (var i = 0; i < equipmentArray.length; i++) {
 			if (offenseArray[0] == equipmentArray[i]) {
-				is_equipment_Card = true;
+				is_equipment_card = true;
 			}
 		}
 	}
 		    
+  	if (is_equipment_card) {
+		this.next_state = 'equip_0';
+	}
+    	else {
+		this.next_state = 'action_0';
+	}
     	this.exec_state();
    	break;
 		    
@@ -1730,17 +1737,13 @@ class Game{
       //Equipment
       case 'equip_0':
         this.next_state = 'equip_1';
-        hide_draw_card_screen_overlay();
-        if(equipmentArray.length > 0)
-        {
-          this.drawn_equip_card = equipmentArray[0];
-          equipmentArray.shift();
-        }
-        else
-          this.add_info_message(this.current_turn, 'Sorry, no more equipment cards to draw!');
-
-
-
+	if(this.offense_or_defense == "defense") {
+		this.drawn_equip_card = defenseArray[0];
+	}
+    	else if (this.offense_or_defense == "offense") {
+		this.drawn_equip_card = offenseArray[0];
+	}
+    
         /*switch(this.drawn_equip_card.card_title)
         {
           case 'Compass':
@@ -2299,19 +2302,19 @@ class Game{
 
           //Investigation
           case 'action_0':
-            hide_draw_card_screen_overlay();
-            if(actionArray.length > 0)
-            {
-              this.drawn_action_card = actionArray[0];
-              actionArray.shift();
-            }
-            else
+	    if (this.offense_or_defense == "defense") {
+		this.drawn_action_card = defenseArray[0];
+	    }
+	    else if (this.offense_or_defense == "offense") {
+	    	this.drawn_action_card = offenseArray[0];
+	    }
+            /*else
             {
               actionArray = new_deck_actionArray;
               array_shuffle(actionArray);
               this.drawn_action_card = actionArray[0];
               actionArray.shift();
-            }
+            }*/
             switch(this.drawn_action_card.card_title)
             {
               case 'R&R':
