@@ -1202,7 +1202,6 @@ class Game{
         this.add_info_message(this.current_turn, 'Press "PASS TO DEFENSE" and pass to defending player.');	    
 	this.show_defense_pass_btn();
 	this.check_win_or_dead();	    
-    	this.exec_state();
     	break;
 		    
       case 'osama_attack_2': // Switches to defending player, informs player of counter attack and shows roll button. Allows defender to use special before rolling
@@ -1238,11 +1237,11 @@ class Game{
             if(this.current_attacking_player_pts > this.current_defending_player_pts)
             {
               //Check if Garrote or Blow Gun is equipped
-              if(this.player_array[this.current_turn].equipped.card_title == 'Garrote' || this.player_array[this.current_turn].equipped.card_title == 'Blow Gun')
+              if(this.player_array[this.selected_player].equipped.card_title == 'Garrote' || this.player_array[this.selected_player].equipped.card_title == 'Blow Gun')
                 counter_attack_damage=counter_attack_damage+1;
 
               //Check if Hand Gun or Sniper Rifle is equipped
-              if(this.player_array[this.current_turn].equipped.card_title == 'Sniper Rifle' || this.player_array[this.current_turn].equipped.card_title == 'Handgun')
+              if(this.player_array[this.selected_player].equipped.card_title == 'Sniper Rifle' || this.player_array[this.selected_player].equipped.card_title == 'Handgun')
                 counter_attack_damage=counter_attack_damage+1;
 
               moveDamage(this.player_array[this.current_player].player_color, counter_attack_damage);
