@@ -1001,6 +1001,18 @@ body
 	font-family:'GrotesqueNo9T', sans-serif;
 }
 
+#action_container .osama_special_attack_btn
+{
+	font-size: 33px;
+	font-weight: bold;
+	color: black;
+	background-color: red;
+	border-color: red;
+	width: 100%;
+	height: 50%;
+	font-family:'GrotesqueNo9T', sans-serif;
+}
+
 #action_container .charlie_special_move_btn
 {
 	font-size: 33px;

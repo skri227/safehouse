@@ -219,6 +219,8 @@ function game_screen_setup()
   document.getElementById("action_end_turn_btn").style.display = "none";
   document.getElementById("action_adjacent_btn").style.display = "none";
   document.getElementById("action_special_roll_btn").style.display = "none";
+  document.getElementById("action_counter_attack_btn").style.display = "none";
+  document.getElementById("action_osama_offense_pass_btn").style.display = "none";	
 
   document.getElementById("card_area_scroll_left").style.display = "none";
   document.getElementById("card_area_scroll_right").style.display = "none";
@@ -736,7 +738,7 @@ class Game{
 			//this.player_array[i] = new Player(charactersArray[i]);
 
     //State machine initial values.
-	this.last_state='start_game';
+    this.last_state='start_game';
     this.current_state = 'start_game';
     this.next_state = 'start_game';
 
@@ -846,52 +848,55 @@ class Game{
 	this.add_info_message(this.current_player, 'You rolled a ' + this.player_array[this.current_turn].current_region + '!');
 	var r = this.player_array[this.current_player].current_region;
 
-			if(r == 2 || r == 3 || r == 4 || r == 5 || r == 6 || r == 8)
-			{
-			  this.next_state = 'draw_card_0';
-			  this.show_draw_btn();
-			  this.add_info_message(this.current_turn, 'Click "DRAW" to choose a card.');
-			}
-			else if(r == 11 || r == 12)
-			{
-			  var anyone_have_cards = false;
-			  for(var i = 1; i <= this.num_of_players; i++)
-			  {
-				if(this.player_array[i].hand.length > 0)
-				  anyone_have_cards = true;
-			  }
-			  if(anyone_have_cards == true)
-				this.exec_state('steal_region_0');
-			  else
-				this.next_state = 'turn_2';
-				this.exec_state();
-			}
-			else if(r == 9 || r == 10)
-			{
-			  this.exec_state('damage_region_0');
-			}
-			else
-			{
-			  this.next_state = 'turn_3';
-			  this.exec_state();
-			}
+	if(r == 2 || r == 3 || r == 4 || r == 5 || r == 6 || r == 8)
+	{
+	  this.next_state = 'draw_card_0';
+	  this.show_draw_btn();
+	  this.add_info_message(this.current_turn, 'Click "DRAW" to choose a card.');
+	}
+	else if(r == 11 || r == 12)
+	{
+	  var anyone_have_cards = false;
+	  for(var i = 1; i <= this.num_of_players; i++)
+	  {
+		if(this.player_array[i].hand.length > 0)
+		  anyone_have_cards = true;
+	  }
+	  if(anyone_have_cards == true)
+		this.exec_state('steal_region_0');
+	  else
+		this.next_state = 'turn_2';
+		this.exec_state();
+	}
+	else if(r == 9 || r == 10)
+	{
+	  this.exec_state('damage_region_0');
+	}
+	else
+	{
+	  this.next_state = 'turn_3';
+	  this.exec_state();
+	}
         this.check_win_or_dead();
         break;
+		    
       case 'turn_2':
         this.next_state = 'turn_3';
-		    this.show_general_btn(this.last_state);
-		    this.last_state=state;
+	this.show_general_btn(this.last_state);
+    	this.last_state=state;
         this.exec_state();
         break;
+		    
       case 'turn_3':
-    		if(this.last_state=="turn_1")
-    		{
-    	      this.show_general_btn(this.last_state);
-    		}
-    		this.add_info_message(this.current_turn, 'You can now attack a player, select a card to equip, use your special, or end your turn.');
+	if(this.last_state=="turn_1")
+	{
+      		this.show_general_btn(this.last_state);
+	}
+	this.add_info_message(this.current_turn, 'You can now attack a player, select a card to equip, use your special, or end your turn.');
         this.next_state = 'turn_4';
-		    this.last_state=state;
+    	this.last_state=state;
         break;
+		    
       case 'turn_4':
         this.next_state = 'turn_0';
         if(this.player_array[this.current_turn].alive == true)
@@ -1059,13 +1064,11 @@ class Game{
         {
           if(this.player_array[this.selected_player].hp != 0)
           {
-              //this.player_array[this.selected_player].hp = this.player_array[this.selected_player].hp - 1;
               moveDamage(this.player_array[this.selected_player].player_color, -1);
           }
         }
         else
         {
-            //this.player_array[this.selected_player].hp = this.player_array[this.selected_player].hp + 1;
             moveDamage(this.player_array[this.selected_player].player_color, 2);
         }
 		this.last_state=state;
@@ -1073,7 +1076,7 @@ class Game{
         this.exec_state();
         break;
       case 'damage_region_3':
-	    this.last_state=state;
+    	this.last_state=state;
         this.next_state = 'turn_2';
         this.exec_state();
         break;
@@ -1099,7 +1102,7 @@ class Game{
         {
           this.add_info_message(this.current_player, 'You cannot attack. You\'re already attacking, being attacked, or already attacked.');
         }
-		this.last_state=state;
+	this.last_state=state;
         this.check_win_or_dead();
         break;
       case 'attack_1': //Roll for attacker damage
@@ -1112,7 +1115,7 @@ class Game{
         this.add_info_message(this.current_player, 'You rolled a ' + this.current_attacking_player_pts + '!');
         this.add_info_message(this.current_turn, 'Press "PASS TO DEFENSE" and pass to defending player.');
         //ADD WAIT FOR DICE ROLL!!!
-		    this.last_state=state;
+	this.last_state=state;
         this.check_win_or_dead();
         break;
       case 'attack_2': //Transition to Defender
@@ -1120,7 +1123,7 @@ class Game{
         this.switch_player(this.selected_player);
         this.show_roll_btn();
         this.add_info_message(this.current_player, 'You are being attacked by Player ' + this.current_turn + '! They rolled a ' + this.current_attacking_player_pts + '. \rRoll to defend!.');
-		    this.last_state=state;
+  	this.last_state=state;
         this.check_win_or_dead();
         break;
       case 'attack_3': // Roll for Defense
@@ -1128,7 +1131,7 @@ class Game{
         rollOneGreenDice();
         this.current_defending_player_pts = dice1Value;
         this.add_info_message(this.current_player, 'You rolled a ' + this.current_defending_player_pts + '!');
-        this.show_offense_pass_btn(this.player_array[this.current_defending_player].character.char_name);
+    	this.add_info_message(this.current_turn, 'They rolled a ' + this.current_defending_player_pts + '!'); //informs the attacker what the defender rolled
         var damage = 0;
 
         //Check if Balance Suit is equipped
@@ -1156,7 +1159,6 @@ class Game{
 
               this.double_damage = damage; //Used for sam's special
               moveDamage(this.player_array[this.current_player].player_color, damage);
-              //this.player_array[this.current_player].hp = this.player_array[this.current_player].hp + damage;
               this.add_info_message(this.current_player, 'You lost the attack! You took ' + damage + ' point(s) of damage.');
               this.add_info_message(this.current_turn, 'You won the attack! You gave ' + damage + ' damage to Player ' + this.current_player + '.');
 
@@ -1170,21 +1172,106 @@ class Game{
             }
 
         }
-		    this.last_state=state;
+    	this.last_state=state;	
+	if (this.player_array[this.current_player].character.char_name != "Osama Bin Laden") {
+		this.show_offense_pass_btn();
+	}
+    	else {
+		this.show_osama_special_attack_btn();	    
+	}
         this.check_win_or_dead();
+		 
         this.add_info_message(this.current_player, 'Press "PASS TO OFFENSE" and pass to attacking player.');
         //ADD WAIT FOR DICE ROLL!!!
         break;
-      case 'attack_4': // Transition back to attacker
-	    this.last_state=state;
+      case 'attack_4': // Transition back to attacker and continue turn 
+    	this.last_state=state;
         this.next_state = 'turn_2';
-        //this.add_info_message(this.current_turn, 'You BlANK your attack! You gave BLANK damage to BLANK');
-		this.last_state=state;
+	this.last_state=state;
         this.check_win_or_dead();
         this.switch_player(this.current_turn);
         this.exec_state();
         break;
+		   
+      case 'osama_attack_0': //These states should happen between attack_3 and attack_4 S17
+	// Shows roll button
+	this.next_state = 'osama_attack_1';
+	this.last_state=state;
+    	this.show_roll_btn();	//calls this.exec_State() on click
+    	break;
+	
+      case 'osama_attack_1':
+    	//Rolls attack die, sets attack value and shows pass to defense button
+    	this.last_state = state;
+    	this.next_state = 'osama_attack_2';
+    	rollOneRedDice();
+	this.current_attacking_player_pts = dice1Value;
+        this.current_attacking_player = this.selected_player;
+        this.current_defending_player = this.current_turn;
+        this.add_info_message(this.current_player, 'You rolled a ' + this.current_attacking_player_pts + ' for your counter!');
+        this.add_info_message(this.current_turn, 'Press "PASS TO DEFENSE" and pass to defending player.');	    
+	this.show_defense_pass_btn();
+	this.check_win_or_dead();	    
+    	break;
+		    
+      case 'osama_attack_2': // Switches to defending player, informs player of counter attack and shows roll button. Allows defender to use special before rolling
+	this.last_state=state;
+    	this.next_state='osama_attack_3';
+    	this.switch_player(this.current_turn);
+    	//allow players with Attack Modyfing specials to use their special before the counter attack.
+        this.show_roll_btn();
+        this.add_info_message(this.current_player, 'You are being counter-attacked by Osama! They rolled a ' + this.current_attacking_player_pts + '. \rRoll to defend!.');
+        this.check_win_or_dead();
+        break;
+		    
+      case 'osama_attack_3': 
+    	this.next_state = 'turn_2';
+	rollOneGreenDice();
+        this.current_defending_player_pts = dice1Value;
+        this.add_info_message(this.current_player, 'You rolled a ' + this.current_defending_player_pts + ' for the counter!');
+        var counter_attack_damage = 0;	   
+	
+	//Check if Balance Suit is equipped
+        if(this.player_array[this.current_defending_player].equipped.card_title == 'Balance Suit' || this.player_array[this.current_attacking_player].equipped.card_title == 'Balance Suit')
+          counter_attack_damage = (this.current_attacking_player_pts - this.current_defending_player_pts) - 1;
+        else
+          counter_attack_damage = (this.current_attacking_player_pts - this.current_defending_player_pts);
 
+        //Check if Good Luck Charm is equipped
+        if((this.player_array[this.current_player].current_region == 9 || this.player_array[this.current_player].current_region == 10) && this.player_array[this.current_player].equipped.card_title == 'Good Luck Charm')
+        {
+            this.add_info_message(this.current_player, 'You have "Good Luck Charm" equipped! You take no damage!');
+        }
+        else
+        {
+            if(this.current_attacking_player_pts > this.current_defending_player_pts)
+            {
+              //Check if Garrote or Blow Gun is equipped
+              if(this.player_array[this.selected_player].equipped.card_title == 'Garrote' || this.player_array[this.selected_player].equipped.card_title == 'Blow Gun')
+                counter_attack_damage=counter_attack_damage+1;
+
+              //Check if Hand Gun or Sniper Rifle is equipped
+              if(this.player_array[this.selected_player].equipped.card_title == 'Sniper Rifle' || this.player_array[this.selected_player].equipped.card_title == 'Handgun')
+                counter_attack_damage=counter_attack_damage+1;
+
+              moveDamage(this.player_array[this.current_player].player_color, counter_attack_damage);
+              this.add_info_message(this.current_player, 'You lost the counter-attack! You took ' + counter_attack_damage + ' point(s) of damage.');
+              this.add_info_message(this.selected_player, 'You won the counter-attack! You gave ' + counter_attack_damage + ' damage to Player ' + this.current_player + '.'); //selected player is still osama
+
+              var total_hp = this.player_array[this.current_player].character.hp;
+              document.getElementById("player_hp").innerHTML = total_hp - this.player_array[this.current_player].hp;
+            }
+            else
+            {
+              this.add_info_message(this.current_player, 'You won the counter-attack! You lost 0 point(s) of health.');
+              this.add_info_message(this.selected_player, 'You lost the counter-attack! You gave 0 damage to Player ' + this.current_player + '.');
+            }
+
+        }
+    	this.check_win_or_dead();
+	this.exec_state();
+    	break;
+		    
       //Specials
       case 'special_0':
         switch(this.player_array[this.current_player].character.char_name)
@@ -1196,7 +1283,7 @@ class Game{
             this.next_state = 'hassan_special_0';
             break;
           case 'Osama Bin Laden':
-            this.next_state = 'tori_special_0';
+            this.next_state = 'osama_special_0';
             break;
           case 'Sam Seal':
             this.next_state = 'sam_special_0';
@@ -1223,10 +1310,32 @@ class Game{
 		this.last_state=state;
         this.exec_state();
         break;
-
+	    
+      case 'osama_special_0':
+	this.next_state = 'turn_3';
+	
+	if(this.player_array[this.current_player].used_special == 1)
+        {
+          this.add_info_message(this.current_player, "You've already used your special");
+        }
+        else if(this.current_player == this.current_turn)
+        {
+          this.add_info_message(this.current_player, "You can only use this special when being attacked!");
+        }
+	else {
+	  this.next_state = 'osama_attack_0';
+	  this.reveal_player();
+	  this.player_array[this.current_player].used_special = 1;
+	  this.add_info_message(this.current_player, "You've used your special!");
+	}
+    	this.last_state = state;
+	this.check_win_or_dead();	    
+	this.exec_state();
+    	break;
+		    
       case 'ayman_special_0':
         this.next_state = 'turn_3';
-        //this.next_state = 'ayman_special_1';
+		    
         if(this.player_array[this.current_player].used_special == 1)
         {
           this.add_info_message(this.current_player, "You've already used your special");
@@ -1247,11 +1356,10 @@ class Game{
         {
           this.reveal_player();
           this.player_array[this.current_player].used_special = 1;
-          //this.player_array[this.current_player].hp = this.player_array[this.current_player].hp - 2;
           moveDamage(this.player_array[this.current_player].player_color, -2); // Heals Ayman 2 damage points
           this.add_info_message(this.current_player, "You've used your special!");
         }
-		this.last_state=state;
+	this.last_state=state;
         this.check_win_or_dead();
         this.exec_state();
         break;
@@ -1259,14 +1367,13 @@ class Game{
       case 'hassan_special_0':
         this.next_state = 'turn_3';
         this.add_info_message(this.current_player, "You can only use your special when you see the 'LIE' button. You have no limit on your special.");
-		this.last_state=state;
+	this.last_state=state;
         this.check_win_or_dead();
         this.exec_state();
         break;
 
       case 'sam_special_0':
         this.next_state = 'turn_3';
-        //this.next_state = 'ayman_special_1';
         if(this.player_array[this.current_player].used_special == 1)
         {
           this.add_info_message(this.current_player, "You've already used your special");
@@ -1287,12 +1394,11 @@ class Game{
         {
 	  this.reveal_player();
           this.player_array[this.current_player].used_special = 1;
-          //this.player_array[this.current_defending_player].hp = this.player_array[this.current_defending_player].hp + this.double_damage;
           moveDamage(this.player_array[this.current_defending_player].player_color, this.double_damage);
           this.add_info_message(this.current_player, "You've used your special!");
 	  this.double_damage = 0; // reset double damage to 0
         }
-		this.last_state=state;
+	this.last_state=state;
         this.check_win_or_dead();
         this.exec_state();
         break;
@@ -1327,19 +1433,18 @@ class Game{
         this.next_state = 'turn_3';
         hide_select_player_screen();
         var damage = (Math.floor(Math.random() * 6) + 1);
-        //this.player_array[this.selected_player].hp = this.player_array[this.selected_player].hp + damage;
         moveDamage(this.player_array[this.selected_player].player_color, damage);
 	this.reveal_player();
         this.player_array[this.current_player].used_special = 1;
         this.add_info_message(this.current_player, "You used your special!");
-		this.last_state=state;
+	this.last_state=state;
         this.check_win_or_dead();
         this.exec_state();
         break;
 
       case 'daniel_special_0':
         this.next_state = 'turn_3';
-        //this.next_state = 'daniel_special_1';
+
         if(this.player_array[this.current_player].used_special == 1)
         {
           this.add_info_message(this.current_player, "You've already used your special");
@@ -1370,7 +1475,6 @@ class Game{
           {
             this.reveal_player();
             this.player_array[this.current_player].used_special = 1;
-            //this.player_array[this.current_player].hp = this.player_array[this.current_player].hp - 1;
             moveDamage(this.player_array[this.current_player].player_color, -1);
             this.add_info_message(this.current_player, "You've used your special!");
           }
@@ -1403,21 +1507,19 @@ class Game{
         {
           this.add_info_message(this.current_player, "You must inflict 2 or more damage to use this special");
         }
+	else if(this.player_array[this.current_defending_player].hand.length < 1)
+	{
+	  this.add_info_message(this.current_player, "The defending player has no equipment cards!");
+        }
         else
         {
-          if(this.player_array[this.current_defending_player].hand.length > 0)
-          {
             this.reveal_player();
             this.player_array[this.current_player].used_special = 1;
             this.steal_equip_card();
             this.add_info_message(this.current_player, "You've used your special!");
-          }
-          else {
-            this.add_info_message(this.current_player, "Player has no equipment cards!");
-          }
-
+	    
         }
-		this.last_state=state;
+	this.last_state=state;
         this.check_win_or_dead();
         this.exec_state();
         break;
@@ -1443,12 +1545,12 @@ class Game{
           this.player_array[this.current_player].used_special = 1;
           this.has_attacked = 0;
           this.current_player_can_be_attacked = false;
-	  moveDamage(this.player_array[this.selected_player].player_color, 2); // billy takes 2 damage to use special
+	        moveDamage(this.player_array[this.selected_player].player_color, 2); // billy takes 2 damage to use special
 
           this.add_info_message(this.current_player, "You may now attack again!");
           this.add_info_message(this.current_player, "You've used your special!");
         }
-		this.last_state=state;
+	this.last_state=state;
         this.check_win_or_dead();
         this.exec_state();
         break;
@@ -1469,7 +1571,7 @@ class Game{
 	    this.player_array[this.current_player].used_special = 1;
 	    this.add_info_message(this.current_player, "You've used your special!");
     	}
-		this.last_state=state;
+	this.last_state=state;
         this.check_win_or_dead();
         this.exec_state();
         break;
@@ -1501,7 +1603,7 @@ class Game{
             this.add_info_message(this.current_player, "Your health is full!");
           }
         }
-		this.last_state=state;
+	this.last_state=state;
         this.check_win_or_dead();
         this.exec_state();
         break;
@@ -2115,7 +2217,7 @@ class Game{
           //Show card and wait for user to click card
           case 'accuse11_0':
             this.next_state = 'accuse11_1';
-			      this.last_state=state;
+	    this.last_state=state;
             hide_draw_card_screen_overlay();
             show_zoomed_card(this.drawn_invest_card);
             this.add_info_message(this.current_player, 'Click card to use it.');
@@ -2559,6 +2661,8 @@ class Game{
     document.getElementById("action_end_turn_btn").style.display = "none";
     document.getElementById("action_adjacent_btn").style.display = "none";
     document.getElementById("action_special_roll_btn").style.display = "none";
+    document.getElementById("action_counter_attack_btn").style.display = "none";
+    document.getElementById("action_osama_offense_pass_btn").style.display = "none";
 
   }
 
@@ -2573,6 +2677,8 @@ class Game{
     document.getElementById("action_end_turn_btn").style.display = "none";
     document.getElementById("action_adjacent_btn").style.display = "none";
     document.getElementById("action_special_roll_btn").style.display = "none";
+    document.getElementById("action_counter_attack_btn").style.display = "none";
+    document.getElementById("action_osama_offense_pass_btn").style.display = "none";  
 	setTimeout(function(){
     document.getElementById("action_draw_btn").style.display = "initial"; },7000);
   }
@@ -2587,11 +2693,13 @@ class Game{
     document.getElementById("action_offense_pass_btn").style.display = "none";
     document.getElementById("action_adjacent_btn").style.display = "none";
     document.getElementById("action_special_roll_btn").style.display = "none";
+    document.getElementById("action_counter_attack_btn").style.display = "none";
+    document.getElementById("action_osama_offense_pass_btn").style.display = "none";
 	setTimeout(function(){
     document.getElementById("action_defense_pass_btn").style.display = "initial"; },3500);
   }
 
-  show_offense_pass_btn(character){
+  show_offense_pass_btn(){
     document.getElementById("action_roll_btn").style.display = "none";
     document.getElementById("action_draw_btn").style.display = "none";
     document.getElementById("action_attack_btn").style.display = "none";
@@ -2600,11 +2708,13 @@ class Game{
     document.getElementById("action_defense_pass_btn").style.display = "none";
     document.getElementById("action_adjacent_btn").style.display = "none";
     document.getElementById("action_special_roll_btn").style.display = "none";
+    document.getElementById("action_counter_attack_btn").style.display = "none";
+    document.getElementById("action_osama_offense_pass_btn").style.display = "none";
   setTimeout(function(){
     document.getElementById("action_offense_pass_btn").style.display = "initial";
-    if(character=='Osama Bin Laden'){
+    /*if(character=='Osama Bin Laden'){
       document.getElementById("action_special_btn").style.display = "initial";
-    }
+    }*/
     },3500);
   }
 
@@ -2617,6 +2727,8 @@ class Game{
     document.getElementById("action_draw_btn").style.display = "none";
     document.getElementById("action_adjacent_btn").style.display = "none";
     document.getElementById("action_special_roll_btn").style.display = "none";
+    document.getElementById("action_counter_attack_btn").style.display = "none";
+    document.getElementById("action_osama_offense_pass_btn").style.display = "none";
   	if(previous_state=="turn_1"){
   	  setTimeout(function(){
   	  document.getElementById("action_attack_btn").style.display = "initial";
@@ -2647,6 +2759,23 @@ class Game{
     document.getElementById("action_attack_btn").style.display = "none";
     document.getElementById("action_special_btn").style.display = "none";
     document.getElementById("action_end_turn_btn").style.display = "none";
+    document.getElementById("action_counter_attack_btn").style.display = "none";
+    document.getElementById("action_osama_offense_pass_btn").style.display = "none";
+  }
+
+  show_osama_special_attack_btn()
+  {
+    document.getElementById("action_counter_attack_btn").style.display = "initial";
+    document.getElementById("action_osama_offense_pass_btn").style.display = "initial";
+    document.getElementById("action_adjacent_btn").style.display = "none";
+    document.getElementById("action_special_roll_btn").style.display = "none";
+    document.getElementById("action_roll_btn").style.display = "none";
+    document.getElementById("action_offense_pass_btn").style.display = "none";
+    document.getElementById("action_defense_pass_btn").style.display = "none";
+    document.getElementById("action_draw_btn").style.display = "none";
+    document.getElementById("action_attack_btn").style.display = "none";
+    document.getElementById("action_special_btn").style.display = "none";
+    document.getElementById("action_end_turn_btn").style.display = "none";	
   }
 
   //Sets the game objects select player variable and hides the select player screen.
