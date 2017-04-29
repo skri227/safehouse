@@ -730,7 +730,7 @@ class Game{
 			//this.player_array[i] = new Player(charactersArray[i]);
 
     //State machine initial values.
-	this.last_state='start_game';
+    this.last_state='start_game';
     this.current_state = 'start_game';
     this.next_state = 'start_game';
 
@@ -839,52 +839,55 @@ class Game{
 	this.add_info_message(this.current_player, 'You rolled a ' + this.player_array[this.current_turn].current_region + '!');
 	var r = this.player_array[this.current_player].current_region;
 
-			if(r == 2 || r == 3 || r == 4 || r == 5 || r == 6 || r == 8)
-			{
-			  this.next_state = 'draw_card_0';
-			  this.show_draw_btn();
-			  this.add_info_message(this.current_turn, 'Click "DRAW" to choose a card.');
-			}
-			else if(r == 11 || r == 12)
-			{
-			  var anyone_have_cards = false;
-			  for(var i = 1; i <= this.num_of_players; i++)
-			  {
-				if(this.player_array[i].hand.length > 0)
-				  anyone_have_cards = true;
-			  }
-			  if(anyone_have_cards == true)
-				this.exec_state('steal_region_0');
-			  else
-				this.next_state = 'turn_2';
-				this.exec_state();
-			}
-			else if(r == 9 || r == 10)
-			{
-			  this.exec_state('damage_region_0');
-			}
-			else
-			{
-			  this.next_state = 'turn_3';
-			  this.exec_state();
-			}
+	if(r == 2 || r == 3 || r == 4 || r == 5 || r == 6 || r == 8)
+	{
+	  this.next_state = 'draw_card_0';
+	  this.show_draw_btn();
+	  this.add_info_message(this.current_turn, 'Click "DRAW" to choose a card.');
+	}
+	else if(r == 11 || r == 12)
+	{
+	  var anyone_have_cards = false;
+	  for(var i = 1; i <= this.num_of_players; i++)
+	  {
+		if(this.player_array[i].hand.length > 0)
+		  anyone_have_cards = true;
+	  }
+	  if(anyone_have_cards == true)
+		this.exec_state('steal_region_0');
+	  else
+		this.next_state = 'turn_2';
+		this.exec_state();
+	}
+	else if(r == 9 || r == 10)
+	{
+	  this.exec_state('damage_region_0');
+	}
+	else
+	{
+	  this.next_state = 'turn_3';
+	  this.exec_state();
+	}
         this.check_win_or_dead();
         break;
+		    
       case 'turn_2':
         this.next_state = 'turn_3';
-		    this.show_general_btn(this.last_state);
-		    this.last_state=state;
+	this.show_general_btn(this.last_state);
+    	this.last_state=state;
         this.exec_state();
         break;
+		    
       case 'turn_3':
-    		if(this.last_state=="turn_1")
-    		{
-    	      this.show_general_btn(this.last_state);
-    		}
-    		this.add_info_message(this.current_turn, 'You can now attack a player, select a card to equip, use your special, or end your turn.');
+	if(this.last_state=="turn_1")
+	{
+      		this.show_general_btn(this.last_state);
+	}
+	this.add_info_message(this.current_turn, 'You can now attack a player, select a card to equip, use your special, or end your turn.');
         this.next_state = 'turn_4';
-		    this.last_state=state;
+    	this.last_state=state;
         break;
+		    
       case 'turn_4':
         this.next_state = 'turn_0';
         if(this.player_array[this.current_turn].alive == true)
@@ -1064,7 +1067,7 @@ class Game{
         this.exec_state();
         break;
       case 'damage_region_3':
-	    this.last_state=state;
+    	this.last_state=state;
         this.next_state = 'turn_2';
         this.exec_state();
         break;
@@ -1089,7 +1092,7 @@ class Game{
         {
           this.add_info_message(this.current_player, 'You cannot attack. You\'re already attacking, being attacked, or already attacked.');
         }
-		this.last_state=state;
+	this.last_state=state;
         this.check_win_or_dead();
         break;
       case 'attack_1': //Roll for attacker damage
@@ -1102,7 +1105,7 @@ class Game{
         this.add_info_message(this.current_player, 'You rolled a ' + this.current_attacking_player_pts + '!');
         this.add_info_message(this.current_turn, 'Press "PASS TO DEFENSE" and pass to defending player.');
         //ADD WAIT FOR DICE ROLL!!!
-		    this.last_state=state;
+	this.last_state=state;
         this.check_win_or_dead();
         break;
       case 'attack_2': //Transition to Defender
@@ -1110,7 +1113,7 @@ class Game{
         this.switch_player(this.selected_player);
         this.show_roll_btn();
         this.add_info_message(this.current_player, 'You are being attacked by Player ' + this.current_turn + '! They rolled a ' + this.current_attacking_player_pts + '. \rRoll to defend!.');
-		    this.last_state=state;
+  	this.last_state=state;
         this.check_win_or_dead();
         break;
       case 'attack_3': // Roll for Defense
@@ -1118,6 +1121,7 @@ class Game{
         rollOneGreenDice();
         this.current_defending_player_pts = dice1Value;
         this.add_info_message(this.current_player, 'You rolled a ' + this.current_defending_player_pts + '!');
+    	this.add_info_message(this.current_turn, 'They rolled a ' + this.current_defending_player_pts + '!');
         var damage = 0;
 
         //Check if Balance Suit is equipped
@@ -1145,7 +1149,6 @@ class Game{
 
               this.double_damage = damage; //Used for sam's special
               moveDamage(this.player_array[this.current_player].player_color, damage);
-              //this.player_array[this.current_player].hp = this.player_array[this.current_player].hp + damage;
               this.add_info_message(this.current_player, 'You lost the attack! You took ' + damage + ' point(s) of damage.');
               this.add_info_message(this.current_turn, 'You won the attack! You gave ' + damage + ' damage to Player ' + this.current_player + '.');
 
@@ -1159,7 +1162,7 @@ class Game{
             }
 
         }
-		    this.last_state=state;	
+    	this.last_state=state;	
 	if (this.player_array[this.current_player].character.char_name != "Osama Bin Laden") {
 		this.show_offense_pass_btn();
 	}
@@ -1172,7 +1175,7 @@ class Game{
         //ADD WAIT FOR DICE ROLL!!!
         break;
       case 'attack_4': // Transition back to attacker and continue turn 
-	    this.last_state=state;
+    	this.last_state=state;
         this.next_state = 'turn_2';
 	this.last_state=state;
         this.check_win_or_dead();
@@ -1181,23 +1184,30 @@ class Game{
         break;
 		   
       case 'osama_attack_0': //These states should happen between attack_3 and attack_4 S17
-	//Rolls attack diece, sets attack value and shows pass to defense button
+	// Shows roll button
 	this.next_state = 'osama_attack_1';
 	this.last_state=state;
-	rollOneRedDice();
+    	this.show_roll_btn();	//calls this.exec_State() on click
+    	break;
+	
+      case 'osama_attack_1':
+    	//Rolls attack die, sets attack value and shows pass to defense button
+    	this.last_state = state;
+    	this.next_state = 'osama_attack_2';
+    	rollOneRedDice();
 	this.current_attacking_player_pts = dice1Value;
         this.current_attacking_player = this.selected_player;
         this.current_defending_player = this.current_turn;
-        this.add_info_message(this.current_player, 'You rolled a ' + this.current_attacking_player_pts + '!');
+        this.add_info_message(this.current_player, 'You rolled a ' + this.current_attacking_player_pts + ' for your counter!');
         this.add_info_message(this.current_turn, 'Press "PASS TO DEFENSE" and pass to defending player.');	    
 	this.show_defense_pass_btn();
 	this.check_win_or_dead();	    
     	this.exec_state();
     	break;
 		    
-      case 'osama_attack_1': // Switches to defending player, informs player of counter attack and shows roll button. Allows defender to use special before rolling
+      case 'osama_attack_2': // Switches to defending player, informs player of counter attack and shows roll button. Allows defender to use special before rolling
 	this.last_state=state;
-    	this.next_state='osama_attack_2';
+    	this.next_state='osama_attack_3';
     	this.switch_player(this.current_turn);
     	//allow players with Attack Modyfing specials to use their special before the counter attack.
         this.show_roll_btn();
@@ -1205,11 +1215,11 @@ class Game{
         this.check_win_or_dead();
         break;
 		    
-      case 'osama_attack_2': 
-    	this.next_state = 'attack_4';
+      case 'osama_attack_3': 
+    	this.next_state = 'turn_2';
 	rollOneGreenDice();
         this.current_defending_player_pts = dice1Value;
-        this.add_info_message(this.current_player, 'You rolled a ' + this.current_defending_player_pts + '!');
+        this.add_info_message(this.current_player, 'You rolled a ' + this.current_defending_player_pts + ' for the counter!');
         var counter_attack_damage = 0;	   
 	
 	//Check if Balance Suit is equipped
@@ -1236,20 +1246,20 @@ class Game{
                 counter_attack_damage=counter_attack_damage+1;
 
               moveDamage(this.player_array[this.current_player].player_color, counter_attack_damage);
-              //this.player_array[this.current_player].hp = this.player_array[this.current_player].hp + damage;
-              this.add_info_message(this.current_player, 'You lost the attack! You took ' + counter_attack_damage + ' point(s) of damage.');
-              this.add_info_message(this.current_turn, 'You won the attack! You gave ' + counter_attack_damage + ' damage to Player ' + this.current_player + '.');
+              this.add_info_message(this.current_player, 'You lost the counter-attack! You took ' + counter_attack_damage + ' point(s) of damage.');
+              this.add_info_message(this.selected_player, 'You won the counter-attack! You gave ' + counter_attack_damage + ' damage to Player ' + this.current_player + '.'); //selected player is still osama
 
               var total_hp = this.player_array[this.current_player].character.hp;
               document.getElementById("player_hp").innerHTML = total_hp - this.player_array[this.current_player].hp;
             }
             else
             {
-              this.add_info_message(this.current_player, 'You won the attack! You lost 0 point(s) of health.');
-              this.add_info_message(this.current_turn, 'You lost the attack! You gave 0 damage to Player ' + this.current_player + '.');
+              this.add_info_message(this.current_player, 'You won the counter-attack! You lost 0 point(s) of health.');
+              this.add_info_message(this.selected_player, 'You lost the counter-attack! You gave 0 damage to Player ' + this.current_player + '.');
             }
 
-        }		    
+        }
+    	this.check_win_or_dead();
 	this.exec_state();
     	break;
 		    
@@ -2198,7 +2208,7 @@ class Game{
           //Show card and wait for user to click card
           case 'accuse11_0':
             this.next_state = 'accuse11_1';
-			      this.last_state=state;
+	    this.last_state=state;
             hide_draw_card_screen_overlay();
             show_zoomed_card(this.drawn_invest_card);
             this.add_info_message(this.current_player, 'Click card to use it.');
