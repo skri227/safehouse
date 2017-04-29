@@ -15,8 +15,45 @@
 			<br>
 			<button type="button" onclick="num_of_players_screen_setup()">Start</button>
 			<br>
-			<button type="button">Rules</button>
+			<button type="button" onclick="rules_screen_setup()">Rules</button> <!--added S17-->
 		</div>
+
+		<!-- S17 Rules Screen setup -->
+		<div id="rules_screen">
+			<h1>Safe House Rules (Version 1.5)</h1>
+			<h2>
+			Summary - Safe House is a game of investigation, teamwork and survival.
+			Players take on the role of terrorists, counter-terrorist and neutral characters. Each character has different winning conditions and initially no one knows each other's identity. During the game you must uncover your teammates and enemies. Killing your enemies is always a top priority, as is survival!
+			<br>
+			Preparation -
+			Select number of players. Depending upon the number of players randomize the pool of characters as follows:
+				<br>
+<ul>3 players, 1 Terrorist, I Counter-terrorist, I Neutral<ul>
+<ul>4 players, 2 Terrorist, 2 Counter-terrorist<ul>
+5 players, 2 Terrorist, 2 Counter-terrorist, 1 Neutral
+6 players, 2 Terrorist, 2 Counter-terrorist, 2 Neutral
+7 players (A), 2 Terrorist, 2 Counter-terrorist, 2 Neutral, (and one random additional either Terrorist, Counter-terrorist or Neutral)
+7 players (B), 2 Terrorist, 2 Counter-terrorist, 3 Neutral (not George)
+8 players (A), 3 Terrorist, 3 Counter-terrorist, 2 Neutral
+8 players (B), 2 Terrorist, 2 Counter-terrorist, 2 Neutral, (and two random additional either Counter-terrorist or Neutral)
+Each player’s color marker is placed on the damage track position 0.
+
+Game Play –
+
+Each player takes a turn and then the next player clockwise takes their turn. This continues until someone achieves their victory condition.
+
+A turn consist of the following actions.
+1. Player press ROLL and moves to the region rolled (mandatory).
+2. If the region can draw, the player must draw. Then follow the instructions on the card and the player log. If drawn follow the instructions on the CARD. (Place equipment or take action immediately).
+3. ATTACK other player(s). (Optional and requires other characters in "range").
+
+
+		</h2>
+			<div id="rules_back_btn" onclick="reset_game()">
+				<h1>Back</h1>
+			</div>
+		</div>
+		<!-- end new S17 rules page -->
 
 		<!--Number of Players Select Screen-->
 		<div id="player_select_screen">
@@ -271,7 +308,7 @@
 					<button id="select_zone_11_btn" onclick="game.select_zone(11)">ZONE 11/12</button>
 				</div>
 			</div>
-	
+
 			<!--Select Options Screen-->
 			<!--This is not implemented into the game yet-->
 			<div id="select_options_overlay_container">
@@ -352,6 +389,7 @@
 				<!--<canvas id = "my_Canvas"></canvas>-->
 				<!--Code from Three.js gets loaded here-->
 			</div>
+
 
 			<!--Player info area-->
 			<!--For the current player, it displays their character, affiliation, health, and special/reveal perk.-->

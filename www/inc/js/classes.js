@@ -171,6 +171,7 @@ class Equipment{
 }
 
 
+
 //These 10 variables are the 10 instances of the 10 characters created in the game.  They are passed their names, HP,
 //images, affiliations, win conditions, speical abilities, and then the text that is displayed on the card.
 var Ayman = new Character("Ayman al-Zawahiri", 13, "inc/images/character_ayman.JPG", "Terrorist", "terrorist_win_condition", "special", "All the Counter-Terrorist are dead or 3 Neutral are dead.", "Reveal - If you attack a player and inflict 3 or more damage, you heal 2 points of your own damage.");
@@ -235,7 +236,7 @@ var illhelp = new Action("I'll Help!", "inc/images/action_illhelp.jpeg", "Pick a
 var luckyday = new Action("It's your lucky day!", "inc/images/action_luckyday.jpeg", "If you are Tori, Charlie, or Hassan, you may reveal yourself.  If you do (or you are already revealed) you fully heal (0 damage).");
 var spotted = new Action("Spotted!", "inc/images/action_spotted.jpeg", "If you are Osama or Ayman, you must reveal yourself!");
 var firstaid = new Action("First Aid", "inc/images/action_firstaid.jpg", "Heal two points of your damage.");
-var judgementday = new Action("Judgement Day", "inc/images/action_judgementday.jpg", "All character's except for you receive 2 points of damage");
+var judgementday = new Action("Judgement Day", "inc/images/action_judgementday.jpg", "All characters except for you receive 2 points of damage");
 //NOTUSED var energyboost = new Action("Energy Boost", "inc/images/action_energyboost.jpeg", "When this turn is over, take another turn!");
 //NOTUSED var doctorsvisit = new Action("Doctor's Visit", "inc/images/action_doctorsvisit.jpeg", "Heal any characters HP marker to 4 (You may choose yourself).");
 var firstaid2 = new Action("First Aid", "inc/images/action_firstaid2.jpeg", "Heal two points of your damage");
@@ -265,7 +266,6 @@ var new_deck_investigationArray = [accuse1, accuse2, accuse3, accuse4, accuse5, 
 
 //The Terrorists array is composed of the 3 terrorist characters in the game
 var terroristsArray = [Ayman, Hassan, Osama];
-//var terroristsArray = [Osama]; // only for testing DELETE AFTER
 
 //The Counter-Terrorist array is composed of the 3 Counter-Terrorist characters available in the game
 var counterterroristArray = [Sam, Charlie, Fred];
@@ -276,7 +276,6 @@ var neutralArray = [Daniel, George, Tori, Billy];
 
 //The Characters Array is a list of all available characters in the game
 var charactersArray = [Ayman, Hassan, Osama, Sam, Charlie, Fred, Daniel, George, Tori, Billy];
-//var charactersArray = [Osama, Sam, Charlie, Fred, Daniel, George, Tori, Billy]; // only for testing DELETE AFTER
 
 //These 7 function calls shuffle all the arrays for a random order that can be drawn from.
 array_shuffle(charactersArray);
