@@ -1121,7 +1121,7 @@ class Game{
         rollOneGreenDice();
         this.current_defending_player_pts = dice1Value;
         this.add_info_message(this.current_player, 'You rolled a ' + this.current_defending_player_pts + '!');
-    	this.add_info_message(this.current_turn, 'They rolled a ' + this.current_defending_player_pts + '!');
+    	this.add_info_message(this.current_turn, 'They rolled a ' + this.current_defending_player_pts + '!'); //informs the attacker what the defender rolled
         var damage = 0;
 
         //Check if Balance Suit is equipped
