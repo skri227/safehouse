@@ -277,7 +277,7 @@ function hide_next_player_screen_overlay()
 }
 
 //Shows screen for drawing a card.
-function draw_card_screen_overlay(invest, equip, onetime)
+function draw_card_screen_overlay(invest, defense, offense)
 {
   document.getElementById("draw_invest_card").style.display = 'none';
   document.getElementById("draw_defense_card").style.display = 'none';
@@ -285,10 +285,12 @@ function draw_card_screen_overlay(invest, equip, onetime)
 
   if(invest == 1)
     document.getElementById("draw_invest_card").style.display = 'inline-block';
-  if(equip == 1)
+  if(defense == 1)
     document.getElementById("draw_defense_card").style.display = 'inline-block';
-  if(onetime == 1)
+    game.offense_or_defense = "defense";
+  if(offense == 1)
     document.getElementById("draw_offense_card").style.display = 'inline-block';
+    game.offense_or_defense = "offense";
 
 	var x = document.getElementById("draw_card_overlay_container");
 	function show_draw_card_screen(){
@@ -756,6 +758,7 @@ class Game{
     this.has_attacked = 0;
     this.current_player_can_be_attacked = false;
     this.selected_option = 0;
+    this.offense_or_defense;
 
     //Used for sam's special
     this.double_damage= 0;
@@ -1599,8 +1602,24 @@ class Game{
         this.exec_state();
         break;
 
-      case 'equip_or_action_0':		    
+      case 'equip_or_action_0':  // This state checks to see if the card drawn is equipment or one time action S17
     	this.last_state=state;
+    	var is_equipment_Card = false; // set flag
+    	
+    	if (this.offense_or_defense == "defense") { // loops through equipmentArray to see if the card drawn is an equipment
+		for (var i = 0; i < equipmentArray.length; i++) {
+			if (defenseArray[0] == equipmentArray[i]) {
+				is_equipment_Card = true;
+			}
+		}
+	}
+    	else if (this.offense_or_defense == "offense") {
+		for (var i = 0; i < equipmentArray.length; i++) {
+			if (offenseArray[0] == equipmentArray[i]) {
+				is_equipment_Card = true;
+			}
+		}
+	}
 		    
     	this.exec_state();
    	break;
