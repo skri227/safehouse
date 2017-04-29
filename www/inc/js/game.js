@@ -287,10 +287,8 @@ function draw_card_screen_overlay(invest, defense, offense)
     document.getElementById("draw_invest_card").style.display = 'inline-block';
   if(defense == 1)
     document.getElementById("draw_defense_card").style.display = 'inline-block';
-    game.offense_or_defense = "defense";
   if(offense == 1)
     document.getElementById("draw_offense_card").style.display = 'inline-block';
-    game.offense_or_defense = "offense";
 
 	var x = document.getElementById("draw_card_overlay_container");
 	function show_draw_card_screen(){
@@ -1602,26 +1600,35 @@ class Game{
         this.exec_state();
         break;
 
-      case 'equip_or_action_0':  // This state checks to see if the card drawn is equipment or one time action S17
+      case 'equip_or_action_offense_0':  // This state checks to see if the card drawn is equipment or one time action S17
     	this.last_state=state;
 	hide_draw_card_screen_overlay();	    
     	var is_equipment_card = false; // set flag
-    	
-    	if (this.offense_or_defense == "defense") { // loops through equipmentArray to see if the card drawn is an equipment
-		for (var i = 0; i < equipmentArray.length; i++) {
-			if (defenseArray[0] == equipmentArray[i]) {
-				is_equipment_card = true;
-			}
+    	this.offense_or_defense == "offense";
+	for (var i = 0; i < equipmentArray.length; i++) {
+		if (offenseArray[0] == equipmentArray[i]) {
+			is_equipment_card = true;
 		}
+	}	    
+  	if (is_equipment_card) {
+		this.next_state = 'equip_0';
 	}
-    	else if (this.offense_or_defense == "offense") {
-		for (var i = 0; i < equipmentArray.length; i++) {
-			if (offenseArray[0] == equipmentArray[i]) {
-				is_equipment_card = true;
-			}
-		}
+    	else {
+		this.next_state = 'action_0';
 	}
+    	this.exec_state();
+   	break;
 		    
+      case 'equip_or_action_defense_0':  // This state checks to see if the card drawn is equipment or one time action S17
+    	this.last_state=state;
+	hide_draw_card_screen_overlay();	    
+    	var is_equipment_card = false; // set flag
+    	this.offense_or_defense == "defense";
+	for (var i = 0; i < equipmentArray.length; i++) {
+		if (defenseArray[0] == equipmentArray[i]) {
+			is_equipment_card = true;
+		}
+	}	    
   	if (is_equipment_card) {
 		this.next_state = 'equip_0';
 	}
@@ -1741,7 +1748,7 @@ class Game{
 		this.drawn_equip_card = defenseArray[0];
 		defenseArray.shift();
 	}
-    	else if (this.offense_or_defense == "offense") {
+    	else if(this.offense_or_defense == "offense") {
 		this.drawn_equip_card = offenseArray[0];
 		offenseArray.shift();
 	}
