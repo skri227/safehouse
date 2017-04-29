@@ -1052,13 +1052,11 @@ class Game{
         {
           if(this.player_array[this.selected_player].hp != 0)
           {
-              //this.player_array[this.selected_player].hp = this.player_array[this.selected_player].hp - 1;
               moveDamage(this.player_array[this.selected_player].player_color, -1);
           }
         }
         else
         {
-            //this.player_array[this.selected_player].hp = this.player_array[this.selected_player].hp + 1;
             moveDamage(this.player_array[this.selected_player].player_color, 2);
         }
 		this.last_state=state;
@@ -1311,13 +1309,14 @@ class Game{
 	  this.player_array[this.current_player].used_special = 1;
 	  this.add_info_message(this.current_player, "You've used your special!");
 	}
+    	this.last_state = state;
 	this.check_win_or_dead();	    
 	this.exec_state();
     	break;
 		    
       case 'ayman_special_0':
         this.next_state = 'turn_3';
-        //this.next_state = 'ayman_special_1';
+		    
         if(this.player_array[this.current_player].used_special == 1)
         {
           this.add_info_message(this.current_player, "You've already used your special");
@@ -1338,11 +1337,10 @@ class Game{
         {
           this.reveal_player();
           this.player_array[this.current_player].used_special = 1;
-          //this.player_array[this.current_player].hp = this.player_array[this.current_player].hp - 2;
           moveDamage(this.player_array[this.current_player].player_color, -2); // Heals Ayman 2 damage points
           this.add_info_message(this.current_player, "You've used your special!");
         }
-		this.last_state=state;
+	this.last_state=state;
         this.check_win_or_dead();
         this.exec_state();
         break;
@@ -1350,14 +1348,13 @@ class Game{
       case 'hassan_special_0':
         this.next_state = 'turn_3';
         this.add_info_message(this.current_player, "You can only use your special when you see the 'LIE' button. You have no limit on your special.");
-		this.last_state=state;
+	this.last_state=state;
         this.check_win_or_dead();
         this.exec_state();
         break;
 
       case 'sam_special_0':
         this.next_state = 'turn_3';
-        //this.next_state = 'ayman_special_1';
         if(this.player_array[this.current_player].used_special == 1)
         {
           this.add_info_message(this.current_player, "You've already used your special");
@@ -1378,12 +1375,11 @@ class Game{
         {
 	  this.reveal_player();
           this.player_array[this.current_player].used_special = 1;
-          //this.player_array[this.current_defending_player].hp = this.player_array[this.current_defending_player].hp + this.double_damage;
           moveDamage(this.player_array[this.current_defending_player].player_color, this.double_damage);
           this.add_info_message(this.current_player, "You've used your special!");
 	  this.double_damage = 0; // reset double damage to 0
         }
-		this.last_state=state;
+	this.last_state=state;
         this.check_win_or_dead();
         this.exec_state();
         break;
@@ -1418,19 +1414,18 @@ class Game{
         this.next_state = 'turn_3';
         hide_select_player_screen();
         var damage = (Math.floor(Math.random() * 6) + 1);
-        //this.player_array[this.selected_player].hp = this.player_array[this.selected_player].hp + damage;
         moveDamage(this.player_array[this.selected_player].player_color, damage);
 	this.reveal_player();
         this.player_array[this.current_player].used_special = 1;
         this.add_info_message(this.current_player, "You used your special!");
-		this.last_state=state;
+	this.last_state=state;
         this.check_win_or_dead();
         this.exec_state();
         break;
 
       case 'daniel_special_0':
         this.next_state = 'turn_3';
-        //this.next_state = 'daniel_special_1';
+
         if(this.player_array[this.current_player].used_special == 1)
         {
           this.add_info_message(this.current_player, "You've already used your special");
@@ -1461,7 +1456,6 @@ class Game{
           {
             this.reveal_player();
             this.player_array[this.current_player].used_special = 1;
-            //this.player_array[this.current_player].hp = this.player_array[this.current_player].hp - 1;
             moveDamage(this.player_array[this.current_player].player_color, -1);
             this.add_info_message(this.current_player, "You've used your special!");
           }
@@ -1494,21 +1488,19 @@ class Game{
         {
           this.add_info_message(this.current_player, "You must inflict 2 or more damage to use this special");
         }
+	else if(this.player_array[this.current_defending_player].hand.length < 1)
+	{
+	  this.add_info_message(this.current_player, "The defending player has no equipment cards!");
+        }
         else
         {
-          if(this.player_array[this.current_defending_player].hand.length > 0)
-          {
             this.reveal_player();
             this.player_array[this.current_player].used_special = 1;
             this.steal_equip_card();
             this.add_info_message(this.current_player, "You've used your special!");
-          }
-          else {
-            this.add_info_message(this.current_player, "Player has no equipment cards!");
-          }
-
+	    
         }
-		this.last_state=state;
+	this.last_state=state;
         this.check_win_or_dead();
         this.exec_state();
         break;
@@ -1534,12 +1526,12 @@ class Game{
           this.player_array[this.current_player].used_special = 1;
           this.has_attacked = 0;
           this.be_attacked = false;
-	  moveDamage(this.player_array[this.selected_player].player_color, 2); // billy takes 2 damage to use special
+	  moveDamage(this.player_array[this.current_player].player_color, 2); // billy takes 2 damage to use special
 
           this.add_info_message(this.current_player, "You may now attack again!");
           this.add_info_message(this.current_player, "You've used your special!");
         }
-		this.last_state=state;
+	this.last_state=state;
         this.check_win_or_dead();
         this.exec_state();
         break;
@@ -1560,7 +1552,7 @@ class Game{
 	    this.player_array[this.current_player].used_special = 1;
 	    this.add_info_message(this.current_player, "You've used your special!");
     	}
-		this.last_state=state;
+	this.last_state=state;
         this.check_win_or_dead();
         this.exec_state();
         break;
@@ -1592,7 +1584,7 @@ class Game{
             this.add_info_message(this.current_player, "Your health is full!");
           }
         }
-		this.last_state=state;
+	this.last_state=state;
         this.check_win_or_dead();
         this.exec_state();
         break;
