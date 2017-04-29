@@ -1605,6 +1605,13 @@ class Game{
 	hide_draw_card_screen_overlay();	    
     	var is_equipment_card = false; // set flag
     	this.offense_or_defense = "offense";
+	
+    	//if the offense deck is empty, shuffle all the one time action cards back into a new deck
+    	if(offenseArray.length == 0) {
+	      offenseArray = newDeckOffenseArray;
+              array_shuffle(offenseArray);
+	}
+		    
 	for (var i = 0; i < equipmentArray.length; i++) {
 		if (offenseArray[0] == equipmentArray[i]) {
 			is_equipment_card = true;
@@ -1624,6 +1631,13 @@ class Game{
 	hide_draw_card_screen_overlay();	    
     	var is_equipment_card = false; // set flag
     	this.offense_or_defense = "defense";
+		
+    	//if the defense deck is empty, shuffle all the one time action cards back into a new deck
+    	if(defenseArray.length == 0) {
+	      defenseArray = newDeckDefenseArray;
+              array_shuffle(defenseArray);
+	}
+		    
 	for (var i = 0; i < equipmentArray.length; i++) {
 		if (defenseArray[0] == equipmentArray[i]) {
 			is_equipment_card = true;
@@ -2319,13 +2333,7 @@ class Game{
 	    	this.drawn_action_card = offenseArray[0];
 		offenseArray.shift();
 	    }
-            /*else
-            {
-              actionArray = new_deck_actionArray;
-              array_shuffle(actionArray);
-              this.drawn_action_card = actionArray[0];
-              actionArray.shift();
-            }*/
+		    
             switch(this.drawn_action_card.card_title)
             {
               case 'R&R':
