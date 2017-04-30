@@ -432,12 +432,13 @@ A turn consist of the following actions.
 			<!--This shows all the player related actions they can take during their turn.-->
 			<!--Certain buttons appear at different times and events.-->
 			<div id="action_container">
+				<button id="action_safehouse_stay_btn" class="safe_house_choice_btn" onclick="game.exec_state()">STAY</button>
+				<button id="action_safehouse_move_btn" class="safe_house_choice_btn" onclick="game.exec_state()">MOVE</button>
 				<button id="action_counter_attack_btn" class="osama_special_attack_btn" onclick="game.exec_state('osama_special_0')">SPECIAL</button>
 				<button id="action_osama_offense_pass_btn" class="osama_special_attack_btn" onclick="game.exec_state()">PASS TO OFFENSE</button>
 				<button id="action_adjacent_btn" class="charlie_special_move_btn" onclick="game.exec_state('charlie_movement_0')">ADJACENT</button>
 				<button id="action_special_roll_btn" class="charlie_special_move_btn" onclick="game.exec_state('turn_1')">ROLL</button>
 				<button id="action_roll_btn" onclick="game.exec_state()">ROLL</button>
-				<!--<button id="action_roll_btn" onclick="show_attack_screen()">ROLL</button>-->
 				<button id="action_draw_btn" onclick="game.exec_state()">DRAW</button>
 				<button id="action_attack_btn" class="general_action_btn" onclick="game.exec_state('attack_0')">ATTACK</button>
 				<button id="action_defense_pass_btn" class="general_action_btn" onclick="game.exec_state()">PASS TO DEFENSE</button>
