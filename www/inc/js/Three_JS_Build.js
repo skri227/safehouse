@@ -92,8 +92,8 @@ var diceXLocation = -4;
 var diceZLocation = -.55;
 //Note - this Y setting is used to elevate pieces above the map/board Y settings.
 // less than .11 will go "below" the map
-var pieceVisible = .11; //for when board pieces should be screen
-var pieceHidden = -.11; //for when board pieces should be hidden
+var pieceVisible = .11; //for when board pieces should be screen, drawn above board
+var pieceHidden = -.11; //for when board pieces should be hidden, drawn below board
 
 
 
@@ -1213,31 +1213,6 @@ function movePiece(color){
 	//variable to hold piece to be moved
 	var whoseTurn = whitePiece;
 
-  //each area needs a unique center set since areas are not equal or symmetric
-	//specific centers for each region
-	//var fourFiveCenterX = -2.6;
-	//var fourFiveCenterZ = -1.1;
-/*
-	var sixCenterX = -.55;
-	var sixCenterZ = -1.1;
-
-	var eightCenterX = .75;
-	var eightCenterZ = -1.1;
-
-	var nineTenCenterX = 2.5;
-	var nineTenCenterZ = -1.1;
-
-	var twoThreeCenterX = -2.5;
-	var twoThreeCenterZ = .2;
-
-	var sevenCenterX = sevenCenterX;
-	var sevenCenterZ = sevenCenterZ; //just changed from .2
-
-	var elevenTwelveCenterX = 2.2;
-	var elevenTwelveCenterZ = .4;
-
-*/
-
 	//sets the correct piece and offset based on the color passed
 	if(color == "white"){
 		whoseTurn = whitePiece;
@@ -1291,32 +1266,32 @@ function movePiece(color){
 	//moves the selected piece to the center of the region determined by the dice roll then offsets it based on the offset
 	//assigned above
 	if(turnValue == 2 || turnValue == 3){
-		whoseTurn.position.set(twoThreeCenterX+offsetX,.2,twoThreeCenterZ+offsetZ);
+		whoseTurn.position.set(twoThreeCenterX+offsetX,pieceVisible,twoThreeCenterZ+offsetZ);
 	}
 
 	if(turnValue == 4 || turnValue == 5){
-		whoseTurn.position.set(fourFiveCenterX+offsetX,.2,fourFiveCenterZ+offsetZ);
+		whoseTurn.position.set(fourFiveCenterX+offsetX,pieceVisible,fourFiveCenterZ+offsetZ);
 	}
 
 	if(turnValue == 6){
-		whoseTurn.position.set(sixCenterX+offsetX,.2,sixCenterZ+offsetZ);
+		whoseTurn.position.set(sixCenterX+offsetX,pieceVisible,sixCenterZ+offsetZ);
 	}
 
 	if(turnValue == 7){
-		offsetZ = offsetZ + .2;
-		whoseTurn.position.set(sevenCenterX+offsetX,.2,sevenCenterZ+offsetZ);
+		//S17
+		whoseTurn.position.set(sevenCenterX+offsetX,pieceVisible,sevenCenterZ+offsetZ);
 	}
 
 	if(turnValue == 8){
-		whoseTurn.position.set(eightCenterX+offsetX,.2,eightCenterZ+offsetZ);
+		whoseTurn.position.set(eightCenterX+offsetX,pieceVisible,eightCenterZ+offsetZ);
 	}
 
 	if(turnValue == 9 || turnValue == 10){
-		whoseTurn.position.set(nineTenCenterX+offsetX,.2,nineTenCenterZ+offsetZ);
+		whoseTurn.position.set(nineTenCenterX+offsetX,pieceVisible,nineTenCenterZ+offsetZ);
 	}
 
 	if(turnValue == 11 || turnValue == 12){
-		whoseTurn.position.set(elevenTwelveCenterX+offsetX,.2,elevenTwelveCenterZ+offsetZ);
+		whoseTurn.position.set(elevenTwelveCenterX+offsetX,pieceVisible,elevenTwelveCenterZ+offsetZ);
 	}
 
 
@@ -1548,53 +1523,44 @@ function setDamage(colorsPlaying){
 }
 
 
-/****************************************************************************IMPORTANT FOR ZACH AND KAMERON********************************************************/
+
 /*
 If a player dies at some point during the game call this function with their color
-to remove their piece from the board. Currently leaves damage pieces so other
-players can see at what square they died. To move those back uncomment each damage
-piece section
-
-Sets the piece of the color called back to the starting position
+to remove their piece from the board. 
+S17
+Sets the piece of the color called to the black area of the damage tracker
 */
 function playerDied(color){
 	if(color == "white"){
-		whitePiece.position.set(-(mapSizeX+1),pieceVisible,-offsetZ);
-		//whiteDamagePiece.position.set(-2.8,.11,.7);
+		whitePiece.position.set((-3.5*mapSizeX/15),pieceVisible,(7*mapSizeZ/20));
 	}
 
 	if(color == "yellow"){
-		yellowPiece.position.set(-(mapSizeX+1),pieceVisible, -offsetZ);
-		//yellowDamagePiece.position.set(-2.8,.11,.8);
+		yellowPiece.position.set((-3.5*mapSizeX/15)+DiceOffsetX,pieceVisible,(7*mapSizeZ/20));
 	}
 
 	if(color == "orange"){
-		orangePiece.position.set(-(mapSizeX+1),pieceVisible,.3);
-		//orangeDamagePiece.position.set(-2.8,.11,.9);
+		orangePiece.position.set((-3.5*mapSizeX/15)+2*DiceOffsetX,pieceVisible,(7*mapSizeZ/20));
 	}
 
 	if(color == "green"){
-		greenPiece.position.set(-(mapSizeX+1+offsetX),pieceVisible,-.1);
-		//greenDamagePiece.position.set(-2.9,.11,.7);
+		greenPiece.position.set((-3.5*mapSizeX/15)+3*DiceOffsetX,pieceVisible,(7*mapSizeZ/20));
 	}
 
 	if(color == "blue"){
-		bluePiece.position.set(-(mapSizeX+1+offsetX),pieceVisible,.3);
-		//blueDamagePiece.position.set(-2.9,.11,.9);
+		bluePiece.position.set((-3.5*mapSizeX/15)+4*DiceOffsetX,pieceVisible,(7*mapSizeZ/20));
 	}
 
 	if(color == "black"){
-		blackPiece.position.set(-(mapSizeX+1+2*offsetX),pieceVisible,-.1);
-		//blackDamagePiece.position.set(-3,.11,.7);
+		blackPiece.position.set((-3.5*mapSizeX/15)+5*DiceOffsetX,pieceVisible,(7*mapSizeZ/20));
 	}
 
 	if(color == "red"){
-		redPiece.position.set(-(mapSizeX+1+2*offsetX),pieceVisible,.1);
-		//redDamagePiece.position.set(-3,.11,.8);
+		redPiece.position.set((-3.5*mapSizeX/15)+6*DiceOffsetX,pieceVisible,(7*mapSizeZ/20));
 	}
 
 	if(color == "purple"){
-		purplePiece.position.set(-(mapSizeX+1+2*offsetX),pieceVisible,.3);
-		//purpleDamagePiece.position.set(-3,.11,.9);
+		purplePiece.position.set((-3.5*mapSizeX/15)+7*DiceOffsetX,pieceVisible,(7*mapSizeZ/20));
 	}
 }
+
