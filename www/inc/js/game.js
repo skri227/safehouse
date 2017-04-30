@@ -769,6 +769,7 @@ class Game{
     this.current_player_can_be_attacked = false;
     this.selected_option = 0;
     this.offense_or_defense;
+    this.extra_turn = false; // used for the energy boost card
 
     //Used for sam's special
     this.double_damage= 0;
@@ -918,14 +919,19 @@ class Game{
       case 'turn_4':
         this.next_state = 'turn_0';
         if(this.player_array[this.current_turn].alive == true)
+	{
           this.add_info_message(this.current_turn, 'Ended your turn.<br><br>');
-        if(this.current_turn == this.num_of_players)
+	}
+        if(this.current_turn == this.num_of_players && this.extra_turn == false)
         {
           this.current_turn = 1;
           this.num_of_rotations++;
         }
-        else
+        else if (this.extra_turn == false)
+	{
           this.current_turn++;
+	}
+    	this.extra_turn = false;
         this.current_player = this.current_turn;
         this.check_win_or_dead();
 	this.last_state=state;
@@ -2446,7 +2452,8 @@ class Game{
 	    this.exec_state();
             break;
 	  case 'action_energyboost_1':
-	    this.next_state = 'turn_0';
+	    this.next_state = 'turn_2';
+	    this.extra_turn = true;
 	    hide_zoomed_card();
 	    this.last_state = state;
 	    this.exec_state();
