@@ -2427,9 +2427,6 @@ class Game{
               case 'Jihad! Jihad!':
                 this.next_state = 'action_jihadjihad_0';
                 break;
-	      case 'Energy Boost':
-	    	this.next_state = 'action_energyboost_0';
-	   	break;
               default:
                 this.next_state = 'draw_card_1';
                 break;
@@ -2444,7 +2441,7 @@ class Game{
 	    this.next_state = 'action_energyboost_1';	 
 	    this.last_state=state;
 	    hide_draw_card_screen_overlay();
-	    show_zoomed_card_screen_overlay();
+	    show_zoomed_card(this.draw_action_card);
 	    this.add_info_message(this.current_player, 'Click card to use it.');
 	    this.exec_state();
             break;
