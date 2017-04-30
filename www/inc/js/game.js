@@ -3022,21 +3022,26 @@ class Game{
 
   check_win_or_dead()
   {
+     //S17 updated
     //Find dead players
     for(var i = 1; i <= this.num_of_players; i++)
     {
+	   //gets their name & faction/affiliation (terrosist, etc)
       var affiliation = this.player_array[i].character.affiliation;
       var name = this.player_array[i].character.char_name;
       if(this.player_array[i].hp >= this.player_array[i].character.hp && this.player_array[i].alive == true) //S17 updated, kills at max health
       {
+	//set char as "dead"
         this.player_array[i].alive = false;
         playerDied(this.player_array[i].player_color);
+	//if they were revealed, set to "dead"
         if(this.player_array[i].revealed == true)
         {
           var player_id = 'player_' + i + '_revealed';
           document.getElementById(player_id).innerHTML = '<div id="player_' + i + '_revealed" class="player_revealed">Dead - PLAYER ' +  i + ': ' + affiliation + ' - ' + name + '</div>';
         }
         else
+	//if not revealed before, reveal and make "dead"
         {
           document.getElementById("revealed_box").style.display = "initial";
           var reveal_player = '<div id="player_' + i + '_revealed" class="player_revealed">Dead - PLAYER ' +  i + ': ' + affiliation + ' - ' + name + '</div>';
@@ -3046,8 +3051,9 @@ class Game{
       }
     }
 
+    //holds all winning characters
     var won_players = new Array();
-
+    //counter for faction deaths, for win condition purposes
     var terrorist_dead_count = 0;
     var counter_terrorist_dead_count = 0;
     var neutral_dead_count = 0;
@@ -3062,13 +3068,14 @@ class Game{
       var affiliation = this.player_array[i].character.affiliation;
       var is_alive = this.player_array[i].alive;
       var name = this.player_array[i].character.char_name;
+	    //total in each affiliation counted
       if(affiliation == 'Counter-Terrorist')
         total_counter_terrorist++;
       else if(affiliation == 'Terrorist')
         total_terrorist++;
       else if(affiliation == 'Neutral')
         total_neutral++;
-
+	//dead in each affiliation counted
       if(affiliation == 'Counter-Terrorist' && is_alive == false)
         counter_terrorist_dead_count++;
       else if(affiliation == 'Terrorist' && is_alive == false)
@@ -3098,7 +3105,7 @@ class Game{
           won_players.push(this.player_array[i]);
       }
 
-      if(name == 'Daniel Doomsday' && this.num_of_players != 4)
+      if(name == 'Daniel Doomsday' && this.num_of_players != 4) //checks if 4 players bc no neutrals should be in that game
       {
         //First to die
         if(neutral_dead_count == 1 && terrorist_dead_count == 0 && counter_terrorist_dead_count == 0 && is_alive == false)
@@ -3109,13 +3116,13 @@ class Game{
           won_players.push(this.player_array[i]);
       }
 
-      if(name == 'Gatherin\' George' && this.num_of_players != 4)
+      if(name == 'Gatherin\' George' && this.num_of_players != 4) //checks if 4 players bc no neutrals should be in that game
       {
         if(this.player_array[i].hand.length > 5)
           won_players.push(this.player_array[i]);
       }
 
-      if(name == 'Billy-Bob Badass' && this.num_of_players != 4)
+      if(name == 'Billy-Bob Badass' && this.num_of_players != 4) //checks if 4 players bc no neutrals should be in that game
       {
         if(this.player_array[this.current_turn].character.char_name == 'Billy-Bob Badass' && is_alive == true)
         {
@@ -3130,20 +3137,20 @@ class Game{
         }
       }
 
-      if(name == 'Totally Tori' && this.num_of_players != 4)
+      if(name == 'Totally Tori' && this.num_of_players != 4) //checks if 4 players bc no neutrals should be in that game
       {
         if(won_players.length > 0 && is_alive == true)
           won_players.push(this.player_array[i]);
       }
     } //end for loop
 
+    //report who won when game concludes
     if(won_players.length > 0)
     {
       var x = document.getElementById("next_player_overlay_container");
       var win_string = '';
       for(var i = 0; i < won_players.length; i++)
       {
-        //win_string = win_string + 'PLAYER ' + (i + 1) + '<br>';
         win_string = win_string + won_players[i].character.char_name + '<br>';
       }
     	x.getElementsByTagName("h3")[0].innerHTML = "WINNER(S): <br>" + win_string;
