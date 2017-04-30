@@ -1537,31 +1537,31 @@ function playerDied(color){
 	}
 
 	if(color == "yellow"){
-		yellowPiece.position.set((-3.5*mapSizeX/15)+deathOffsetX),pieceVisible,(7*mapSizeZ/20));
+		yellowPiece.position.set(((-3.5*mapSizeX/15)+deathOffsetX),pieceVisible,(7*mapSizeZ/20));
 	}
 
 	if(color == "orange"){
-		orangePiece.position.set((-3.5*mapSizeX/15)+2*deathOffsetX,pieceVisible,(7*mapSizeZ/20));
+		orangePiece.position.set(((-3.5*mapSizeX/15)+2*deathOffsetX),pieceVisible,(7*mapSizeZ/20));
 	}
 
 	if(color == "green"){
-		greenPiece.position.set((-3.5*mapSizeX/15)+3*deathOffsetX,pieceVisible,(7*mapSizeZ/20));
+		greenPiece.position.set(((-3.5*mapSizeX/15)+3*deathOffsetX),pieceVisible,(7*mapSizeZ/20));
 	}
 
 	if(color == "blue"){
-		bluePiece.position.set((-3.5*mapSizeX/15)+4*deathOffsetX,pieceVisible,(7*mapSizeZ/20));
+		bluePiece.position.set(((-3.5*mapSizeX/15)+4*deathOffsetX),pieceVisible,(7*mapSizeZ/20));
 	}
 
 	if(color == "black"){
-		blackPiece.position.set((-3.5*mapSizeX/15)+5*deathOffsetX,pieceVisible,(7*mapSizeZ/20));
+		blackPiece.position.set(((-3.5*mapSizeX/15)+5*deathOffsetX),pieceVisible,(7*mapSizeZ/20));
 	}
 
 	if(color == "red"){
-		redPiece.position.set((-3.5*mapSizeX/15)+6*deathOffsetX,pieceVisible,(7*mapSizeZ/20));
+		redPiece.position.set(((-3.5*mapSizeX/15)+6*deathOffsetX),pieceVisible,(7*mapSizeZ/20));
 	}
 
 	if(color == "purple"){
-		purplePiece.position.set((-3.5*mapSizeX/15)+7*deathOffsetX,pieceVisible,(7*mapSizeZ/20));
+		purplePiece.position.set(((-3.5*mapSizeX/15)+7*deathOffsetX),pieceVisible,(7*mapSizeZ/20));
 	}
 }
 
