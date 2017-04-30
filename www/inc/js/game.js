@@ -877,6 +877,7 @@ class Game{
 	}
 	else if(r == 7)
 	{
+	  this.next_state = 'turn_3';
 	  this.show_safe_house_ability_btn();
 	}
 	else 
@@ -968,6 +969,7 @@ class Game{
 	}
    	else if(r == 7)
 	{
+		this.next_state = 'turn_3';
 	  	this.show_safe_house_ability_btn();
 	}
 	else 
