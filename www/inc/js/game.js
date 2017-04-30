@@ -2427,6 +2427,9 @@ class Game{
               case 'Jihad! Jihad!':
                 this.next_state = 'action_jihadjihad_0';
                 break;
+	      case 'Energy Boost':
+	    	this.next_state = 'action_energyboost_0';
+	   	break;
               default:
                 this.next_state = 'draw_card_1';
                 break;
@@ -2437,7 +2440,15 @@ class Game{
 
           //Action card
           //If you are a Counter-Terrorist, you may reveal your identity.  If you do, or if you are already revealed, you heal fully(0 damage).
-          case 'action_rnr_0':
+	  case 'action_eneryboost_0':
+	    this.next_state = 'turn_0';	 
+	    this.last_state=state;
+	    hide_draw_card_screen_overlay();
+	    this.add_info_message(this.current_player, 'Click card to use it.');
+	    this.exec_state();
+            break;
+		    
+	  case 'action_rnr_0':
             this.next_state = 'action_rnr_1';
             hide_draw_card_screen_overlay();
             show_zoomed_card(this.drawn_action_card);
