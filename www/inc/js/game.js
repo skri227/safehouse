@@ -221,6 +221,8 @@ function game_screen_setup()
   document.getElementById("action_special_roll_btn").style.display = "none";
   document.getElementById("action_counter_attack_btn").style.display = "none";
   document.getElementById("action_osama_offense_pass_btn").style.display = "none";	
+  document.getElementById("action_safehouse_stay_btn").style.display = "none";   
+  document.getElementById("action_safehouse_stay_btn").style.display = "none";	
 
   document.getElementById("card_area_scroll_left").style.display = "none";
   document.getElementById("card_area_scroll_right").style.display = "none";
@@ -873,10 +875,14 @@ class Game{
 	{
 	  this.exec_state('damage_region_0');
 	}
-	else
+	else if(r == 7)
 	{
-	  this.next_state = 'turn_3';
-	  this.exec_state();
+	  this.show_safe_house_ability_btn();
+	}
+	else 
+	{
+	  	this.next_state = 'turn_3';
+	  	this.exec_state();
 	}
         this.check_win_or_dead();
         break;
@@ -960,7 +966,11 @@ class Game{
 	{
 	  	this.exec_state('damage_region_0');
 	}
-	else
+   	else if(r == 7)
+	{
+	  	this.show_safe_house_ability_btn();
+	}
+	else 
 	{
 	  	this.next_state = 'turn_3';
 	  	this.exec_state();
@@ -1026,6 +1036,14 @@ class Game{
         this.exec_state();
         break;
 
+      case 'move_region_0':
+	this.last_state=state;
+    	this.next_state = 'move_region_1';
+    	
+    	this.exec_state();
+    	this.check_win_or_dead();
+	break;
+		    
       case 'damage_region_0':
         this.next_state = 'damage_region_1';
         show_select_options_screen("DAMAGE OR HEAL A PLAYER?", "HEAL", "DAMAGE");
@@ -2702,6 +2720,8 @@ class Game{
     document.getElementById("action_special_roll_btn").style.display = "none";
     document.getElementById("action_counter_attack_btn").style.display = "none";
     document.getElementById("action_osama_offense_pass_btn").style.display = "none";
+    document.getElementById("action_safehouse_stay_btn").style.display = "none";   
+    document.getElementById("action_safehouse_stay_btn").style.display = "none";
 
   }
 
@@ -2718,6 +2738,8 @@ class Game{
     document.getElementById("action_special_roll_btn").style.display = "none";
     document.getElementById("action_counter_attack_btn").style.display = "none";
     document.getElementById("action_osama_offense_pass_btn").style.display = "none";  
+    document.getElementById("action_safehouse_stay_btn").style.display = "none";   
+    document.getElementById("action_safehouse_stay_btn").style.display = "none";
 	setTimeout(function(){
     document.getElementById("action_draw_btn").style.display = "initial"; },7000);
   }
@@ -2734,6 +2756,8 @@ class Game{
     document.getElementById("action_special_roll_btn").style.display = "none";
     document.getElementById("action_counter_attack_btn").style.display = "none";
     document.getElementById("action_osama_offense_pass_btn").style.display = "none";
+    document.getElementById("action_safehouse_stay_btn").style.display = "none";   
+    document.getElementById("action_safehouse_stay_btn").style.display = "none";
 	setTimeout(function(){
     document.getElementById("action_defense_pass_btn").style.display = "initial"; },3500);
   }
@@ -2749,6 +2773,8 @@ class Game{
     document.getElementById("action_special_roll_btn").style.display = "none";
     document.getElementById("action_counter_attack_btn").style.display = "none";
     document.getElementById("action_osama_offense_pass_btn").style.display = "none";
+    document.getElementById("action_safehouse_stay_btn").style.display = "none";   
+    document.getElementById("action_safehouse_stay_btn").style.display = "none";
   setTimeout(function(){
     document.getElementById("action_offense_pass_btn").style.display = "initial";
     /*if(character=='Osama Bin Laden'){
@@ -2768,6 +2794,8 @@ class Game{
     document.getElementById("action_special_roll_btn").style.display = "none";
     document.getElementById("action_counter_attack_btn").style.display = "none";
     document.getElementById("action_osama_offense_pass_btn").style.display = "none";
+    document.getElementById("action_safehouse_stay_btn").style.display = "none";   
+    document.getElementById("action_safehouse_stay_btn").style.display = "none";
   	if(previous_state=="turn_1"){
   	  setTimeout(function(){
   	  document.getElementById("action_attack_btn").style.display = "initial";
@@ -2800,6 +2828,8 @@ class Game{
     document.getElementById("action_end_turn_btn").style.display = "none";
     document.getElementById("action_counter_attack_btn").style.display = "none";
     document.getElementById("action_osama_offense_pass_btn").style.display = "none";
+    document.getElementById("action_safehouse_stay_btn").style.display = "none";   
+    document.getElementById("action_safehouse_stay_btn").style.display = "none";
   }
 
   show_osama_special_attack_btn()
@@ -2815,6 +2845,26 @@ class Game{
     document.getElementById("action_attack_btn").style.display = "none";
     document.getElementById("action_special_btn").style.display = "none";
     document.getElementById("action_end_turn_btn").style.display = "none";	
+    document.getElementById("action_safehouse_stay_btn").style.display = "none";   
+    document.getElementById("action_safehouse_stay_btn").style.display = "none";
+  }
+	
+  show_safe_house_ability_btn()
+  {
+    document.getElementById("action_safehouse_stay_btn").style.display = "initial";   
+    document.getElementById("action_safehouse_stay_btn").style.display = "initial";
+    document.getElementById("action_counter_attack_btn").style.display = "none";
+    document.getElementById("action_osama_offense_pass_btn").style.display = "none";
+    document.getElementById("action_adjacent_btn").style.display = "none";
+    document.getElementById("action_special_roll_btn").style.display = "none";
+    document.getElementById("action_roll_btn").style.display = "none";
+    document.getElementById("action_offense_pass_btn").style.display = "none";
+    document.getElementById("action_defense_pass_btn").style.display = "none";
+    document.getElementById("action_draw_btn").style.display = "none";
+    document.getElementById("action_attack_btn").style.display = "none";
+    document.getElementById("action_special_btn").style.display = "none";
+    document.getElementById("action_end_turn_btn").style.display = "none";	
+	  
   }
 
   //Sets the game objects select player variable and hides the select player screen.
