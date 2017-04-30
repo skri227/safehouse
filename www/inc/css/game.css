@@ -1046,7 +1046,7 @@ body
 }
 
 /*for rules list, aligns test left.*/
-ul
+#listDiv.ul 
 {
     text-align: left;
 }
