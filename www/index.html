@@ -432,7 +432,7 @@ A turn consist of the following actions.
 			<!--This shows all the player related actions they can take during their turn.-->
 			<!--Certain buttons appear at different times and events.-->
 			<div id="action_container">
-				<button id="action_safehouse_stay_btn" class="safe_house_choice_btn" onclick="game.exec_state()">STAY</button>
+				<button id="action_safehouse_stay_btn" class="safe_house_choice_btn" onclick="game.exec_state('turn_3')">STAY</button>
 				<button id="action_safehouse_move_btn" class="safe_house_choice_btn" onclick="game.exec_state('move_region_0')">MOVE</button>
 				<button id="action_counter_attack_btn" class="osama_special_attack_btn" onclick="game.exec_state('osama_special_0')">SPECIAL</button>
 				<button id="action_osama_offense_pass_btn" class="osama_special_attack_btn" onclick="game.exec_state()">PASS TO OFFENSE</button>
