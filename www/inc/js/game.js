@@ -222,7 +222,7 @@ function game_screen_setup()
   document.getElementById("action_counter_attack_btn").style.display = "none";
   document.getElementById("action_osama_offense_pass_btn").style.display = "none";	
   document.getElementById("action_safehouse_stay_btn").style.display = "none";   
-  document.getElementById("action_safehouse_stay_btn").style.display = "none";	
+  document.getElementById("action_safehouse_move_btn").style.display = "none";	
 
   document.getElementById("card_area_scroll_left").style.display = "none";
   document.getElementById("card_area_scroll_right").style.display = "none";
@@ -2721,7 +2721,8 @@ class Game{
     document.getElementById("action_counter_attack_btn").style.display = "none";
     document.getElementById("action_osama_offense_pass_btn").style.display = "none";
     document.getElementById("action_safehouse_stay_btn").style.display = "none";   
-    document.getElementById("action_safehouse_stay_btn").style.display = "none";
+    document.getElementById("action_safehouse_move_btn").style.display = "none";	
+
 
   }
 
@@ -2739,7 +2740,7 @@ class Game{
     document.getElementById("action_counter_attack_btn").style.display = "none";
     document.getElementById("action_osama_offense_pass_btn").style.display = "none";  
     document.getElementById("action_safehouse_stay_btn").style.display = "none";   
-    document.getElementById("action_safehouse_stay_btn").style.display = "none";
+    document.getElementById("action_safehouse_move_btn").style.display = "none";	
 	setTimeout(function(){
     document.getElementById("action_draw_btn").style.display = "initial"; },7000);
   }
@@ -2757,7 +2758,7 @@ class Game{
     document.getElementById("action_counter_attack_btn").style.display = "none";
     document.getElementById("action_osama_offense_pass_btn").style.display = "none";
     document.getElementById("action_safehouse_stay_btn").style.display = "none";   
-    document.getElementById("action_safehouse_stay_btn").style.display = "none";
+    document.getElementById("action_safehouse_move_btn").style.display = "none";	
 	setTimeout(function(){
     document.getElementById("action_defense_pass_btn").style.display = "initial"; },3500);
   }
@@ -2774,7 +2775,7 @@ class Game{
     document.getElementById("action_counter_attack_btn").style.display = "none";
     document.getElementById("action_osama_offense_pass_btn").style.display = "none";
     document.getElementById("action_safehouse_stay_btn").style.display = "none";   
-    document.getElementById("action_safehouse_stay_btn").style.display = "none";
+    document.getElementById("action_safehouse_move_btn").style.display = "none";	
   setTimeout(function(){
     document.getElementById("action_offense_pass_btn").style.display = "initial";
     /*if(character=='Osama Bin Laden'){
@@ -2795,7 +2796,7 @@ class Game{
     document.getElementById("action_counter_attack_btn").style.display = "none";
     document.getElementById("action_osama_offense_pass_btn").style.display = "none";
     document.getElementById("action_safehouse_stay_btn").style.display = "none";   
-    document.getElementById("action_safehouse_stay_btn").style.display = "none";
+    document.getElementById("action_safehouse_move_btn").style.display = "none";	
   	if(previous_state=="turn_1"){
   	  setTimeout(function(){
   	  document.getElementById("action_attack_btn").style.display = "initial";
@@ -2829,7 +2830,7 @@ class Game{
     document.getElementById("action_counter_attack_btn").style.display = "none";
     document.getElementById("action_osama_offense_pass_btn").style.display = "none";
     document.getElementById("action_safehouse_stay_btn").style.display = "none";   
-    document.getElementById("action_safehouse_stay_btn").style.display = "none";
+    document.getElementById("action_safehouse_move_btn").style.display = "none";	
   }
 
   show_osama_special_attack_btn()
@@ -2846,7 +2847,7 @@ class Game{
     document.getElementById("action_special_btn").style.display = "none";
     document.getElementById("action_end_turn_btn").style.display = "none";	
     document.getElementById("action_safehouse_stay_btn").style.display = "none";   
-    document.getElementById("action_safehouse_stay_btn").style.display = "none";
+    document.getElementById("action_safehouse_move_btn").style.display = "none";	
   }
 	
   show_safe_house_ability_btn()
