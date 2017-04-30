@@ -550,7 +550,7 @@ function hide_select_player_screen()
 }
 
 //Start of select zone screen S17
-function show_select_zone_screen() {
+function show_select_zone_screen(option) {
   	document.getElementById("select_zone_overlay_container").style.display = "initial";
 
 	//initially hide all zone buttons. There is no button for 3, 5, 10, or 12 because those are the second numbers in the given zone
@@ -562,40 +562,50 @@ function show_select_zone_screen() {
 	document.getElementById("select_zone_9_btn").style.display = "none";
 	document.getElementById("select_zone_11_btn").style.display = "none";
 
-	var current = game.player_array[game.current_turn].current_region; //this variable holds the current zone the player is in
+	if(option == "adjacent") {
+		var current = game.player_array[game.current_turn].current_region; //this variable holds the current zone the player is in
 
-	if (current == 2 || current == 3) { // 2/3 is only bordered by 4
-		document.getElementById("select_zone_4_btn").style.display = "initial";
+		if (current == 2 || current == 3) { // 2/3 is only bordered by 4
+			document.getElementById("select_zone_4_btn").style.display = "initial";
+		}
+		else if (current == 4 || current == 5) { // 4/5 is borderd by 2/3 and 6
+			document.getElementById("select_zone_2_btn").style.display = "initial";
+			document.getElementById("select_zone_6_btn").style.display = "initial";
+		}
+		else if (current == 6) { // 6 is borderd by 4/5, 7, and 8
+			document.getElementById("select_zone_4_btn").style.display = "initial";
+			document.getElementById("select_zone_7_btn").style.display = "initial";
+			document.getElementById("select_zone_8_btn").style.display = "initial";
+		}
+		else if (current == 7) { //7 is bordered by 6 and 8
+			document.getElementById("select_zone_6_btn").style.display = "initial";
+			document.getElementById("select_zone_8_btn").style.display = "initial";
+		}
+		else if (current == 8) {// 8 is bordered by 6, 7, and 9/10
+			document.getElementById("select_zone_6_btn").style.display = "initial";
+			document.getElementById("select_zone_7_btn").style.display = "initial";
+			document.getElementById("select_zone_9_btn").style.display = "initial";
+		}
+		else if (current == 9 || current == 10) { // 9/10 is bordered by 8 and 11/12
+			document.getElementById("select_zone_8_btn").style.display = "initial";
+			document.getElementById("select_zone_11_btn").style.display = "initial";
+		}
+		else if (current == 11 || current == 12) { // only bordered by 9/10
+			document.getElementById("select_zone_9_btn").style.display = "initial";
+		}
+		else {
+			game.add_info_message(this.current_turn, 'You broke it, this should not happen.');
+		}
 	}
-	else if (current == 4 || current == 5) { // 4/5 is borderd by 2/3 and 6
+	else if (option == "all") {
 		document.getElementById("select_zone_2_btn").style.display = "initial";
-		document.getElementById("select_zone_6_btn").style.display = "initial";
-	}
-	else if (current == 6) { // 6 is borderd by 4/5, 7, and 8
 		document.getElementById("select_zone_4_btn").style.display = "initial";
-		document.getElementById("select_zone_7_btn").style.display = "initial";
-		document.getElementById("select_zone_8_btn").style.display = "initial";
-	}
-	else if (current == 7) { //7 is bordered by 6 and 8
-		document.getElementById("select_zone_6_btn").style.display = "initial";
-		document.getElementById("select_zone_8_btn").style.display = "initial";
-	}
-	else if (current == 8) {// 8 is bordered by 6, 7, and 9/10
 		document.getElementById("select_zone_6_btn").style.display = "initial";
 		document.getElementById("select_zone_7_btn").style.display = "initial";
-		document.getElementById("select_zone_9_btn").style.display = "initial";
-	}
-	else if (current == 9 || current == 10) { // 9/10 is bordered by 8 and 11/12
 		document.getElementById("select_zone_8_btn").style.display = "initial";
-		document.getElementById("select_zone_11_btn").style.display = "initial";
-	}
-	else if (current == 11 || current == 12) { // only bordered by 9/10
 		document.getElementById("select_zone_9_btn").style.display = "initial";
+		document.getElementById("select_zone_11_btn").style.display = "initial";	
 	}
-	else {
-		game.add_info_message(this.current_turn, 'You broke it, this should not happen.');
-	}
-
 }
 
 function hide_select_zone_screen()
@@ -926,7 +936,7 @@ class Game{
       case 'charlie_movement_0':
    	this.add_info_message(this.current_turn, "ADJACENT worked");
 	this.last_state = state;
-	show_select_zone_screen(); // shows charlie the options of the adjacent zones and sets this.selected_zone to choice
+	show_select_zone_screen("adjacent"); // shows charlie the options of the adjacent zones and sets this.selected_zone to choice
 	this.next_state = 'charlie_movement_1';
  	this.check_win_or_dead();
 	break;
@@ -1042,10 +1052,23 @@ class Game{
 	this.last_state=state;
     	this.next_state = 'move_region_1';
     	this.add_info_message(this.current_turn, 'Move to any region');
-    	this.exec_state();
+    	show_select_zone_screen("all");
     	this.check_win_or_dead();
 	break;
-		    
+      
+      case 'move_region_1':
+    	this.last_state = state;
+    	this.next_state = 'turn_2';
+	this.player_array[this.current_turn].current_region = this.selected_zone;
+  	var new_region = this.selected_zone;
+	turnValue = this.selected_zone;
+	movePiece(this.player_array[this.current_turn].player_color);
+
+	this.add_info_message(this.current_turn, 'You picked Zone ' + this.selected_zone +'.');
+    	this.check_win_or_dead();
+    	this.exec_state();
+    	break;
+
       case 'damage_region_0':
         this.next_state = 'damage_region_1';
         show_select_options_screen("DAMAGE OR HEAL A PLAYER?", "HEAL", "DAMAGE");
