@@ -22,8 +22,49 @@ Three_JS_Build.js. -S17-->
 			<br>
 			<button type="button" onclick="num_of_players_screen_setup()">Start</button>
 			<br>
-			<button type="button">Rules</button>
+			<button type="button" onclick="rules_screen_setup()">Rules</button> <!--added S17-->
 		</div>
+
+		<!-- S17 Rules Screen setup -->
+		<div id="rules_screen">
+			<h1>Safe House Rules (Version 1.5)</h1>
+			<h2>
+			Summary - Safe House is a game of investigation, teamwork and survival.
+			Players take on the role of terrorists, counter-terrorist and neutral characters. Each character has different winning conditions and initially no one knows each other's identity. During the game you must uncover your teammates and enemies. Killing your enemies is always a top priority, as is survival!
+			<br>
+			Preparation -
+			Select number of players. Depending upon the number of players, randomize the pool of characters as follows:
+			<br>
+<div id="listDiv" class="center">
+	<ul>
+		<li>3 players, 1 Terrorist, I Counter-terrorist, I Neutral</li>
+		<li>4 players, 2 Terrorist, 2 Counter-terrorist</li>
+		<li>5 players, 2 Terrorist, 2 Counter-terrorist, 1 Neutral</li>
+		<li>6 players, 2 Terrorist, 2 Counter-terrorist, 2 Neutral</li>
+		<li>7 players (A), 2 Terrorist, 2 Counter-terrorist, 2 Neutral, (and one random additional either Terrorist, Counter-terrorist or Neutral)</li>
+		<li>7 players (B), 2 Terrorist, 2 Counter-terrorist, 3 Neutral (not George)</li>
+		<li>8 players (A), 3 Terrorist, 3 Counter-terrorist, 2 Neutral</li>
+		<li>8 players (B), 2 Terrorist, 2 Counter-terrorist, 2 Neutral, (and two random additional either Counter-terrorist or Neutral)</li>
+	</ul>
+</div>
+Each player’s color marker is placed on the damage track position 0.
+
+Game Play –
+
+Each player takes a turn and then the next player clockwise takes their turn. This continues until someone achieves their victory condition.
+
+A turn consist of the following actions.
+1. Player press ROLL and moves to the region rolled (mandatory).
+2. If the region can draw, the player must draw. Then follow the instructions on the card and the player log. If drawn follow the instructions on the CARD. (Place equipment or take action immediately).
+3. ATTACK other player(s). (Optional and requires other characters in "range").
+
+
+		</h2>
+			<div id="rules_back_btn" onclick="reset_game()">
+				<h1>Back</h1>
+			</div>
+		</div>
+		<!-- end new S17 rules page -->
 
 		<!--Number of Players Select Screen-->
 		<div id="player_select_screen">
@@ -225,11 +266,11 @@ Three_JS_Build.js. -S17-->
 					<div id="draw_invest_card" onclick="game.exec_state('invest_0')">
 						<h3>INVESTIGATION</h3>
 					</div>
-					<div id="draw_equip_card" onclick="game.exec_state('equip_0')">
-						<h3>EQUIPMENT</h3>
+					<div id="draw_defense_card" onclick="game.exec_state('equip_or_action_defense_0')">
+						<h3>DEFENSE</h3>
 					</div>
-					<div id="draw_onetime_card" onclick="game.exec_state('action_0')">
-						<h3>One Time Action</h3>
+					<div id="draw_offense_card" onclick="game.exec_state('equip_or_action_offense_0')">
+						<h3>OFFENSE</h3>
 					</div>
 				</div>
 			</div>
@@ -444,10 +485,13 @@ Three_JS_Build.js. -S17-->
 			<!--This shows all the player related actions they can take during their turn.-->
 			<!--Certain buttons appear at different times and events.-->
 			<div id="action_container">
+				<button id="action_safehouse_stay_btn" class="safe_house_choice_btn" onclick="game.exec_state()">STAY</button>
+				<button id="action_safehouse_move_btn" class="safe_house_choice_btn" onclick="game.exec_state()">MOVE</button>
+				<button id="action_counter_attack_btn" class="osama_special_attack_btn" onclick="game.exec_state('osama_special_0')">SPECIAL</button>
+				<button id="action_osama_offense_pass_btn" class="osama_special_attack_btn" onclick="game.exec_state()">PASS TO OFFENSE</button>
 				<button id="action_adjacent_btn" class="charlie_special_move_btn" onclick="game.exec_state('charlie_movement_0')">ADJACENT</button>
 				<button id="action_special_roll_btn" class="charlie_special_move_btn" onclick="game.exec_state('turn_1')">ROLL</button>
 				<button id="action_roll_btn" onclick="game.exec_state()">ROLL</button>
-				<!--<button id="action_roll_btn" onclick="show_attack_screen()">ROLL</button>-->
 				<button id="action_draw_btn" onclick="game.exec_state()">DRAW</button>
 				<button id="action_attack_btn" class="general_action_btn" onclick="game.exec_state('attack_0')">ATTACK</button>
 				<button id="action_defense_pass_btn" class="general_action_btn" onclick="game.exec_state()">PASS TO DEFENSE</button>
