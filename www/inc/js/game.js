@@ -1039,7 +1039,7 @@ class Game{
       case 'move_region_0':
 	this.last_state=state;
     	this.next_state = 'move_region_1';
-    	
+    	this.add_info_message(this.current_turn, 'Move to any region');
     	this.exec_state();
     	this.check_win_or_dead();
 	break;
@@ -2852,7 +2852,7 @@ class Game{
   show_safe_house_ability_btn()
   {
     document.getElementById("action_safehouse_stay_btn").style.display = "initial";   
-    document.getElementById("action_safehouse_stay_btn").style.display = "initial";
+    document.getElementById("action_safehouse_move_btn").style.display = "initial";
     document.getElementById("action_counter_attack_btn").style.display = "none";
     document.getElementById("action_osama_offense_pass_btn").style.display = "none";
     document.getElementById("action_adjacent_btn").style.display = "none";
