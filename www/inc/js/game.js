@@ -1507,9 +1507,9 @@ class Game{
         break;
 
       case 'george_special_0':
-      this.current_attacking_player_pts =4;
-      this.current_defending_player_pts = 2;
+      
       this.current_state=state;
+	//Commented out since state is no longer implemented -S17
         //this.next_state = 'george_special_1';
         if(this.player_array[this.current_player].used_special == 1)
         {
