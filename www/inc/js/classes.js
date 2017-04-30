@@ -271,12 +271,12 @@ var terroristsArray = [Ayman, Hassan, Osama];
 var counterterroristArray = [Sam, Charlie, Fred];
 
 //The Neutral array is composed of the 4 Neutral characters that are available in the game
-var neutralArray = [Daniel, George, Tori, Billy];
-
+//var neutralArray = [Daniel, George, Tori, Billy];
+var neutralArray = [George];// only for testing DELETE AFTER
 
 //The Characters Array is a list of all available characters in the game
-var charactersArray = [Ayman, Hassan, Osama, Sam, Charlie, Fred, Daniel, George, Tori, Billy];
-//var charactersArray = [Osama, Sam, Charlie, Fred, Daniel, George, Tori, Billy]; // only for testing DELETE AFTER
+//var charactersArray = [Ayman, Hassan, Osama, Sam, Charlie, Fred, Daniel, George, Tori, Billy];
+var charactersArray = [Osama, Sam, Charlie, Fred, George]; // only for testing DELETE AFTER
 
 //These 7 function calls shuffle all the arrays for a random order that can be drawn from.
 array_shuffle(charactersArray);
