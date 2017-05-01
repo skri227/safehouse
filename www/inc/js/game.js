@@ -770,7 +770,7 @@ class Game{
     this.selected_option = 0;
     this.offense_or_defense;
     this.extra_turn = false; // used for the energy boost card. is a bool that will be check at turn_4.
-    this.gaurdian_angel = "none"; // used for the gaurdian angel card. will be equal to the characters name that draws it
+    this.guardian_angel = "none"; // used for the guardian angel card. will be equal to the characters name that draws it
 
     //Used for sam's special
     this.double_damage= 0;
@@ -933,7 +933,7 @@ class Game{
           this.current_turn++;
 	}
     	this.extra_turn = false;
-    	this.gaurdian_angel = "none";
+    	this.guardian_angel = "none";
         this.current_player = this.current_turn;
         this.check_win_or_dead();
 	this.last_state=state;
@@ -1191,9 +1191,9 @@ class Game{
           damage = (this.current_attacking_player_pts - this.current_defending_player_pts);
 
         //Check if Good Luck Charm is equipped
-        if((this.gaurdian_angel == this.player_array[this.current_defending_player].character.char_name)
+        if((this.guardian_angel == this.player_array[this.current_defending_player].character.char_name)
         {
-            this.add_info_message(this.current_player, 'You are being protected by a Gaurdian Angel! You take no damage!');
+            this.add_info_message(this.current_player, 'You are being protected by a Guardian Angel! You take no damage!');
         }
         else
         {
@@ -2452,8 +2452,8 @@ class Game{
 
 	//Action Card
     	// You take no damage from attacks until your next turn
-    	  case 'action_gaurdianangel_0':
-	    this.next_state = 'action_gaurdianangel_1';
+    	  case 'action_guardianangel_0':
+	    this.next_state = 'action_guardianangel_1';
 	    this.last_state = state;
 	    hide_draw_card_screen_overlay();
 	    show_view_card(this.drawn_action_card);
@@ -2461,9 +2461,9 @@ class Game{
 	    this.exec_state();
 	    break;
 		    
-	  case 'action_gaurdianangel_1':
+	  case 'action_guardianangel_1':
 	    this.next_state = 'turn_2';
-	    this.gaurdian_angel = this.player_array[this.current_player].character.char_name;
+	    this.guardian_angel = this.player_array[this.current_player].character.char_name;
 	    hide_zoomed_card();
 	    this.last_state = state;
 	    this.exec_state();
