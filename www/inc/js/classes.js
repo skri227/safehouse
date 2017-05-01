@@ -230,8 +230,8 @@ var blowgun = new Equipment("Blow Gun", "inc/images/equipment_blowgun.gif", "If 
 //and the card text to be displayed on the card
 var rnr = new Action("R&R", "inc/images/action_rnr.jpeg", "If you are a Counter-Terrorist, you may reveal your identity.  If you do, or if you are already revealed, you heal fully(0 damage).");
 //var illhelp = new Action("I'll Help!", "inc/images/action_illhelp.jpeg", "Pick a character (other than you) - Heal 1D6 points of damage.");
-var illhelp = new Action("I'll Help!", "inc/images/action_illhelp.jpeg", "Pick a character (other than you) - Heal random 1-6 points of damage.");
-//NOTUSED var guardianangel = new Action("Guardian Angel", "inc/images/action_guardianangel.jpg", "You get no damage from another characters' attack until your next turn.");
+var illhelp = new Action("I'll Help!", "inc/images/action_illhelp.jpeg", "Pick a character (other than you) - Restore between 1-6 health, at random.");
+var guardianangel = new Action("Guardian Angel", "inc/images/action_guardianangel.jpg", "You take no damage from attacks until your next turn.");
 var luckyday = new Action("It's your lucky day!", "inc/images/action_luckyday.jpeg", "If you are Tori, Charlie, or Hassan, you may reveal yourself.  If you do (or you are already revealed) you fully heal (0 damage).");
 var spotted = new Action("Spotted!", "inc/images/action_spotted.jpeg", "If you are Osama or Ayman, you must reveal yourself!");
 var firstaid = new Action("First Aid", "inc/images/action_firstaid.jpg", "Heal two points of your damage.");
@@ -252,18 +252,18 @@ var deadlysurprise3 = new Action("Deadly Surprise", "inc/images/action_deadlysur
 //The following are arrays of all the of objects put together
 //The action array is composed of each action card available in the game.
 //var actionArray = [rnr, illhelp, guardianangel, luckyday, spotted, firstaid, judgementday, energyboost, doctorsvisit, firstaid2, dynamite, jihad, deadlysurprise, deadlysurprise2, thatsnotgood, thatsmine, deadlysurprise3, deadlygame, jihadjihad];
-var actionArray = [rnr, illhelp, luckyday, spotted, firstaid, judgementday, firstaid2, deadlysurprise, deadlysurprise2, thatsmine, deadlysurprise3, energyboost];
+var actionArray = [rnr, illhelp, luckyday, spotted, firstaid, judgementday, firstaid2, deadlysurprise, deadlysurprise2, thatsmine, deadlysurprise3, energyboost, guardianangel];
 
 //The equipment array is composed of each Equipment card that is available in the game
 var equipmentArray = [waterboard, goodluckcharm, balancesuit, handgun, cattleprod, sniperrifle, garrote, blowgun];
 
 //The offense and defense array are both composed of Equipment and One Time Action Cards and are two of the three decks in the game S17
 var offenseArray = [sniperrifle, garrote, cattleprod, handgun, blowgun, deadlysurprise, deadlysurprise2, deadlysurprise3, thatsmine];
-var defenseArray = [goodluckcharm, firstaid, firstaid2, judgementday, rnr, luckyday, illhelp, spotted, waterboard, balancesuit, energyboost];
+var defenseArray = [goodluckcharm, firstaid, firstaid2, judgementday, rnr, luckyday, illhelp, spotted, waterboard, balancesuit, energyboost, guardianangel];
 
 // after the offense and defense decks run out, this becomes the new deck and is reshuffled. S17
 var newDeckOffenseArray = [deadlysurprise, deadlysurprise2, deadlysurprise3, thatsmine];
-var newDeckDefenseArray = [firstaid, firstaid2, judgementday, rnr, luckyday, illhelp, spotted, energyboost]; 
+var newDeckDefenseArray = [firstaid, firstaid2, judgementday, rnr, luckyday, illhelp, spotted, energyboost, guardianangel]; 
 
 //The investigation array is composed of every Investigation card that is available in the game
 //var investigationArray = [accuse1, accuse2, accuse3, accuse4, accuse5, accuse6, accuse7, accuse8, accuse9, accuse10, accuse11, accuse12, accuse13, accuse14, accuse15, reveal1, reveal2];
