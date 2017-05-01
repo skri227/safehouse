@@ -855,6 +855,11 @@ class Game{
 
         if(this.player_array[this.current_turn].hand.length > 0)
           this.add_info_message(this.current_turn, 'You can change your equipment card before you roll.');
+    	//end guardian angel once the players turn starts again.
+    	if(this.player_array[this.current_turn].character.char_name == this.guardian_angel)
+	{
+		this.guardian_angel = "none";	
+	}
         break;
       case 'turn_1':
 	this.last_state=state;
@@ -933,7 +938,6 @@ class Game{
           this.current_turn++;
 	}
     	this.extra_turn = false;
-    	this.guardian_angel = "none";
         this.current_player = this.current_turn;
         this.check_win_or_dead();
 	this.last_state=state;
