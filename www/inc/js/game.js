@@ -1191,7 +1191,7 @@ class Game{
           damage = (this.current_attacking_player_pts - this.current_defending_player_pts);
 
         //Check if Good Luck Charm is equipped
-        if((this.guardian_angel == this.player_array[this.current_defending_player].character.char_name)
+        if(this.guardian_angel == this.player_array[this.current_defending_player].character.char_name)
         {
             this.add_info_message(this.current_player, 'You are being protected by a Guardian Angel! You take no damage!');
         }
