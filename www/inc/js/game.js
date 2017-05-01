@@ -769,7 +769,8 @@ class Game{
     this.current_player_can_be_attacked = false;
     this.selected_option = 0;
     this.offense_or_defense;
-    this.extra_turn = false; // used for the energy boost card
+    this.extra_turn = false; // used for the energy boost card. is a bool that will be check at turn_4.
+    this.gaurdian_angel = "none"; // used for the gaurdian angel card. will be equal to the characters name that draws it
 
     //Used for sam's special
     this.double_damage= 0;
@@ -932,6 +933,7 @@ class Game{
           this.current_turn++;
 	}
     	this.extra_turn = false;
+    	this.gaurdian_angel = "none";
         this.current_player = this.current_turn;
         this.check_win_or_dead();
 	this.last_state=state;
@@ -1110,7 +1112,14 @@ class Game{
         }
         else
         {
-            moveDamage(this.player_array[this.selected_player].player_color, 2);
+	    if(this.player_array[this.selected_player].equipped.card_title == 'Good Luck Charm')
+	    {
+            	this.add_info_message(this.selected_player, 'You have "Good Luck Charm" equipped! You took no damage from zone 9/10!');
+            }
+            else
+	    {
+	    	moveDamage(this.player_array[this.selected_player].player_color, 2);
+	    }
         }
 	this.last_state=state;
         this.check_win_or_dead();
@@ -1182,9 +1191,9 @@ class Game{
           damage = (this.current_attacking_player_pts - this.current_defending_player_pts);
 
         //Check if Good Luck Charm is equipped
-        if((this.player_array[this.current_player].current_region == 9 || this.player_array[this.current_player].current_region == 10) && this.player_array[this.current_player].equipped.card_title == 'Good Luck Charm')
+        if((this.gaurdian_angel == this.player_array[this.current_defending_player].character.char_name)
         {
-            this.add_info_message(this.current_player, 'You have "Good Luck Charm" equipped! You take no damage!');
+            this.add_info_message(this.current_player, 'You are being protected by a Gaurdian Angel! You take no damage!');
         }
         else
         {
@@ -2441,8 +2450,27 @@ class Game{
             this.exec_state()
             break;
 
-          //Action card
-          //If you are a Counter-Terrorist, you may reveal your identity.  If you do, or if you are already revealed, you heal fully(0 damage).
+	//Action Card
+    	// You take no damage from attacks until your next turn
+    	  case 'action_gaurdianangel_0':
+	    this.next_state = 'action_gaurdianangel_1';
+	    this.last_state = state;
+	    hide_draw_card_screen_overlay();
+	    show_view_card(this.drawn_action_card);
+	    this.add_info_message(this.current_player, 'Click card to use it.');
+	    this.exec_state();
+	    break;
+		    
+	  case 'action_gaurdianangel_1':
+	    this.next_state = 'turn_2';
+	    this.gaurdian_angel = this.player_array[this.current_player].character.char_name;
+	    hide_zoomed_card();
+	    this.last_state = state;
+	    this.exec_state();
+	    break;
+		    
+         //Action Card
+    	// You take and extra turn after your current turn is over
 	  case 'action_energyboost_0':
 	    this.next_state = 'action_energyboost_1';	 
 	    this.last_state=state;
@@ -2459,6 +2487,8 @@ class Game{
 	    this.exec_state();
 	    break;
 		    
+	 //Action card
+          //If you are a Counter-Terrorist, you may reveal your identity.  If you do, or if you are already revealed, you heal fully(0 damage).	    
 	  case 'action_rnr_0':
             this.next_state = 'action_rnr_1';
             hide_draw_card_screen_overlay();
