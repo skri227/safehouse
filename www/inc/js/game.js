@@ -892,25 +892,25 @@ class Game{
 	  this.show_draw_btn();
 	  this.add_info_message(this.current_turn, 'Click "DRAW" to choose a card.');
 	}
-			else if(r == 11 || r == 12)
-			{
-			  var anyone_have_cards = false;
-			  for(var i = 1; i <= this.num_of_players; i++)
-			  {
-				if(this.player_array[i].hand.length > 0)
-				  anyone_have_cards = true;
-			  }
-			  if(anyone_have_cards == true)
-        {
-          this.next_state='steal_region_0';
-        }
-			  else
-        {
+	else if(r == 11 || r == 12)
+	{
+	   var anyone_have_cards = false;
+	   for(var i = 1; i <= this.num_of_players; i++)
+	   {
+		if(this.player_array[i].hand.length > 0)
+		  anyone_have_cards = true;
+	   }
+	   if(anyone_have_cards == true)
+           {
+             this.next_state='steal_region_0';
+           }
+	   else
+           {
               this.add_info_message(this.current_turn, 'No one has any cards.');
-				      this.next_state = 'turn_2';
-        }
-				this.exec_state();
-			}
+	      this.next_state = 'turn_2';
+           }
+	   this.exec_state();
+	}
 	else if(r == 9 || r == 10)
 	{
 	  this.exec_state('damage_region_0');
@@ -993,31 +993,29 @@ class Game{
 	}
 	else if(new_region == 11 || new_region == 12)
 	{
-		document.getElementById("action_adjacent_btn").style.display = "none";
-    		document.getElementById("action_special_roll_btn").style.display = "none";
-	  	var anyone_have_cards = false;
+  		var anyone_have_cards = false;
 	  	for(var i = 1; i <= this.num_of_players; i++)
 	  	{
-			if(this.player_array[i].hand.length > 0) {
-		  		anyone_have_cards = true;
-			}
+			if(this.player_array[i].hand.length > 0)
+		  	anyone_have_cards = true;
 	  	}
-	  	if(anyone_have_cards == true) {
-			this.exec_state('steal_region_0');
-		}
-	  	else {
-			this.next_state = 'turn_2';
-			this.exec_state();
-		}
+	  	if(anyone_have_cards == true)
+        	{
+          		this.next_state='steal_region_0';
+        	}
+	  	else
+        	{
+              		this.add_info_message(this.current_turn, 'No one has any cards.');
+		      	this.next_state = 'turn_2';
+        	}
+		this.exec_state();
 	}
 	else if(new_region == 9 || new_region == 10)
 	{
 	  	this.exec_state('damage_region_0');
 	}
-   	else if(r == 7)
+   	else if(new_region == 7)
 	{
-	    	document.getElementById("action_adjacent_btn").style.display = "none";
-    		document.getElementById("action_special_roll_btn").style.display = "none";
 		this.next_state = 'turn_3';
 	  	this.show_safe_house_ability_btn();
 	}
