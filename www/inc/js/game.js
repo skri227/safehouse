@@ -770,7 +770,7 @@ class Game{
     this.selected_option = 0;
     this.offense_or_defense;
     this.extra_turn = false; // used for the energy boost card. is a bool that will be check at turn_4.
-    this.guardian_angel = "none"; // used for the guardian angel card. will be equal to the characters name that draws it
+    this.guardian_angel; // used for the guardian angel card. will be equal to the characters name that draws it
 
     //Used for sam's special
     this.double_damage= 0;
@@ -1115,6 +1115,7 @@ class Game{
 	    if(this.player_array[this.selected_player].equipped.card_title == 'Good Luck Charm')
 	    {
             	this.add_info_message(this.selected_player, 'You have "Good Luck Charm" equipped! You took no damage from zone 9/10!');
+    		this.add_info_message(this.current_turn, 'That player has the Good Luck Charm and took no damage!');
             }
             else
 	    {
@@ -1190,7 +1191,7 @@ class Game{
         else
           damage = (this.current_attacking_player_pts - this.current_defending_player_pts);
 
-        //Check if Good Luck Charm is equipped
+        //Check if guardin angel is active S17
         if(this.guardian_angel == this.player_array[this.current_defending_player].character.char_name)
         {
             this.add_info_message(this.current_player, 'You are being protected by a Guardian Angel! You take no damage!');
@@ -1287,10 +1288,10 @@ class Game{
         else
           counter_attack_damage = (this.current_attacking_player_pts - this.current_defending_player_pts);
 
-        //Check if Good Luck Charm is equipped
-        if((this.player_array[this.current_player].current_region == 9 || this.player_array[this.current_player].current_region == 10) && this.player_array[this.current_player].equipped.card_title == 'Good Luck Charm')
+    	//Check to see if guardian angel is active
+        if(this.guardian_angel == this.player_array[this.current_defending_player].character.char_name)
         {
-            this.add_info_message(this.current_player, 'You have "Good Luck Charm" equipped! You take no damage!');
+            this.add_info_message(this.current_player, 'You are being protected by a Guardian Angel! You take no damage!');
         }
         else
         {
