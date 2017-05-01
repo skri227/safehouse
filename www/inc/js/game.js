@@ -897,19 +897,19 @@ class Game{
 	  var anyone_have_cards = false;
 	  for(var i = 1; i <= this.num_of_players; i++)
 	  {
-		if(this.player_array[i].hand.length > 0)
-		  anyone_have_cards = true;
-	  }
-	  if(anyone_have_cards == true)
-	  {
-		this.next_state='steal_region_0';
-	  }
-	  else
-	  {
-		this.add_info_message(this.current_turn, 'No one has any cards.');
-		this.next_state = 'turn_2';
-	   }
-	   this.exec_state();
+		  if(this.player_array[i].hand.length > 0)
+		    anyone_have_cards = true;
+    }
+    if(anyone_have_cards == true)
+    {
+      this.next_state='steal_region_0';
+    }
+    else
+    {
+      this.add_info_message(this.current_turn, 'No one has any cards.');
+      this.next_state = 'turn_2';
+    }
+    this.exec_state();
 	}
 	else if(r == 9 || r == 10)
 	{
@@ -996,25 +996,25 @@ class Game{
 	  var anyone_have_cards = false;
 	  for(var i = 1; i <= this.num_of_players; i++)
 	  {
-		if(this.player_array[i].hand.length > 0)
-		  anyone_have_cards = true;
+		  if(this.player_array[i].hand.length > 0)
+		    anyone_have_cards = true;
 	  }
 	  if(anyone_have_cards == true)
 	  {
-		this.next_state='steal_region_0';
+		  this.next_state='steal_region_0';
 	  }
 	  else
 	  {
-		this.add_info_message(this.current_turn, 'No one has any cards.');
-		this.next_state = 'turn_2';
-	   }
-	   this.exec_state();
+		  this.add_info_message(this.current_turn, 'No one has any cards.');
+      this.next_state = 'turn_2';
+    }
+    this.exec_state();
 	}
 	else if(new_region == 9 || new_region == 10)
 	{
 	  	this.exec_state('damage_region_0');
 	}
-   	else if(r == 7)
+   	else if(new_region == 7)
 	{
 		this.next_state = 'turn_3';
 	  	this.show_safe_house_ability_btn();
