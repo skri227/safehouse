@@ -993,6 +993,8 @@ class Game{
 	}
 	else if(new_region == 11 || new_region == 12)
 	{
+		document.getElementById("action_adjacent_btn").style.display = "none";
+    		document.getElementById("action_special_roll_btn").style.display = "none";
 	  	var anyone_have_cards = false;
 	  	for(var i = 1; i <= this.num_of_players; i++)
 	  	{
@@ -1014,6 +1016,8 @@ class Game{
 	}
    	else if(r == 7)
 	{
+	    	document.getElementById("action_adjacent_btn").style.display = "none";
+    		document.getElementById("action_special_roll_btn").style.display = "none";
 		this.next_state = 'turn_3';
 	  	this.show_safe_house_ability_btn();
 	}
