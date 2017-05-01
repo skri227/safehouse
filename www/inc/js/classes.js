@@ -263,7 +263,7 @@ var defenseArray = [goodluckcharm, firstaid, firstaid2, judgementday, rnr, lucky
 
 // after the offense and defense decks run out, this becomes the new deck and is reshuffled. S17
 var newDeckOffenseArray = [deadlysurprise, deadlysurprise2, deadlysurprise3, thatsmine];
-var newDeckDefenseArray = [firstaid, firstaid2, judgementday, rnr, luckyday, illhelp, spotted]; 
+var newDeckDefenseArray = [firstaid, firstaid2, judgementday, rnr, luckyday, illhelp, spotted];
 
 //The investigation array is composed of every Investigation card that is available in the game
 //var investigationArray = [accuse1, accuse2, accuse3, accuse4, accuse5, accuse6, accuse7, accuse8, accuse9, accuse10, accuse11, accuse12, accuse13, accuse14, accuse15, reveal1, reveal2];

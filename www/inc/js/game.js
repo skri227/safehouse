@@ -232,7 +232,7 @@ function game_screen_setup()
   document.getElementById("action_adjacent_btn").style.display = "none";
   document.getElementById("action_special_roll_btn").style.display = "none";
   document.getElementById("action_counter_attack_btn").style.display = "none";
-  document.getElementById("action_osama_offense_pass_btn").style.display = "none";	
+  document.getElementById("action_osama_offense_pass_btn").style.display = "none";
 
   document.getElementById("card_area_scroll_left").style.display = "none";
   document.getElementById("card_area_scroll_right").style.display = "none";
@@ -903,14 +903,14 @@ class Game{
 
         this.check_win_or_dead();
         break;
-		    
+
       case 'turn_2':
         this.next_state = 'turn_3';
-	this.show_general_btn(this.last_state);
-    	this.last_state=state;
+	      this.show_general_btn(this.last_state);
+    	  this.last_state=state;
         this.exec_state();
         break;
-		    
+
       case 'turn_3':
 	if(this.last_state=="turn_1")
 	{
@@ -920,7 +920,7 @@ class Game{
         this.next_state = 'turn_4';
     	this.last_state=state;
         break;
-		    
+
       case 'turn_4':
         this.next_state = 'turn_0';
         if(this.player_array[this.current_turn].alive == true)
@@ -1003,12 +1003,12 @@ class Game{
 	{
 		draw_card_screen_overlay(1,0,0); // investigation only
 	}
-		    
+
         else if(this.player_array[this.current_turn].current_region == 6)
         {
             	draw_card_screen_overlay(0,1,0); // defense only
         }
-		    
+
         else if(this.player_array[this.current_turn].current_region == 8)
 	{
           	draw_card_screen_overlay(0,0,1); // offense only
@@ -1190,19 +1190,19 @@ class Game{
             }
 
         }
-    	this.last_state=state;	
+    	this.last_state=state;
 	if (this.player_array[this.current_player].character.char_name != "Osama Bin Laden") {
 		this.show_offense_pass_btn();
 	}
     	else {
-		this.show_osama_special_attack_btn();	    
+		this.show_osama_special_attack_btn();
 	}
         this.check_win_or_dead();
-		 
+
         this.add_info_message(this.current_player, 'Press "PASS TO OFFENSE" and pass to attacking player.');
         //ADD WAIT FOR DICE ROLL!!!
         break;
-      case 'attack_4': // Transition back to attacker and continue turn 
+      case 'attack_4': // Transition back to attacker and continue turn
     	this.last_state=state;
         this.next_state = 'turn_2';
 	this.last_state=state;
@@ -1210,14 +1210,14 @@ class Game{
         this.switch_player(this.current_turn);
         this.exec_state();
         break;
-		   
+
       case 'osama_attack_0': //These states should happen between attack_3 and attack_4 S17
 	// Shows roll button
 	this.next_state = 'osama_attack_1';
 	this.last_state=state;
     	this.show_roll_btn();	//calls this.exec_State() on click
     	break;
-	
+
       case 'osama_attack_1':
     	//Rolls attack die, sets attack value and shows pass to defense button
     	this.last_state = state;
@@ -1227,11 +1227,11 @@ class Game{
         this.current_attacking_player = this.selected_player;
         this.current_defending_player = this.current_turn;
         this.add_info_message(this.current_player, 'You rolled a ' + this.current_attacking_player_pts + ' for your counter!');
-        this.add_info_message(this.current_turn, 'Press "PASS TO DEFENSE" and pass to defending player.');	    
+        this.add_info_message(this.current_turn, 'Press "PASS TO DEFENSE" and pass to defending player.');
 	this.show_defense_pass_btn();
-	this.check_win_or_dead();	    
+	this.check_win_or_dead();
     	break;
-		    
+
       case 'osama_attack_2': // Switches to defending player, informs player of counter attack and shows roll button. Allows defender to use special before rolling
 	this.last_state=state;
     	this.next_state='osama_attack_3';
@@ -1241,14 +1241,14 @@ class Game{
         this.add_info_message(this.current_player, 'You are being counter-attacked by Osama! They rolled a ' + this.current_attacking_player_pts + '. \rRoll to defend!.');
         this.check_win_or_dead();
         break;
-		    
-      case 'osama_attack_3': 
+
+      case 'osama_attack_3':
     	this.next_state = 'turn_2';
 	rollOneGreenDice();
         this.current_defending_player_pts = dice1Value;
         this.add_info_message(this.current_player, 'You rolled a ' + this.current_defending_player_pts + ' for the counter!');
-        var counter_attack_damage = 0;	   
-	
+        var counter_attack_damage = 0;
+
 	//Check if Balance Suit is equipped
         if(this.player_array[this.current_defending_player].equipped.card_title == 'Balance Suit' || this.player_array[this.current_attacking_player].equipped.card_title == 'Balance Suit')
           counter_attack_damage = (this.current_attacking_player_pts - this.current_defending_player_pts) - 1;
@@ -1289,7 +1289,7 @@ class Game{
     	this.check_win_or_dead();
 	this.exec_state();
     	break;
-		    
+
       //Specials
       case 'special_0':
         switch(this.player_array[this.current_player].character.char_name)
@@ -1328,10 +1328,10 @@ class Game{
 	this.last_state=state;
         this.exec_state();
         break;
-	    
+
       case 'osama_special_0':
 	this.next_state = 'turn_3';
-	
+
 	if(this.player_array[this.current_player].used_special == 1)
         {
           this.add_info_message(this.current_player, "You've already used your special");
@@ -1347,13 +1347,13 @@ class Game{
 	  this.add_info_message(this.current_player, "You've used your special!");
 	}
     	this.last_state = state;
-	this.check_win_or_dead();	    
+	this.check_win_or_dead();
 	this.exec_state();
     	break;
-		    
+
       case 'ayman_special_0':
         this.next_state = 'turn_3';
-		    
+
         if(this.player_array[this.current_player].used_special == 1)
         {
           this.add_info_message(this.current_player, "You've already used your special");
@@ -1507,7 +1507,7 @@ class Game{
         break;
 
       case 'george_special_0':
-      
+
       this.current_state=state;
 	//Commented out since state is no longer implemented -S17
         //this.next_state = 'george_special_1';
@@ -1539,7 +1539,7 @@ class Game{
             //Commented out for implementation of stealing -S17
             //this.steal_equip_card();
             this.add_info_message(this.current_player, "You've used your special!");
-	    
+
         }
 
 		    this.last_state=state;
@@ -1632,47 +1632,47 @@ class Game{
 
       case 'equip_or_action_offense_0':  // This state checks to see if the card drawn is equipment or one time action S17
     	this.last_state=state;
-	hide_draw_card_screen_overlay();	    
+	    hide_draw_card_screen_overlay();
     	var is_equipment_card = false; // set flag
     	this.offense_or_defense = "offense";
-	
+
     	//if the offense deck is empty, shuffle all the one time action cards back into a new deck
     	if(offenseArray.length == 0) {
 	      offenseArray = newDeckOffenseArray;
-              array_shuffle(offenseArray);
-	}
-		    
-	for (var i = 0; i < equipmentArray.length; i++) {
-		if (offenseArray[0] == equipmentArray[i]) {
-			is_equipment_card = true;
-		}
-	}	    
-  	if (is_equipment_card) {
-		this.next_state = 'equip_0';
-	}
-    	else {
-		this.next_state = 'action_0';
-	}
+        array_shuffle(offenseArray);
+	    }
+
+    	for (var i = 0; i < equipmentArray.length; i++) {
+    		if (offenseArray[0] == equipmentArray[i]) {
+    			is_equipment_card = true;
+    		}
+    	}
+      	if (is_equipment_card) {
+    		this.next_state = 'equip_0';
+    	}
+        	else {
+    		this.next_state = 'action_0';
+    	}
     	this.exec_state();
    	break;
-		    
+
       case 'equip_or_action_defense_0':  // This state checks to see if the card drawn is equipment or one time action S17
     	this.last_state=state;
-	hide_draw_card_screen_overlay();	    
+      hide_draw_card_screen_overlay();
     	var is_equipment_card = false; // set flag
     	this.offense_or_defense = "defense";
-		
+
     	//if the defense deck is empty, shuffle all the one time action cards back into a new deck
     	if(defenseArray.length == 0) {
 	      defenseArray = newDeckDefenseArray;
               array_shuffle(defenseArray);
 	}
-		    
+
 	for (var i = 0; i < equipmentArray.length; i++) {
 		if (defenseArray[0] == equipmentArray[i]) {
 			is_equipment_card = true;
 		}
-	}	    
+	}
   	if (is_equipment_card) {
 		this.next_state = 'equip_0';
 	}
@@ -1681,7 +1681,7 @@ class Game{
 	}
     	this.exec_state();
    	break;
-		    
+
       //Investigation
       case 'invest_0':
         hide_draw_card_screen_overlay();
@@ -1772,7 +1772,7 @@ class Game{
           this.exec_state('turn_2');
         }
         break;
-		    
+
       case 'invest_2':
         this.next_state = 'draw_invest_card_only';
       	this.last_state=state;
@@ -1796,7 +1796,7 @@ class Game{
 		this.drawn_equip_card = offenseArray[0];
 		offenseArray.shift();
 	}
-    
+
         /*switch(this.drawn_equip_card.card_title)
         {
           case 'Compass':
@@ -2365,7 +2365,7 @@ class Game{
 	    	this.drawn_action_card = offenseArray[0];
 		offenseArray.shift();
 	    }
-		    
+
             switch(this.drawn_action_card.card_title)
             {
               case 'R&R':
@@ -2588,7 +2588,7 @@ class Game{
                 moveDamage(this.player_array[i].player_color, 2);
               }
             }
-	    this.last_state=state;
+	          this.last_state=state;
             this.check_win_or_dead();
             this.exec_state('turn_2');
             break;
@@ -2601,12 +2601,12 @@ class Game{
               hide_draw_card_screen_overlay();
               show_zoomed_card(this.drawn_action_card);
               this.add_info_message(this.current_player, 'Click card to use it.');
-	      this.last_state=state;
+	            this.last_state=state;
               break;
             case 'action_thatsmine_1':
               this.next_state = 'action_thatsmine_2';
               hide_zoomed_card();
-	      this.last_state=state;
+	            this.last_state=state;
               show_select_player_screen();
               break;
             case 'action_thatsmine_2':
@@ -2615,7 +2615,7 @@ class Game{
               if(this.player_array[this.selected_player].hand.length > 0)
               {
                 document.getElementById("select_player_steal_container").style.display = "initial";
-                this.steal_equip_card();
+                //this.steal_equip_card();
                 var message_string = "You stole a card from Player " + this.selected_player + ".";
                 this.add_info_message(this.current_player, message_string);
               }
@@ -2750,7 +2750,7 @@ class Game{
     document.getElementById("action_adjacent_btn").style.display = "none";
     document.getElementById("action_special_roll_btn").style.display = "none";
     document.getElementById("action_counter_attack_btn").style.display = "none";
-    document.getElementById("action_osama_offense_pass_btn").style.display = "none";  
+    document.getElementById("action_osama_offense_pass_btn").style.display = "none";
 	setTimeout(function(){
     document.getElementById("action_draw_btn").style.display = "initial"; },7000);
   }
@@ -2847,12 +2847,12 @@ class Game{
     document.getElementById("action_draw_btn").style.display = "none";
     document.getElementById("action_attack_btn").style.display = "none";
     document.getElementById("action_special_btn").style.display = "none";
-    document.getElementById("action_end_turn_btn").style.display = "none";	
+    document.getElementById("action_end_turn_btn").style.display = "none";
   }
 
   select_options(player_numb)
   {
-    if(this.current_state == 'steal_region_0' || this.current_state=='george_special_0')
+    if(this.current_state == 'steal_region_0' || this.current_state=='george_special_0' || this.current_state=='action_thatsmine_1')
     {
       document.getElementById("select_player_steal_container").style.display = "initial";
       this.display_other_hand(player_numb);
@@ -2975,79 +2975,146 @@ class Game{
 //Display hand of another player
   display_other_hand(player_num)
   {
-    //Create Arrows and remove beginning text.
-  /*  if(this.player_array[player_num].hand.length == 0)
+
+    if(this.current_state=='action_thatsmine_1')
     {
-      document.getElementById("card_area_beginning_text").style.display = "initial";
-      document.getElementById("card_area_scroll_left").style.display = "none";
-      document.getElementById("card_area_scroll_right").style.display = "none";
+      if(this.player_array[player_num].hand.length==0)
+      {
+        document.getElementById("select_player_steal_container").style.display = "none";
+        document.getElementById("select_player_overlay_container").style.display = "none";
+        game.add_info_message(game.current_turn, 'This player has no Equipment cards!');
+        this.exec_state('steal_region_1');
+      }
+      else
+      //Empty current hand, if exist
+      document.getElementById('steal_cards_area').innerHTML = '';
+      {
+        for(var i = 0; i < this.player_array[player_num].hand.length; i++)
+        {
+          var header = this.player_array[player_num].hand[i].card_title;
+          var img = this.player_array[player_num].hand[i].img;
+          var text = this.player_array[player_num].hand[i].card_text;
+          var onclickfunction = '';
+
+          switch(header)
+          {
+            case 'Compass':
+              onclickfunction = 'compass';
+              break;
+            case 'Predator Drone':
+              onclickfunction = 'predatordrone';
+              break;
+            case 'Water Board':
+              onclickfunction = 'waterboard';
+              break;
+            case 'Good Luck Charm':
+              onclickfunction = 'goodluckcharm';
+              break;
+            case 'Balance Suit':
+              onclickfunction = 'balancesuit';
+              break;
+            case 'Duffle Bag':
+              onclickfunction = 'dufflebag';
+              break;
+            case 'Special Vest':
+              onclickfunction = 'specialvest';
+              break;
+            case 'Handgun':
+              onclickfunction = 'handgun';
+              break;
+            case 'Cattle Prod':
+              onclickfunction = 'cattleprod';
+              break;
+            case 'Sniper Rifle':
+              onclickfunction = 'sniperrifle';
+              break;
+            case 'Garrote':
+              onclickfunction = 'garrote';
+              break;
+            case 'Machine Gun':
+              onclickfunction = 'machinegun';
+              break;
+            case 'Blow Gun':
+              onclickfunction = 'blowgun';
+              break;
+            case 'Cursed Dagger':
+              onclickfunction = 'curseddagger';
+              break;
+
+          }
+
+          //Displays the cards
+          for(var j = 0; j < equipmentArray.length; j++)
+          {
+            if(this.player_array[player_num].hand[i]==equipmentArray[j])
+            {
+              document.getElementById('steal_cards_area').innerHTML += '<div class="card card_equip" onclick="game.steal_card_from_player(' + onclickfunction +','+ player_num + ')"><h1>' + header + '</h1><img src="' + img + '"></img><p>' + text + '</p></div>';
+            }
+          }
+        }
+      }
     }
+
     else
     {
-      document.getElementById("card_area_beginning_text").style.display = "none";
-      document.getElementById("card_area_scroll_left").style.display = "initial";
-      document.getElementById("card_area_scroll_right").style.display = "initial";
-    }*/
-
-    //Empty current hand, if exist
-    document.getElementById('steal_cards_area').innerHTML = '';
-
-    for(var i = 0; i < this.player_array[player_num].hand.length; i++)
-    {
-      var header = this.player_array[player_num].hand[i].card_title;
-      var img = this.player_array[player_num].hand[i].img;
-      var text = this.player_array[player_num].hand[i].card_text;
-      var onclickfunction = '';
-
-      switch(header)
+      //Empty current hand, if exist
+      document.getElementById('steal_cards_area').innerHTML = '';
+      for(var i = 0; i < this.player_array[player_num].hand.length; i++)
       {
-        case 'Compass':
-          onclickfunction = 'compass';
-          break;
-        case 'Predator Drone':
-          onclickfunction = 'predatordrone';
-          break;
-        case 'Water Board':
-          onclickfunction = 'waterboard';
-          break;
-        case 'Good Luck Charm':
-          onclickfunction = 'goodluckcharm';
-          break;
-        case 'Balance Suit':
-          onclickfunction = 'balancesuit';
-          break;
-        case 'Duffle Bag':
-          onclickfunction = 'dufflebag';
-          break;
-        case 'Special Vest':
-          onclickfunction = 'specialvest';
-          break;
-        case 'Handgun':
-          onclickfunction = 'handgun';
-          break;
-        case 'Cattle Prod':
-          onclickfunction = 'cattleprod';
-          break;
-        case 'Sniper Rifle':
-          onclickfunction = 'sniperrifle';
-          break;
-        case 'Garrote':
-          onclickfunction = 'garrote';
-          break;
-        case 'Machine Gun':
-          onclickfunction = 'machinegun';
-          break;
-        case 'Blow Gun':
-          onclickfunction = 'blowgun';
-          break;
-        case 'Cursed Dagger':
-          onclickfunction = 'curseddagger';
-          break;
+        var header = this.player_array[player_num].hand[i].card_title;
+        var img = this.player_array[player_num].hand[i].img;
+        var text = this.player_array[player_num].hand[i].card_text;
+        var onclickfunction = '';
 
-      }
+        switch(header)
+        {
+          case 'Compass':
+            onclickfunction = 'compass';
+            break;
+          case 'Predator Drone':
+            onclickfunction = 'predatordrone';
+            break;
+          case 'Water Board':
+            onclickfunction = 'waterboard';
+            break;
+          case 'Good Luck Charm':
+            onclickfunction = 'goodluckcharm';
+            break;
+          case 'Balance Suit':
+            onclickfunction = 'balancesuit';
+            break;
+          case 'Duffle Bag':
+            onclickfunction = 'dufflebag';
+            break;
+          case 'Special Vest':
+            onclickfunction = 'specialvest';
+            break;
+          case 'Handgun':
+            onclickfunction = 'handgun';
+            break;
+          case 'Cattle Prod':
+            onclickfunction = 'cattleprod';
+            break;
+          case 'Sniper Rifle':
+            onclickfunction = 'sniperrifle';
+            break;
+          case 'Garrote':
+            onclickfunction = 'garrote';
+            break;
+          case 'Machine Gun':
+            onclickfunction = 'machinegun';
+            break;
+          case 'Blow Gun':
+            onclickfunction = 'blowgun';
+            break;
+          case 'Cursed Dagger':
+            onclickfunction = 'curseddagger';
+            break;
 
-      //Displays the cards
-      document.getElementById('steal_cards_area').innerHTML += '<div class="card card_equip" onclick="game.steal_card_from_player(' + onclickfunction +','+ player_num + ')"><h1>' + header + '</h1><img src="' + img + '"></img><p>' + text + '</p></div>';
+        }
+        //Displays the cards
+        document.getElementById('steal_cards_area').innerHTML += '<div class="card card_equip" onclick="game.steal_card_from_player(' + onclickfunction +','+ player_num + ')"><h1>' + header + '</h1><img src="' + img + '"></img><p>' + text + '</p></div>';
+    }
 
       //Steals the card when card is clicked -S17
       if(this.player_array[player_num].hand[i].card_title == this.player_array[player_num].equipped.card_title)
