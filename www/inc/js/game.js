@@ -894,22 +894,22 @@ class Game{
 	}
 	else if(r == 11 || r == 12)
 	{
-	   var anyone_have_cards = false;
-	   for(var i = 1; i <= this.num_of_players; i++)
-	   {
-		if(this.player_array[i].hand.length > 0)
-		  anyone_have_cards = true;
-	   }
-	   if(anyone_have_cards == true)
-           {
-             this.next_state='steal_region_0';
-           }
-	   else
-           {
-              this.add_info_message(this.current_turn, 'No one has any cards.');
-	      this.next_state = 'turn_2';
-           }
-	   this.exec_state();
+	  var anyone_have_cards = false;
+	  for(var i = 1; i <= this.num_of_players; i++)
+	  {
+		  if(this.player_array[i].hand.length > 0)
+		    anyone_have_cards = true;
+    }
+    if(anyone_have_cards == true)
+    {
+      this.next_state='steal_region_0';
+    }
+    else
+    {
+      this.add_info_message(this.current_turn, 'No one has any cards.');
+      this.next_state = 'turn_2';
+    }
+    this.exec_state();
 	}
 	else if(r == 9 || r == 10)
 	{
@@ -991,24 +991,24 @@ class Game{
 	  	this.show_draw_btn();
 	  	this.add_info_message(this.current_turn, 'Click "DRAW" to choose a card.');
 	}
-	else if(new_region == 11 || new_region == 12)
+	else if(r == 11 || r == 12)
 	{
-  		var anyone_have_cards = false;
-	  	for(var i = 1; i <= this.num_of_players; i++)
-	  	{
-			if(this.player_array[i].hand.length > 0)
-		  	anyone_have_cards = true;
-	  	}
-	  	if(anyone_have_cards == true)
-        	{
-          		this.next_state='steal_region_0';
-        	}
-	  	else
-        	{
-              		this.add_info_message(this.current_turn, 'No one has any cards.');
-		      	this.next_state = 'turn_2';
-        	}
-		this.exec_state();
+	  var anyone_have_cards = false;
+	  for(var i = 1; i <= this.num_of_players; i++)
+	  {
+		  if(this.player_array[i].hand.length > 0)
+		    anyone_have_cards = true;
+	  }
+	  if(anyone_have_cards == true)
+	  {
+		  this.next_state='steal_region_0';
+	  }
+	  else
+	  {
+		  this.add_info_message(this.current_turn, 'No one has any cards.');
+      this.next_state = 'turn_2';
+    }
+    this.exec_state();
 	}
 	else if(new_region == 9 || new_region == 10)
 	{
