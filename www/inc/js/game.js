@@ -912,13 +912,17 @@ class Game{
         break;
 
       case 'turn_3':
-	if(this.last_state=="turn_1")
-	{
-      		this.show_general_btn(this.last_state);
-	}
-	this.add_info_message(this.current_turn, 'You can now attack a player, select a card to equip, use your special, or end your turn.');
+        /*if(this.player_array[this.current_player].equipped.card_title == 'Duffle Bag')
+          {
+            this.check_win_or_dead();
+          }*/
+      	if(this.last_state=="turn_1")
+      	{
+            		this.show_general_btn(this.last_state);
+      	}
+      	this.add_info_message(this.current_turn, 'You can now attack a player, select a card to equip, use your special, or end your turn.');
         this.next_state = 'turn_4';
-    	this.last_state=state;
+    	  this.last_state=state;
         break;
 
       case 'turn_4':
@@ -1149,7 +1153,7 @@ class Game{
         rollOneGreenDice();
         this.current_defending_player_pts = dice1Value;
         this.add_info_message(this.current_player, 'You rolled a ' + this.current_defending_player_pts + '!');
-    	this.add_info_message(this.current_turn, 'They rolled a ' + this.current_defending_player_pts + '!'); //informs the attacker what the defender rolled
+    	  this.add_info_message(this.current_turn, 'They rolled a ' + this.current_defending_player_pts + '!'); //informs the attacker what the defender rolled
         var damage = 0;
 
         //Check if Balance Suit is equipped
@@ -1190,22 +1194,24 @@ class Game{
             }
 
         }
-    	this.last_state=state;
-	if (this.player_array[this.current_player].character.char_name != "Osama Bin Laden") {
-		this.show_offense_pass_btn();
-	}
-    	else {
-		this.show_osama_special_attack_btn();
-	}
+    	  this.last_state=state;
+	      if (this.player_array[this.current_player].character.char_name != "Osama Bin Laden")
+        {
+		        this.show_offense_pass_btn();
+	      }
+    	  else
+        {
+		        this.show_osama_special_attack_btn();
+	      }
         this.check_win_or_dead();
 
         this.add_info_message(this.current_player, 'Press "PASS TO OFFENSE" and pass to attacking player.');
         //ADD WAIT FOR DICE ROLL!!!
         break;
       case 'attack_4': // Transition back to attacker and continue turn
-    	this.last_state=state;
+    	  this.last_state=state;
         this.next_state = 'turn_2';
-	this.last_state=state;
+	      this.last_state=state;
         this.check_win_or_dead();
         this.switch_player(this.current_turn);
         this.exec_state();
@@ -1213,10 +1219,10 @@ class Game{
 
       case 'osama_attack_0': //These states should happen between attack_3 and attack_4 S17
 	// Shows roll button
-	this.next_state = 'osama_attack_1';
-	this.last_state=state;
-    	this.show_roll_btn();	//calls this.exec_State() on click
-    	break;
+	      this.next_state = 'osama_attack_1';
+	      this.last_state=state;
+    	  this.show_roll_btn();	//calls this.exec_State() on click
+    	  break;
 
       case 'osama_attack_1':
     	//Rolls attack die, sets attack value and shows pass to defense button
@@ -2096,7 +2102,7 @@ class Game{
                 show_select_options_screen("YOU'RE BEING INVESTIGATED AS A TERRORIST OR NEUTRAL! SELECT OPTION.", 'OK');
             }
           }
-	  this.last_state=state;
+	        this.last_state=state;
           break;
         //Calculate damage then switch back to current turn player.
         case 'accuse5_3':
@@ -2505,9 +2511,9 @@ class Game{
             hide_zoomed_card();
 	    this.last_state=state;
             var name = this.player_array[this.current_player].character.char_name;
-            if((name == 'Totally Tori' || game == 'CIA Charlie' || game == 'Hassan Nasrallah') && this.player_array[this.current_player].revealed == false)
+            if((name == 'Totally Tori' || name == 'CIA Charlie' || name == 'Hassan Nasrallah') && this.player_array[this.current_player].revealed == false)
               show_select_options_screen("REVEAL YOUR IDENTITY?", 'REVEAL', 'NO');
-            else if(name != 'Totally Tori' || game != 'CIA Charlie' || game != 'Hassan Nasrallah')
+            else if(name != 'Totally Tori' || name != 'CIA Charlie' || name != 'Hassan Nasrallah')
             {
               this.add_info_message(this.current_player, 'Sorry, you can\'t use this card.');
               this.exec_state('turn_2');
@@ -2539,14 +2545,14 @@ class Game{
             hide_draw_card_screen_overlay();
             show_zoomed_card(this.drawn_action_card);
             this.add_info_message(this.current_player, 'Click card to use it.');
-	    this.last_state=state;
+	          this.last_state=state;
             break;
           case 'action_spotted_1':
             hide_zoomed_card();
             var name = this.player_array[this.current_player].character.char_name;
-            if(name == 'Ayman al-Zawahiri' || game == 'Osama Bin Laden')
+            if(name == 'Ayman al-Zawahiri' || name == 'Osama Bin Laden')
               this.reveal_player();
-	    this.last_state=state;
+	          this.last_state=state;
             this.check_win_or_dead();
             this.exec_state('turn_2');
             break;
@@ -2904,11 +2910,11 @@ class Game{
     document.getElementById('cards_area').innerHTML = '';
 
     //Sets the headers, images, texts, and next action for the cards
-    for(var i = 0; i < this.player_array[this.current_player].hand.length; i++)
+    for(var k = 0; k < this.player_array[this.current_player].hand.length; k++)
     {
-      var header = this.player_array[this.current_player].hand[i].card_title;
-      var img = this.player_array[this.current_player].hand[i].img;
-      var text = this.player_array[this.current_player].hand[i].card_text;
+      var header = this.player_array[this.current_player].hand[k].card_title;
+      var img = this.player_array[this.current_player].hand[k].img;
+      var text = this.player_array[this.current_player].hand[k].card_text;
       var onclickfunction = '';
 
       switch(header)
@@ -2960,7 +2966,7 @@ class Game{
 
       //for(var i = 0; i < this.player_array[this.current_player].hand.length; i++)
       //{
-        if(this.player_array[this.current_player].hand[i].card_title == this.player_array[this.current_player].equipped.card_title)
+        if(this.player_array[this.current_player].hand[k].card_title == this.player_array[this.current_player].equipped.card_title)
           document.getElementById('cards_area').innerHTML += '<div class="card_selected card card_equip" onclick="game.equip_card_to_player(' + onclickfunction + ')"><h1>' + header + '</h1><img src="' + img + '"></img><p>' + text + '</p></div>';
         else
           document.getElementById('cards_area').innerHTML += '<div class="card card_equip" onclick="game.equip_card_to_player(' + onclickfunction + ')"><h1>' + header + '</h1><img src="' + img + '"></img><p>' + text + '</p></div>';
@@ -3226,7 +3232,7 @@ class Game{
       if(stolen_card.card_title == this.player_array[selected_player].equipped.card_title)
           this.player_array[selected_player].equipped = new Equipment();
       this.player_array[selected_player].hand.shift();
-      this.player_array[this.current_turn].hand.push(stolen_card);
+      this.player_array[this.current_player].hand.push(stolen_card);
       this.display_hand();
       this.next_state = 'steal_region_1';
     }
@@ -3243,24 +3249,37 @@ class Game{
       var name = this.player_array[i].character.char_name;
       if(this.player_array[i].hp >= this.player_array[i].character.hp && this.player_array[i].alive == true) //S17 updated, kills at max health
       {
-	//set char as "dead"
+	      //set char as "dead"
         this.player_array[i].alive = false;
         playerDied(this.player_array[i].player_color);
-	//if they were revealed, set to "dead"
+
+	      //if they were revealed, set to "dead"
         if(this.player_array[i].revealed == true)
         {
           var player_id = 'player_' + i + '_revealed';
           document.getElementById(player_id).innerHTML = '<div id="player_' + i + '_revealed" class="player_revealed">Dead - PLAYER ' +  i + ': ' + affiliation + ' - ' + name + '</div>';
         }
+
+	      //if not revealed before, reveal and make "dead"
         else
-	//if not revealed before, reveal and make "dead"
         {
           document.getElementById("revealed_box").style.display = "initial";
           var reveal_player = '<div id="player_' + i + '_revealed" class="player_revealed">Dead - PLAYER ' +  i + ': ' + affiliation + ' - ' + name + '</div>';
           $("#revealed_box").append(reveal_player);
         }
-
       }
+    }
+
+    //Check if Duffle Bag is equipped, attacking player and current player are the same, and state is after completion of attack, and defending player is dead -S17
+    if((this.player_array[this.current_attacking_player].equipped.card_title == 'Duffle Bag') && (this.current_attacking_player==this.current_player) && (this.current_state=='turn_2') && (this.player_array[this.current_defending_player].alive==false))
+    {
+        for( var j=0; j<this.player_array[this.current_defending_player].hand.length; j++)
+        {
+          //Add cards to players hand -S17
+          this.player_array[this.current_player].hand.push(this.player_array[this.current_defending_player].hand[j]);
+        }
+        //Display the new cards -S17
+        this.display_hand();
     }
 
     //holds all winning characters
