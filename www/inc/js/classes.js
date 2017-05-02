@@ -252,19 +252,23 @@ var deadlysurprise3 = new Action("Deadly Surprise", "inc/images/action_deadlysur
 
 //The following are arrays of all the of objects put together
 //The action array is composed of each action card available in the game.
+
 //var actionArray = [rnr, illhelp, guardianangel, luckyday, spotted, firstaid, judgementday, energyboost, doctorsvisit, firstaid2, dynamite, jihad, deadlysurprise, deadlysurprise2, thatsnotgood, thatsmine, thatsmine2, deadlysurprise3, deadlygame, jihadjihad];
 var actionArray = [rnr, illhelp, luckyday, spotted, firstaid, judgementday, firstaid2, deadlysurprise, deadlysurprise2, thatsmine, thatsmine2, deadlysurprise3, energyboost, guardianangel];
+
 
 //The equipment array is composed of each Equipment card that is available in the game
 var equipmentArray = [waterboard, goodluckcharm, balancesuit, handgun, cattleprod, sniperrifle, garrote, blowgun];
 
 //The offense and defense array are both composed of Equipment and One Time Action Cards and are two of the three decks in the game S17
+
 var offenseArray = [sniperrifle, garrote, cattleprod, handgun, blowgun, deadlysurprise, deadlysurprise2, deadlysurprise3, thatsmine, thatsmine2];
 var defenseArray = [goodluckcharm, firstaid, firstaid2, judgementday, rnr, luckyday, illhelp, spotted, waterboard, balancesuit, energyboost, guardianangel];
 
 // after the offense and defense decks run out, this becomes the new deck and is reshuffled. S17
 var newDeckOffenseArray = [deadlysurprise, deadlysurprise2, deadlysurprise3, thatsmine, thatsmine2];
 var newDeckDefenseArray = [firstaid, firstaid2, judgementday, rnr, luckyday, illhelp, spotted, energyboost, guardianangel];
+
 
 
 //The investigation array is composed of every Investigation card that is available in the game

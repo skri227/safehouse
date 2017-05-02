@@ -232,7 +232,10 @@ function game_screen_setup()
   document.getElementById("action_adjacent_btn").style.display = "none";
   document.getElementById("action_special_roll_btn").style.display = "none";
   document.getElementById("action_counter_attack_btn").style.display = "none";
-  document.getElementById("action_osama_offense_pass_btn").style.display = "none";
+  document.getElementById("action_osama_offense_pass_btn").style.display = "none";	
+  document.getElementById("action_safehouse_stay_btn").style.display = "none";   
+  document.getElementById("action_safehouse_move_btn").style.display = "none";	
+
 
   document.getElementById("card_area_scroll_left").style.display = "none";
   document.getElementById("card_area_scroll_right").style.display = "none";
@@ -563,7 +566,7 @@ function hide_select_player_screen()
 }
 
 //Start of select zone screen S17
-function show_select_zone_screen() {
+function show_select_zone_screen(option) {
   	document.getElementById("select_zone_overlay_container").style.display = "initial";
 
 	//initially hide all zone buttons. There is no button for 3, 5, 10, or 12 because those are the second numbers in the given zone
@@ -575,40 +578,50 @@ function show_select_zone_screen() {
 	document.getElementById("select_zone_9_btn").style.display = "none";
 	document.getElementById("select_zone_11_btn").style.display = "none";
 
-	var current = game.player_array[game.current_turn].current_region; //this variable holds the current zone the player is in
+	if(option == "adjacent") {
+		var current = game.player_array[game.current_turn].current_region; //this variable holds the current zone the player is in
 
-	if (current == 2 || current == 3) { // 2/3 is only bordered by 4
-		document.getElementById("select_zone_4_btn").style.display = "initial";
+		if (current == 2 || current == 3) { // 2/3 is only bordered by 4
+			document.getElementById("select_zone_4_btn").style.display = "initial";
+		}
+		else if (current == 4 || current == 5) { // 4/5 is borderd by 2/3 and 6
+			document.getElementById("select_zone_2_btn").style.display = "initial";
+			document.getElementById("select_zone_6_btn").style.display = "initial";
+		}
+		else if (current == 6) { // 6 is borderd by 4/5, 7, and 8
+			document.getElementById("select_zone_4_btn").style.display = "initial";
+			document.getElementById("select_zone_7_btn").style.display = "initial";
+			document.getElementById("select_zone_8_btn").style.display = "initial";
+		}
+		else if (current == 7) { //7 is bordered by 6 and 8
+			document.getElementById("select_zone_6_btn").style.display = "initial";
+			document.getElementById("select_zone_8_btn").style.display = "initial";
+		}
+		else if (current == 8) {// 8 is bordered by 6, 7, and 9/10
+			document.getElementById("select_zone_6_btn").style.display = "initial";
+			document.getElementById("select_zone_7_btn").style.display = "initial";
+			document.getElementById("select_zone_9_btn").style.display = "initial";
+		}
+		else if (current == 9 || current == 10) { // 9/10 is bordered by 8 and 11/12
+			document.getElementById("select_zone_8_btn").style.display = "initial";
+			document.getElementById("select_zone_11_btn").style.display = "initial";
+		}
+		else if (current == 11 || current == 12) { // only bordered by 9/10
+			document.getElementById("select_zone_9_btn").style.display = "initial";
+		}
+		else {
+			game.add_info_message(this.current_turn, 'You broke it, this should not happen.');
+		}
 	}
-	else if (current == 4 || current == 5) { // 4/5 is borderd by 2/3 and 6
+	else if (option == "all") {
 		document.getElementById("select_zone_2_btn").style.display = "initial";
-		document.getElementById("select_zone_6_btn").style.display = "initial";
-	}
-	else if (current == 6) { // 6 is borderd by 4/5, 7, and 8
 		document.getElementById("select_zone_4_btn").style.display = "initial";
-		document.getElementById("select_zone_7_btn").style.display = "initial";
-		document.getElementById("select_zone_8_btn").style.display = "initial";
-	}
-	else if (current == 7) { //7 is bordered by 6 and 8
-		document.getElementById("select_zone_6_btn").style.display = "initial";
-		document.getElementById("select_zone_8_btn").style.display = "initial";
-	}
-	else if (current == 8) {// 8 is bordered by 6, 7, and 9/10
 		document.getElementById("select_zone_6_btn").style.display = "initial";
 		document.getElementById("select_zone_7_btn").style.display = "initial";
-		document.getElementById("select_zone_9_btn").style.display = "initial";
-	}
-	else if (current == 9 || current == 10) { // 9/10 is bordered by 8 and 11/12
 		document.getElementById("select_zone_8_btn").style.display = "initial";
-		document.getElementById("select_zone_11_btn").style.display = "initial";
-	}
-	else if (current == 11 || current == 12) { // only bordered by 9/10
 		document.getElementById("select_zone_9_btn").style.display = "initial";
+		document.getElementById("select_zone_11_btn").style.display = "initial";	
 	}
-	else {
-		game.add_info_message(this.current_turn, 'You broke it, this should not happen.');
-	}
-
 }
 
 function hide_select_zone_screen()
@@ -773,6 +786,8 @@ class Game{
     this.current_player_can_be_attacked = false;
     this.selected_option = 0;
     this.offense_or_defense;
+    this.extra_turn = false; // used for the energy boost card. is a bool that will be check at turn_4.
+    this.guardian_angel; // used for the guardian angel card. will be equal to the characters name that draws it
 
     //Used for sam's special
     this.double_damage= 0;
@@ -857,6 +872,11 @@ class Game{
 
         if(this.player_array[this.current_turn].hand.length > 0)
           this.add_info_message(this.current_turn, 'You can change your equipment card before you roll.');
+    	//end guardian angel once the players turn starts again.
+    	if(this.player_array[this.current_turn].character.char_name == this.guardian_angel)
+	{
+		this.guardian_angel = "none";	
+	}
         break;
       case 'turn_1':
 
@@ -866,41 +886,45 @@ class Game{
   this.add_info_message(this.current_player, 'You rolled a ' + this.player_array[this.current_turn].current_region + '!');
 	var r = this.player_array[this.current_player].current_region;
 
-			if(r == 2 || r == 3 || r == 4 || r == 5 || r == 6 || r == 8)
-			{
-			  this.next_state = 'draw_card_0';
-			  this.show_draw_btn();
-			  this.add_info_message(this.current_turn, 'Click "DRAW" to choose a card.');
-			}
-			else if(r == 11 || r == 12)
-			{
-			  var anyone_have_cards = false;
-			  for(var i = 1; i <= this.num_of_players; i++)
-			  {
-				if(this.player_array[i].hand.length > 0)
-				  anyone_have_cards = true;
-			  }
-			  if(anyone_have_cards == true)
-        {
-          this.next_state='steal_region_0';
-        }
-			  else
-        {
-              this.add_info_message(this.current_turn, 'No one has any cards.');
-				      this.next_state = 'turn_2';
-        }
-				this.exec_state();
-			}
-			else if(r == 9 || r == 10)
-			{
-			  this.exec_state('damage_region_0');
-			}
-			else
-			{
-			  this.next_state = 'turn_3';
-			  this.exec_state();
-			}
-
+	if(r == 2 || r == 3 || r == 4 || r == 5 || r == 6 || r == 8)
+	{
+	  this.next_state = 'draw_card_0';
+	  this.show_draw_btn();
+	  this.add_info_message(this.current_turn, 'Click "DRAW" to choose a card.');
+	}
+	else if(r == 11 || r == 12)
+	{
+	  var anyone_have_cards = false;
+	  for(var i = 1; i <= this.num_of_players; i++)
+	  {
+		  if(this.player_array[i].hand.length > 0)
+		    anyone_have_cards = true;
+    }
+    if(anyone_have_cards == true)
+    {
+      this.next_state='steal_region_0';
+    }
+    else
+    {
+      this.add_info_message(this.current_turn, 'No one has any cards.');
+      this.next_state = 'turn_2';
+    }
+    this.exec_state();
+	}
+	else if(r == 9 || r == 10)
+	{
+	  this.exec_state('damage_region_0');
+	}
+	else if(r == 7)
+	{
+	  this.next_state = 'turn_3';
+	  this.show_safe_house_ability_btn();
+	}
+	else 
+	{
+	  	this.next_state = 'turn_3';
+	  	this.exec_state();
+	}
         this.check_win_or_dead();
         break;
 
@@ -928,14 +952,19 @@ class Game{
       case 'turn_4':
         this.next_state = 'turn_0';
         if(this.player_array[this.current_turn].alive == true)
+	{
           this.add_info_message(this.current_turn, 'Ended your turn.<br><br>');
-        if(this.current_turn == this.num_of_players)
+	}
+        if(this.current_turn == this.num_of_players && this.extra_turn == false)
         {
           this.current_turn = 1;
           this.num_of_rotations++;
         }
-        else
+        else if (this.extra_turn == false)
+	{
           this.current_turn++;
+	}
+    	this.extra_turn = false;
         this.current_player = this.current_turn;
         this.check_win_or_dead();
 	this.last_state=state;
@@ -946,7 +975,7 @@ class Game{
       case 'charlie_movement_0':
    	this.add_info_message(this.current_turn, "ADJACENT worked");
 	this.last_state = state;
-	show_select_zone_screen(); // shows charlie the options of the adjacent zones and sets this.selected_zone to choice
+	show_select_zone_screen("adjacent"); // shows charlie the options of the adjacent zones and sets this.selected_zone to choice
 	this.next_state = 'charlie_movement_1';
  	this.check_win_or_dead();
 	break;
@@ -966,28 +995,35 @@ class Game{
 	  	this.show_draw_btn();
 	  	this.add_info_message(this.current_turn, 'Click "DRAW" to choose a card.');
 	}
-	else if(new_region == 11 || new_region == 12)
+	else if(r == 11 || r == 12)
 	{
-	  	var anyone_have_cards = false;
-	  	for(var i = 1; i <= this.num_of_players; i++)
-	  	{
-			if(this.player_array[i].hand.length > 0) {
-		  		anyone_have_cards = true;
-			}
-	  	}
-	  	if(anyone_have_cards == true) {
-			this.exec_state('steal_region_0');
-		}
-	  	else {
-			this.next_state = 'turn_2';
-			this.exec_state();
-		}
+	  var anyone_have_cards = false;
+	  for(var i = 1; i <= this.num_of_players; i++)
+	  {
+		  if(this.player_array[i].hand.length > 0)
+		    anyone_have_cards = true;
+	  }
+	  if(anyone_have_cards == true)
+	  {
+		  this.next_state='steal_region_0';
+	  }
+	  else
+	  {
+		  this.add_info_message(this.current_turn, 'No one has any cards.');
+      this.next_state = 'turn_2';
+    }
+    this.exec_state();
 	}
 	else if(new_region == 9 || new_region == 10)
 	{
 	  	this.exec_state('damage_region_0');
 	}
-	else
+   	else if(new_region == 7)
+	{
+		this.next_state = 'turn_3';
+	  	this.show_safe_house_ability_btn();
+	}
+	else 
 	{
 	  	this.next_state = 'turn_3';
 	  	this.exec_state();
@@ -1056,6 +1092,27 @@ class Game{
         this.exec_state();
         break;
 
+      case 'move_region_0':
+	this.last_state=state;
+    	this.next_state = 'move_region_1';
+    	this.add_info_message(this.current_turn, 'Move to any region');
+    	show_select_zone_screen("all");
+    	this.check_win_or_dead();
+	break;
+      
+      case 'move_region_1':
+    	this.last_state = state;
+    	this.next_state = 'turn_2';
+	this.player_array[this.current_turn].current_region = this.selected_zone;
+  	var new_region = this.selected_zone;
+	turnValue = this.selected_zone;
+	movePiece(this.player_array[this.current_turn].player_color);
+
+	this.add_info_message(this.current_turn, 'You picked Zone ' + this.selected_zone +'.');
+    	this.check_win_or_dead();
+    	this.exec_state();
+    	break;
+
       case 'damage_region_0':
         this.next_state = 'damage_region_1';
         show_select_options_screen("DAMAGE OR HEAL A PLAYER?", "HEAL", "DAMAGE");
@@ -1091,7 +1148,15 @@ class Game{
         }
         else
         {
-            moveDamage(this.player_array[this.selected_player].player_color, 2);
+	    if(this.player_array[this.selected_player].equipped.card_title == 'Good Luck Charm')
+	    {
+            	this.add_info_message(this.selected_player, 'You have "Good Luck Charm" equipped! You took no damage from zone 9/10!');
+    		this.add_info_message(this.current_turn, 'That player has the Good Luck Charm and took no damage!');
+            }
+            else
+	    {
+	    	moveDamage(this.player_array[this.selected_player].player_color, 2);
+	    }
         }
 	this.last_state=state;
         this.check_win_or_dead();
@@ -1162,10 +1227,10 @@ class Game{
         else
           damage = (this.current_attacking_player_pts - this.current_defending_player_pts);
 
-        //Check if Good Luck Charm is equipped
-        if((this.player_array[this.current_player].current_region == 9 || this.player_array[this.current_player].current_region == 10) && this.player_array[this.current_player].equipped.card_title == 'Good Luck Charm')
+        //Check if guardin angel is active S17
+        if(this.guardian_angel == this.player_array[this.current_defending_player].character.char_name)
         {
-            this.add_info_message(this.current_player, 'You have "Good Luck Charm" equipped! You take no damage!');
+            this.add_info_message(this.current_player, 'You are being protected by a Guardian Angel! You take no damage!');
         }
         else
         {
@@ -1261,10 +1326,10 @@ class Game{
         else
           counter_attack_damage = (this.current_attacking_player_pts - this.current_defending_player_pts);
 
-        //Check if Good Luck Charm is equipped
-        if((this.player_array[this.current_player].current_region == 9 || this.player_array[this.current_player].current_region == 10) && this.player_array[this.current_player].equipped.card_title == 'Good Luck Charm')
+    	//Check to see if guardian angel is active
+        if(this.guardian_angel == this.player_array[this.current_defending_player].character.char_name)
         {
-            this.add_info_message(this.current_player, 'You have "Good Luck Charm" equipped! You take no damage!');
+            this.add_info_message(this.current_player, 'You are being protected by a Guardian Angel! You take no damage!');
         }
         else
         {
@@ -2430,9 +2495,46 @@ class Game{
             this.exec_state()
             break;
 
-          //Action card
-          //If you are a Counter-Terrorist, you may reveal your identity.  If you do, or if you are already revealed, you heal fully(0 damage).
-          case 'action_rnr_0':
+	//Action Card
+    	// You take no damage from attacks until your next turn
+    	  case 'action_guardianangel_0':
+	    this.next_state = 'action_guardianangel_1';
+	    this.last_state = state;
+	    hide_draw_card_screen_overlay();
+	    show_view_card(this.drawn_action_card);
+	    this.add_info_message(this.current_player, 'Click card to use it.');
+	    this.exec_state();
+	    break;
+		    
+	  case 'action_guardianangel_1':
+	    this.next_state = 'turn_2';
+	    this.guardian_angel = this.player_array[this.current_player].character.char_name;
+	    hide_zoomed_card();
+	    this.last_state = state;
+	    this.exec_state();
+	    break;
+		    
+         //Action Card
+    	// You take and extra turn after your current turn is over
+	  case 'action_energyboost_0':
+	    this.next_state = 'action_energyboost_1';	 
+	    this.last_state=state;
+	    hide_draw_card_screen_overlay();
+	    show_view_card(this.drawn_action_card);
+	    this.add_info_message(this.current_player, 'Click card to use it.');
+	    this.exec_state();
+            break;
+	  case 'action_energyboost_1':
+	    this.next_state = 'turn_2';
+	    this.extra_turn = true;
+	    hide_zoomed_card();
+	    this.last_state = state;
+	    this.exec_state();
+	    break;
+		    
+	 //Action card
+          //If you are a Counter-Terrorist, you may reveal your identity.  If you do, or if you are already revealed, you heal fully(0 damage).	    
+	  case 'action_rnr_0':
             this.next_state = 'action_rnr_1';
             hide_draw_card_screen_overlay();
             show_zoomed_card(this.drawn_action_card);
@@ -2741,6 +2843,9 @@ class Game{
     document.getElementById("action_special_roll_btn").style.display = "none";
     document.getElementById("action_counter_attack_btn").style.display = "none";
     document.getElementById("action_osama_offense_pass_btn").style.display = "none";
+    document.getElementById("action_safehouse_stay_btn").style.display = "none";   
+    document.getElementById("action_safehouse_move_btn").style.display = "none";	
+
 
   }
 
@@ -2756,7 +2861,9 @@ class Game{
     document.getElementById("action_adjacent_btn").style.display = "none";
     document.getElementById("action_special_roll_btn").style.display = "none";
     document.getElementById("action_counter_attack_btn").style.display = "none";
-    document.getElementById("action_osama_offense_pass_btn").style.display = "none";
+    document.getElementById("action_osama_offense_pass_btn").style.display = "none";  
+    document.getElementById("action_safehouse_stay_btn").style.display = "none";   
+    document.getElementById("action_safehouse_move_btn").style.display = "none";	
 	setTimeout(function(){
     document.getElementById("action_draw_btn").style.display = "initial"; },7000);
   }
@@ -2773,6 +2880,8 @@ class Game{
     document.getElementById("action_special_roll_btn").style.display = "none";
     document.getElementById("action_counter_attack_btn").style.display = "none";
     document.getElementById("action_osama_offense_pass_btn").style.display = "none";
+    document.getElementById("action_safehouse_stay_btn").style.display = "none";   
+    document.getElementById("action_safehouse_move_btn").style.display = "none";	
 	setTimeout(function(){
     document.getElementById("action_defense_pass_btn").style.display = "initial"; },3500);
   }
@@ -2788,6 +2897,8 @@ class Game{
     document.getElementById("action_special_roll_btn").style.display = "none";
     document.getElementById("action_counter_attack_btn").style.display = "none";
     document.getElementById("action_osama_offense_pass_btn").style.display = "none";
+    document.getElementById("action_safehouse_stay_btn").style.display = "none";   
+    document.getElementById("action_safehouse_move_btn").style.display = "none";	
   setTimeout(function(){
     document.getElementById("action_offense_pass_btn").style.display = "initial";
     /*if(character=='Osama Bin Laden'){
@@ -2807,6 +2918,8 @@ class Game{
     document.getElementById("action_special_roll_btn").style.display = "none";
     document.getElementById("action_counter_attack_btn").style.display = "none";
     document.getElementById("action_osama_offense_pass_btn").style.display = "none";
+    document.getElementById("action_safehouse_stay_btn").style.display = "none";   
+    document.getElementById("action_safehouse_move_btn").style.display = "none";	
   	if(previous_state=="turn_1"){
   	  setTimeout(function(){
   	  document.getElementById("action_attack_btn").style.display = "initial";
@@ -2839,6 +2952,8 @@ class Game{
     document.getElementById("action_end_turn_btn").style.display = "none";
     document.getElementById("action_counter_attack_btn").style.display = "none";
     document.getElementById("action_osama_offense_pass_btn").style.display = "none";
+    document.getElementById("action_safehouse_stay_btn").style.display = "none";   
+    document.getElementById("action_safehouse_move_btn").style.display = "none";	
   }
 
   show_osama_special_attack_btn()
@@ -2854,6 +2969,26 @@ class Game{
     document.getElementById("action_attack_btn").style.display = "none";
     document.getElementById("action_special_btn").style.display = "none";
     document.getElementById("action_end_turn_btn").style.display = "none";
+    document.getElementById("action_safehouse_stay_btn").style.display = "none";   
+    document.getElementById("action_safehouse_move_btn").style.display = "none";	
+  }
+  
+    show_safe_house_ability_btn()
+  {
+    document.getElementById("action_safehouse_stay_btn").style.display = "initial";   
+    document.getElementById("action_safehouse_move_btn").style.display = "initial";
+    document.getElementById("action_counter_attack_btn").style.display = "none";
+    document.getElementById("action_osama_offense_pass_btn").style.display = "none";
+    document.getElementById("action_adjacent_btn").style.display = "none";
+    document.getElementById("action_special_roll_btn").style.display = "none";
+    document.getElementById("action_roll_btn").style.display = "none";
+    document.getElementById("action_offense_pass_btn").style.display = "none";
+    document.getElementById("action_defense_pass_btn").style.display = "none";
+    document.getElementById("action_draw_btn").style.display = "none";
+    document.getElementById("action_attack_btn").style.display = "none";
+    document.getElementById("action_special_btn").style.display = "none";
+    document.getElementById("action_end_turn_btn").style.display = "none";	
+	  
   }
 
   select_options(player_numb)
@@ -2867,8 +3002,9 @@ class Game{
     {
         this.select_player(player_numb);
     }
-  }
 
+  }
+	
   //Sets the game objects select player variable and hides the select player screen.
   select_player(player)
   {
