@@ -5,6 +5,8 @@ Each tag refers to a different file. The id and classes refer to the
 game.css file.The onLoad and onclick refer to game.js, classes.js, and
 Three_JS_Build.js. -S17-->
 
+<!--Note: Any comments without the S17 were not completed by the Safehouse Team of Spring 2017-->
+
 <html>
 	<head>
 		<meta charset="UTF-8">
@@ -28,42 +30,124 @@ Three_JS_Build.js. -S17-->
 		<!-- S17 Rules Screen setup -->
 		<div id="rules_screen">
 			<h1>Safe House Rules (Version 1.5)</h1>
-			<h2>
-			Summary - Safe House is a game of investigation, teamwork and survival.
-			Players take on the role of terrorists, counter-terrorist and neutral characters. Each character has different winning conditions and initially no one knows each other's identity. During the game you must uncover your teammates and enemies. Killing your enemies is always a top priority, as is survival!
-			<br>
-			Preparation -
-			Select number of players. Depending upon the number of players, randomize the pool of characters as follows:
-			<br>
-<div id="listDiv" class="center">
-	<ul>
-		<li>3 players, 1 Terrorist, 1 Counter-terrorist, 1 Neutral</li>
-		<li>4 players, 2 Terrorist, 2 Counter-terrorist</li>
-		<li>5 players, 2 Terrorist, 2 Counter-terrorist, 1 Neutral</li>
-		<li>6 players, 2 Terrorist, 2 Counter-terrorist, 2 Neutral</li>
-		<li>7 players (A), 2 Terrorist, 2 Counter-terrorist, 2 Neutral, (and one random additional either Terrorist, Counter-terrorist or Neutral)</li>
-		<li>7 players (B), 2 Terrorist, 2 Counter-terrorist, 3 Neutral (not George)</li>
-		<li>8 players (A), 3 Terrorist, 3 Counter-terrorist, 2 Neutral</li>
-		<li>8 players (B), 2 Terrorist, 2 Counter-terrorist, 2 Neutral, (and two random additional either Counter-terrorist or Neutral)</li>
-	</ul>
-</div>
-Each player’s color marker is placed on the damage track position 0.
-<br>
-Game Play –
-<br>
-Each player takes a turn and then the next player clockwise takes their turn. This continues until someone achieves their victory condition.
+			<h2 style="overflow: scroll; height: 90vh;">
+				Summary - Safe House is a game of investigation, teamwork and survival.
+				Players take on the role of terrorists, counter-terrorist and neutral characters. Each character has different winning conditions and initially no one knows each other's identity. During the game you must uncover your teammates and enemies. Killing your enemies is always a top priority, as is survival!
+				<br>
+				<br>
+				PREPARATION -
+				<br>
+				Select number of players. Depending upon the number of players, randomize the pool of characters as follows:
+				<br>
+				<div>
+					<ul>
+						<li>3 players, 1 Terrorist, 1 Counter-terrorist, 1 Neutral</li>
+						<li>4 players, 2 Terrorist, 2 Counter-terrorist</li>
+						<li>5 players, 2 Terrorist, 2 Counter-terrorist, 1 Neutral</li>
+						<li>6 players, 2 Terrorist, 2 Counter-terrorist, 2 Neutral</li>
+						<li>7 players (A), 2 Terrorist, 2 Counter-terrorist, 2 Neutral, (and one random additional either Terrorist, Counter-terrorist or Neutral)</li>
+						<li>7 players (B), 2 Terrorist, 2 Counter-terrorist, 3 Neutral (not George)</li>
+						<li>8 players (A), 3 Terrorist, 3 Counter-terrorist, 2 Neutral</li>
+						<li>8 players (B), 2 Terrorist, 2 Counter-terrorist, 2 Neutral, (and two random additional either Counter-terrorist or Neutral)</li>
+					</ul>
+				</div>
+				Each player’s color marker is placed on the damage track position 0.
+				<br>
+				<br>
+				GAME PLAY –
+				<br>
+				Each player takes a turn and then the next player clockwise takes their turn.
+				<br>
+				This continues until someone achieves their victory condition.
+				<br>
+				A turn consist of the following actions:
+				<br>
+				<ul>
+					<li>Mandatory - Player presses ROLL and moves to the region indicated.</li>
+					<li>If the region can draw, the player must draw. Then follow the instructions on the card and the player log. If drawn follow the instructions on the CARD. (Place equipment or take action immediately).</li>
+					<li>ATTACK other player(s). (Optional and requires other characters in "range" of same zone unless you have an equipment card that assists you).</li>
+				</ul>
 
-A turn consist of the following actions.
-1. Player press ROLL and moves to the region rolled (mandatory).
-2. If the region can draw, the player must draw. Then follow the instructions on the card and the player log. If drawn follow the instructions on the CARD. (Place equipment or take action immediately).
-3. ATTACK other player(s). (Optional and requires other characters in "range").
+				<br>
+				MOVEMENT –
+				<br>
+				Roll two green dice (2D6), add the results and move your marker to that area on the board.
+				<br>
+				Then take appropriate action:
+				<ul>
+					<li>2, 3 – Take a card of your choice (yellow, silver or black)</li>
+        	<li>4, 5 – Take a yellow card</li>
+        	<li>6 – Take a silver card</li>
+        	<li>7 – Safe House, either remain in the safe house area and “safe” OR move to any area
+                    	of your choice</li>
+        	<li>8 – Take a black card</li>
+        	<li>9, 10 – Give two damage to any player or heal one point of damage to any player
+                    	(you may choose yourself for either)</li>
+        	<li>11, 12 – You may steal an equipment card from any player (if no one has an equipment card then nothing happens)</li>
+				</ul>
+				<img src="http://i.imgur.com/1LBnhon.jpg" style="width:90hh; height:90vh;">
+				<br>
+				CARD DRAW -
+				<br>
+				Defensive (Silver) and Offensive (Black) Cards:
+				<br>
+				Equipment – place them beside your color mini-sheet. They are now “equipped” and ready to use.   There is no limit to the number of equipment cards you can have equipped.
+				<br>
+				One Time Action – follow the instructions on the card then discard it (face up in a discard pile). When you run out of cards, shuffle discards and make a new stack of cards to draw.
 
+				<br>
+				Investigation (Yellow) Cards:
+				<br>
+				Read card, then give the card to another player of your choice (no one else can see the card).
+				<br>
+				<p>The player that then receives the card must take the appropriate action based upon their affiliation – terrorist, counter-terrorist or neutral.  If there is no effect, then the player that received the card states “nothing happens”.  If there is an effect then take the appropriate action (example: take damage – move your marker on the damage track, etc.).  Then return the card to the original player – who can re-read the card before discarding it face down in a discard pile.</p>
+				<br>
+				<p>If you are given an investigation card, you must not tell a lie and follow the instructions.  UNLESS you are the terrorist Hassan - who CAN lie!</p>
+				<img src="http://i.imgur.com/krccm6y.png" style="height:90vh; width:hh;">
+				<br>
+				ATTACK -
+				<p>The last phase of a player's turn is their optional attack phase.  You may only attack another character/player that is in your same zone unless an equipment allows for a modified attack.</p>
+				<br>
+				<p>If you choose to attack, pick your target and roll 1D6 (red die), the defender (target) rolls 1D6 (white die).  If the attacker’s die is greater than the defender’s die then the defender takes the difference between the two die as damage plus any additions or subtractions due to any relevant equipment the attacker or defender may have. If the defender’s die is greater than or equal to the attacker’s die – the defender takes no damage. The attacker may choose to use only ONE black equipment weapon card per attack.</p>
+				<br>
+				<ul>
+					<li>Example A.  Attacker rolls a 5, defender rolls a 2 – no equipment involved – defender takes 3 damage!</li>
+					<br>
+					<li>Example B. Attacker rolls a 6, defender rolls a 4 – attacker has an equipped handgun (1 extra damage) – defender takes 3 damage!</li>
+					<br>
+					<li>Example C. Attacker rolls a 4, defender rolls a 4 – attacker has an equipped Blow Gun (1 extra damage if attack is successful) – defender takes no damage (attack was not successful).</li>
+				</ul>
+				<br>
+				<p>Note: Equipment effects are not cumulative in attacks with the following EXCEPTION – if you have the following weapons equipped – Garrote, Blow Gun, Cursed Dagger you may combine their extra damage values to a successful attack. You really want them dead – 1D3+2 damage with NO defense roll due to the Cursed Dagger.</p>
+				<br>
+				PLAYER"S CHARACTER DEATH -
+				<br>
+				<p>As you take damage move your color marker along the damage track.  If your marker lands on the space with your character’s Hit Point (HP) value – you die and are out of the game.  Turn your character card face up (if not revealed), remove your marker form the game board.</p>
+				<br>
+				<p>If you kill another character, you obtain one equipment card of your choice from your victim and discard the rest (unless you have the duffle bag equipped).</p>
+				<br>
 
-		</h2>
+				WINNING THE GAME!!!
+				<br>
+				<p>If you fulfill your character’s win condition, you immediately reveal your identity (if not already revealed) and declare that the game is over! </p>
+				<br>
+				<p>You do not have to wait until your turn to declare the game is over.</p>
+				<p>All the players who fulfilled their character’s win condition are winners!</p>
+				<p>Depending upon how the game ends, it is possible for terrorists or counter-terrorist who were killed earlier to win due to other player’s actions. </p>
+				<br>
+				SPECIAL CHARCTER ABILITIES -
+				<p>You can only utilize your character’s special ability in return for revealing your identity.  Exception - Hassan (can lie during investigations).</p>
+				<p>Some special abilities are one time use, while others stay active (multiple use) when revealed.</p>
+
+				GOOD LUCK!
+				<!--End Rules, added S17-->
+		
 			<div id="rules_back_btn" onclick="reset_game()">
 				<h1>Back</h1>
 			</div>
+			</h2>
 		</div>
+
 		<!-- end new S17 rules page -->
 
 		<!--Number of Players Select Screen-->
@@ -293,7 +377,7 @@ A turn consist of the following actions.
 				</div>
 			</div>
 
-			<!--George Special Screen for deciding if he wants to steal a card-->
+			<!--George Special Screen for deciding if he wants to steal a card -S17-->
 			<div id="george_steal_options_container">
 				<div id="george_steal_options_overlay_area">
 					<h1>Would you like to steal an equipment card from another player?</h1>
@@ -318,13 +402,13 @@ A turn consist of the following actions.
 				</div>
 			</div>
 
-			<!--Steal cards by player area-->
+			<!--Steal cards by player area -S17-->
 			<!--This is to show cards for each player when choosing which card to steal-->
 						<div id="select_player_steal_container">
 							<div id="select_player_steal_area">
 								<h1>CHOOSE A CARD TO STEAL OR CLICK BACK TO SEE OTHER PLAYERS' CARDS</h1>
 									<!--CARDS FUNCTION HERE-->
-									<!--This shows the current player's hand of cards along with arrows in case the player has many cards.-->
+									<!--This shows the selected player's hand of cards along with arrows in case the player has many cards.-->
 									<div id="steal_cards_container" >
 										<div id="steal_card_area_scroll_left" onclick="steal_card_area_scroll_left()">
 											<img src="inc/images/Left_Arrow.png">
@@ -345,6 +429,28 @@ A turn consist of the following actions.
 										show_select_player_screen('region_stealing');
 									}
 								</script>
+							</div>
+						</div>
+
+						<!--Steal cards by player area -S17-->
+						<!--This is to show cards for the curent player when choosing which card to give -S17-->
+						<div id="select_player_give_card_container">
+							<div id="select_player_give_card_area">
+								<h1>CHOOSE A CARD TO GIVE TO THE OTHER PLAYER</h1>
+									<!--CARDS FUNCTION HERE-->
+									<!--This shows the current player's hand of cards along with arrows in case the player has many cards.-->
+									<div id="give_cards_container" >
+										<div id="steal_card_area_scroll_left" onclick="steal_card_area_scroll_left()">
+											<img src="inc/images/Left_Arrow.png">
+										</div>
+										<div id="give_cards_area" onclick="">
+											<!--Populated in game-->
+										</div>
+										<div id="steal_card_area_scroll_right" onclick="steal_card_area_scroll_right()">
+											<img src="inc/images/Right_Arrow.png">
+										</div>
+									</div>
+									<!--END CARDS FUNCTION-->
 							</div>
 						</div>
 

@@ -5,6 +5,8 @@
 //within the file that are used for checking win conditions (which may change in later versions of our code), as well
 //as different variables to hold certain things throughout the game
 
+//Note: Any comments without the S17 were not completed by the Safehouse Team of Spring 2017
+
 
 // //Variables to hold the amount of characters that are dead for each affiliation
 // var terrorist_dead_count, counter_terrorist_dead_count, neutral_dead_count;
@@ -170,8 +172,23 @@ class Equipment{
 	}
 }
 
+//These are toggled for testing death conditions, all characters set to 2 health for faster testing
+/*
+//These 10 variables are the 10 instances of the 10 characters created in the game.  They are passed their names, HP,
+//images, affiliations, win conditions, speical abilities, and then the text that is displayed on the card.
+var Ayman = new Character("Ayman al-Zawahiri", 2, "inc/images/character_ayman.JPG", "Terrorist", "terrorist_win_condition", "special", "All the Counter-Terrorist are dead or 3 Neutral are dead.", "Reveal - If you attack a player and deal 3 or more damage, restore 2 health.");
+var Hassan = new Character("Hassan Nasrallah", 2, "inc/images/character_hassan.jpg", "Terrorist", "terrorist_win_condition", "special", "All the Counter-Terrorist are dead or 3 Neutral are dead.", "You may lie when given an Investigation card.  You do not have to reveal yourself to do this.");
+var Osama = new Character("Osama Bin Laden", 2, "inc/images/character_osama.jpg", "Terrorist", "terrorist_win_condition", "special", "All the Counter-Terrorist are dead or 3 Neutral are dead.", "Reveal - When you are attacked, you may counter-attack immediately, once the initial attack resolves.");
+var Sam = new Character("Sam Seal", 2, "inc/images/character_samseal.jpg", "Counter-Terrorist", "counter_terrorist_win_condition", "special", "All the Terrorists are dead.", "Reveal - Once - You may choose to double the damage done for your attack.");
+var Charlie = new Character("CIA Charlie", 2, "inc/images/character_ciacharlie.jpg", "Counter-Terrorist", "counter_terrorist_win_condition", "special", "All the Terrorists are dead.", "Reveal - When you move you can roll dice as normal or move to an adjacent area.");
+var Fred = new Character("FBI Fred", 2, "inc/images/character_fbifred.jpeg", "Counter-Terrorist", "counter_terrorist_win_condition", "special", "All the Terrorists are dead.", "Reveal - Once - At the start of your turn, deal 1-6 damage (at random) to any player of your choice.");
+var Daniel = new Character("Daniel Doomsday", 2, "inc/images/character_danieldoomsday.png", "Neutral", "win_condition", "special","You are the first character to die OR all the Terrorists are dead and you survive.", "Reveal - If you deal damage to a known Terrorist, restore 1 health.");
+var George = new Character("Gatherin' George", 2, "inc/images/character_gatheringeorge.png", "Neutral", "win_condition", "special", "When you have more than 5 equipment cards.", "Reveal - If you deal 2 or more damage, you may steal an equipment card.");
+var Tori = new Character("Totally Tori", 2, "inc/images/character_toritotally.jpg", "Neutral", "win_condition", "special", "When the game ends you're 'like totally still alive'", "Reveal - Once - fully restore your health.");
+var Billy = new Character("Billy-Bob Badass", 2, "inc/images/character_billybobbadass.jpg", "Neutral", "win_condition", "special", "When you kill a character, you win if the total number of dead characters is 3 or more.", "Reveal - After you attack you may take 2 damage to attack again.");
+*/
 
-
+//actual information of all characters, must be active for game to be played correctly
 //These 10 variables are the 10 instances of the 10 characters created in the game.  They are passed their names, HP,
 //images, affiliations, win conditions, speical abilities, and then the text that is displayed on the card.
 var Ayman = new Character("Ayman al-Zawahiri", 13, "inc/images/character_ayman.JPG", "Terrorist", "terrorist_win_condition", "special", "All the Counter-Terrorist are dead or 3 Neutral are dead.", "Reveal - If you attack a player and deal 3 or more damage, restore 2 health.");
@@ -253,6 +270,7 @@ var deadlysurprise3 = new Action("Deadly Surprise", "inc/images/action_deadlysur
 //The following are arrays of all the of objects put together
 //The action array is composed of each action card available in the game.
 //var actionArray = [rnr, illhelp, guardianangel, luckyday, spotted, firstaid, judgementday, energyboost, doctorsvisit, firstaid2, dynamite, jihad, deadlysurprise, deadlysurprise2, thatsnotgood, thatsmine, thatsmine2, deadlysurprise3, deadlygame, jihadjihad];
+
 var actionArray = [rnr, illhelp, luckyday, spotted, firstaid, judgementday, firstaid2, deadlysurprise, deadlysurprise2, thatsmine, thatsmine2, deadlysurprise3, energyboost, guardianangel, doctorsvisit];
 //The equipment array is composed of each Equipment card that is available in the game
 var equipmentArray = [waterboard, goodluckcharm, balancesuit, handgun, cattleprod, sniperrifle, garrote, blowgun];
@@ -260,6 +278,7 @@ var equipmentArray = [waterboard, goodluckcharm, balancesuit, handgun, cattlepro
 //The offense and defense array are both composed of Equipment and One Time Action Cards and are two of the three decks in the game S17
 var offenseArray = [sniperrifle, garrote, cattleprod, handgun, blowgun, deadlysurprise, deadlysurprise2, deadlysurprise3, thatsmine, thatsmine2];
 var defenseArray = [goodluckcharm, firstaid, firstaid2, judgementday, rnr, luckyday, illhelp, spotted, waterboard, balancesuit, energyboost, guardianangel, doctorsvisit];
+
 
 // after the offense and defense decks run out, this becomes the new deck and is reshuffled. S17
 var newDeckOffenseArray = [deadlysurprise, deadlysurprise2, deadlysurprise3, thatsmine, thatsmine2];

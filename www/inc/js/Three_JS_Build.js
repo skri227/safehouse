@@ -8,6 +8,8 @@ This file contains all of the set up and funtions for the 3D graphics of safehou
 It uses javascript and the THREE.js library of graphics functions.
 */
 
+//Note: Any comments without the S17 were not completed by the Safehouse Team of Spring 2017
+
 //lots of global variables. This could probably be cleaned up especially by someone with
 //a better understandin of javascript or THREE.js
 
@@ -149,7 +151,7 @@ var DiceOffsetX = .2;
 var DiceOffsetZ = .2;
 
 // for spacing of dead piece that have been removed from board
-var deathOffsetX = 1.5;
+var deathOffsetX = .15;
 
 
 
@@ -436,9 +438,9 @@ function drawBoard(){
 	var boardMesh = new THREE.PlaneGeometry(mapSizeX,mapSizeZ); //7 wide, 3.4 tall - close to tabletop size
 	THREE.ImageUtils.crossOrigin = '';
 
-	var mapOverlay = THREE.ImageUtils.loadTexture('http://i.imgur.com/3KT0kdH.jpg');
+	var mapOverlay = THREE.ImageUtils.loadTexture('http://i.imgur.com/1LBnhon.jpg');
 	mapOverlay.minFilter = THREE.LinearFilter;
-  
+
 	var boardMaterial = new THREE.MeshBasicMaterial({map: mapOverlay})
 	var board = new THREE.Mesh(boardMesh,boardMaterial);
 	board.rotation.x = (-90*Math.PI/180);
@@ -1528,7 +1530,7 @@ function setDamage(colorsPlaying){
 
 /*
 If a player dies at some point during the game call this function with their color
-to remove their piece from the board. 
+to remove their piece from the board.
 S17
 Sets the piece of the color called to the black area of the damage tracker
 */
@@ -1565,4 +1567,3 @@ function playerDied(color){
 		purplePiece.position.set(((-3.5*mapSizeX/15)+7*deathOffsetX),pieceVisible,(7*mapSizeZ/20));
 	}
 }
-
