@@ -151,7 +151,7 @@ var DiceOffsetX = .2;
 var DiceOffsetZ = .2;
 
 // for spacing of dead piece that have been removed from board
-var deathOffsetX = 1.5;
+var deathOffsetX = .15;
 
 
 
