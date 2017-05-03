@@ -118,6 +118,7 @@ body
 /* s17 sets styles for rules page */
 #rules_screen
 {
+	text-align: left;
 	display: none;
 	color: red;
 	padding-bottom:10%;
