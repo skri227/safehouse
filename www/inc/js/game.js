@@ -973,7 +973,6 @@ class Game{
 
 	//Special state for Charlie's movement
       case 'charlie_movement_0':
-   	this.add_info_message(this.current_turn, "ADJACENT worked");
 	this.last_state = state;
 	show_select_zone_screen("adjacent"); // shows charlie the options of the adjacent zones and sets this.selected_zone to choice
 	this.next_state = 'charlie_movement_1';
@@ -2496,8 +2495,40 @@ class Game{
             break;
 
 	//Action Card
+		//Choose a character and restore their health to 4
+	  case 'action_doctorsvisit_0':
+		this.next_state = 'action_doctorsvisit_1';
+		this.last_state = state;
+		hide_draw_card_screen_overlay();
+		show_view_card(this.drawn_action_card);
+		this.add_info_message(this.current_player, 'Click card to use it.');
+		break;
+	 
+	  case 'action_doctorsvisit_1':
+		this.next_state = 'action_doctorsvisit_2';
+		hide_zoomed_card();
+		this.last_state = state;
+		show_select_player_screen();
+		break;
+		
+	  case 'action_doctorsvisit_2':
+		this.next_state = 'turn_2';
+		this.last_state = state;
+		hide_select_player_screen('all');	 
+		var damage_taken = this.player_array[this.selected_player].hp;
+		var heal_amount = 0;
+		if (damage_taken > 4)
+		{
+			heal_amount = damage_taken - 4;
+		}
+		moveDamage(this.player_array[this.selected_player].player_color, -heal_amount);	
+		this.check_win_or_dead();
+		this.exec_state();
+		break;
+		
+	//Action Card
     	// You take no damage from attacks until your next turn
-    	  case 'action_guardianangel_0':
+	  case 'action_guardianangel_0':
 	    this.next_state = 'action_guardianangel_1';
 	    this.last_state = state;
 	    hide_draw_card_screen_overlay();
