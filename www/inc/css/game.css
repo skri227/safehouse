@@ -1,3 +1,5 @@
+/*Note: Any comments without the S17 were not completed by the Safehouse Team of Spring 2017*/
+
 /*Imports the font for the game.*/
 @font-face
 {
@@ -184,6 +186,7 @@ body
 {
 	font-size: 3em;
 }
+
 .select_players #player_select_play_btn:hover
 {
 	transform: scale(1.2);
@@ -516,8 +519,8 @@ body
 #select_options_overlay_area button:focus {outline:0;}
 /*End Select player screen*/
 
-/*Show steal card screen*/
-#select_player_steal_container
+/*Show steal and give card screens -S17*/
+#select_player_steal_container , #select_player_give_card_container
 {
 	/*display:none;*/
 	position: fixed;
@@ -528,7 +531,7 @@ body
 	height: 100%;
 }
 
-#select_player_steal_area
+#select_player_steal_area , #select_player_give_card_area
 {
 	position: fixed;
 	top: 50%;
@@ -889,6 +892,7 @@ body
 /*End Player info area CSS*/
 
 /*steal card info area CSS*/
+/*Includes George's Special Steal -S17*/
 #george_steal_options_container
 {
 	display:none;
@@ -932,7 +936,7 @@ body
 
 #george_steal_options_overlay_area button:focus {outline:0;}
 
-#steal_cards_container
+#steal_cards_container, #give_cards_container
 {
 	position: relative;
 	left: 10%;
@@ -945,7 +949,7 @@ body
 	overflow-x: hidden;*/
 }
 
-#steal_cards_area
+#steal_cards_area, , #give_cards_area
 {
 	white-space: nowrap;
 	overflow-y: hidden;
@@ -1217,7 +1221,7 @@ body
 }
 
 /*for rules list, aligns test left.*/
-#listDiv.ul 
+#listDiv.ul
 {
     text-align: left;
 }

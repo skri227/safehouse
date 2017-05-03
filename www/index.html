@@ -5,6 +5,8 @@ Each tag refers to a different file. The id and classes refer to the
 game.css file.The onLoad and onclick refer to game.js, classes.js, and
 Three_JS_Build.js. -S17-->
 
+<!--Note: Any comments without the S17 were not completed by the Safehouse Team of Spring 2017-->
+
 <html>
 	<head>
 		<meta charset="UTF-8">
@@ -293,7 +295,7 @@ A turn consist of the following actions.
 				</div>
 			</div>
 
-			<!--George Special Screen for deciding if he wants to steal a card-->
+			<!--George Special Screen for deciding if he wants to steal a card -S17-->
 			<div id="george_steal_options_container">
 				<div id="george_steal_options_overlay_area">
 					<h1>Would you like to steal an equipment card from another player?</h1>
@@ -318,13 +320,13 @@ A turn consist of the following actions.
 				</div>
 			</div>
 
-			<!--Steal cards by player area-->
+			<!--Steal cards by player area -S17-->
 			<!--This is to show cards for each player when choosing which card to steal-->
 						<div id="select_player_steal_container">
 							<div id="select_player_steal_area">
 								<h1>CHOOSE A CARD TO STEAL OR CLICK BACK TO SEE OTHER PLAYERS' CARDS</h1>
 									<!--CARDS FUNCTION HERE-->
-									<!--This shows the current player's hand of cards along with arrows in case the player has many cards.-->
+									<!--This shows the selected player's hand of cards along with arrows in case the player has many cards.-->
 									<div id="steal_cards_container" >
 										<div id="steal_card_area_scroll_left" onclick="steal_card_area_scroll_left()">
 											<img src="inc/images/Left_Arrow.png">
@@ -345,6 +347,28 @@ A turn consist of the following actions.
 										show_select_player_screen('region_stealing');
 									}
 								</script>
+							</div>
+						</div>
+
+						<!--Steal cards by player area -S17-->
+						<!--This is to show cards for the curent player when choosing which card to give -S17-->
+						<div id="select_player_give_card_container">
+							<div id="select_player_give_card_area">
+								<h1>CHOOSE A CARD TO GIVE TO THE OTHER PLAYER</h1>
+									<!--CARDS FUNCTION HERE-->
+									<!--This shows the current player's hand of cards along with arrows in case the player has many cards.-->
+									<div id="give_cards_container" >
+										<div id="steal_card_area_scroll_left" onclick="steal_card_area_scroll_left()">
+											<img src="inc/images/Left_Arrow.png">
+										</div>
+										<div id="give_cards_area" onclick="">
+											<!--Populated in game-->
+										</div>
+										<div id="steal_card_area_scroll_right" onclick="steal_card_area_scroll_right()">
+											<img src="inc/images/Right_Arrow.png">
+										</div>
+									</div>
+									<!--END CARDS FUNCTION-->
 							</div>
 						</div>
 

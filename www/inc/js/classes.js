@@ -5,6 +5,8 @@
 //within the file that are used for checking win conditions (which may change in later versions of our code), as well
 //as different variables to hold certain things throughout the game
 
+//Note: Any comments without the S17 were not completed by the Safehouse Team of Spring 2017
+
 
 // //Variables to hold the amount of characters that are dead for each affiliation
 // var terrorist_dead_count, counter_terrorist_dead_count, neutral_dead_count;
@@ -253,6 +255,7 @@ var deadlysurprise3 = new Action("Deadly Surprise", "inc/images/action_deadlysur
 //The following are arrays of all the of objects put together
 //The action array is composed of each action card available in the game.
 //var actionArray = [rnr, illhelp, guardianangel, luckyday, spotted, firstaid, judgementday, energyboost, doctorsvisit, firstaid2, dynamite, jihad, deadlysurprise, deadlysurprise2, thatsnotgood, thatsmine, thatsmine2, deadlysurprise3, deadlygame, jihadjihad];
+
 var actionArray = [rnr, illhelp, luckyday, spotted, firstaid, judgementday, firstaid2, deadlysurprise, deadlysurprise2, thatsmine, thatsmine2, deadlysurprise3, energyboost, guardianangel, doctorsvisit];
 //The equipment array is composed of each Equipment card that is available in the game
 var equipmentArray = [waterboard, goodluckcharm, balancesuit, handgun, cattleprod, sniperrifle, garrote, blowgun];
@@ -260,6 +263,7 @@ var equipmentArray = [waterboard, goodluckcharm, balancesuit, handgun, cattlepro
 //The offense and defense array are both composed of Equipment and One Time Action Cards and are two of the three decks in the game S17
 var offenseArray = [sniperrifle, garrote, cattleprod, handgun, blowgun, deadlysurprise, deadlysurprise2, deadlysurprise3, thatsmine, thatsmine2];
 var defenseArray = [goodluckcharm, firstaid, firstaid2, judgementday, rnr, luckyday, illhelp, spotted, waterboard, balancesuit, energyboost, guardianangel, doctorsvisit];
+
 
 // after the offense and defense decks run out, this becomes the new deck and is reshuffled. S17
 var newDeckOffenseArray = [deadlysurprise, deadlysurprise2, deadlysurprise3, thatsmine, thatsmine2];
