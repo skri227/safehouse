@@ -172,6 +172,8 @@ class Equipment{
 	}
 }
 
+//These are toggled for testing death conditions, all characters set to 2 health for faster testing
+/*
 //These 10 variables are the 10 instances of the 10 characters created in the game.  They are passed their names, HP,
 //images, affiliations, win conditions, speical abilities, and then the text that is displayed on the card.
 var Ayman = new Character("Ayman al-Zawahiri", 2, "inc/images/character_ayman.JPG", "Terrorist", "terrorist_win_condition", "special", "All the Counter-Terrorist are dead or 3 Neutral are dead.", "Reveal - If you attack a player and deal 3 or more damage, restore 2 health.");
@@ -184,9 +186,9 @@ var Daniel = new Character("Daniel Doomsday", 2, "inc/images/character_danieldoo
 var George = new Character("Gatherin' George", 2, "inc/images/character_gatheringeorge.png", "Neutral", "win_condition", "special", "When you have more than 5 equipment cards.", "Reveal - If you deal 2 or more damage, you may steal an equipment card.");
 var Tori = new Character("Totally Tori", 2, "inc/images/character_toritotally.jpg", "Neutral", "win_condition", "special", "When the game ends you're 'like totally still alive'", "Reveal - Once - fully restore your health.");
 var Billy = new Character("Billy-Bob Badass", 2, "inc/images/character_billybobbadass.jpg", "Neutral", "win_condition", "special", "When you kill a character, you win if the total number of dead characters is 3 or more.", "Reveal - After you attack you may take 2 damage to attack again.");
+*/
 
-
-/*
+//actual information of all characters, must be active for game to be played correctly
 //These 10 variables are the 10 instances of the 10 characters created in the game.  They are passed their names, HP,
 //images, affiliations, win conditions, speical abilities, and then the text that is displayed on the card.
 var Ayman = new Character("Ayman al-Zawahiri", 13, "inc/images/character_ayman.JPG", "Terrorist", "terrorist_win_condition", "special", "All the Counter-Terrorist are dead or 3 Neutral are dead.", "Reveal - If you attack a player and deal 3 or more damage, restore 2 health.");
@@ -199,7 +201,7 @@ var Daniel = new Character("Daniel Doomsday", 12, "inc/images/character_danieldo
 var George = new Character("Gatherin' George", 10, "inc/images/character_gatheringeorge.png", "Neutral", "win_condition", "special", "When you have more than 5 equipment cards.", "Reveal - If you deal 2 or more damage, you may steal an equipment card.");
 var Tori = new Character("Totally Tori", 8, "inc/images/character_toritotally.jpg", "Neutral", "win_condition", "special", "When the game ends you're 'like totally still alive'", "Reveal - Once - fully restore your health.");
 var Billy = new Character("Billy-Bob Badass", 11, "inc/images/character_billybobbadass.jpg", "Neutral", "win_condition", "special", "When you kill a character, you win if the total number of dead characters is 3 or more.", "Reveal - After you attack you may take 2 damage to attack again.");
-*/
+
 
 
 //The following variables are created instances for each Investigation card in the game.  They are passed the card type, the image
