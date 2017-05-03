@@ -215,7 +215,7 @@ var accuse15 = new Investigation("Accuse", "inc/images/investigation.png", "I be
 var waterboard = new Equipment("Water Board", "inc/images/equipment_waterboard.jpg", "When you take an Investigation card, you may take two, giving them to the same player or two different players.");
 var goodluckcharm = new Equipment("Good Luck Charm", "inc/images/equipment_goodluckcharm.jpg", "You receive no damage from the area 'Mystic East' (You can still heal your own damage if you choose yourself).");
 var balancesuit = new Equipment("Balance Suit", "inc/images/equipment_balancesuit.jpeg", "Your attacks do 1 less damage and the damage you take is reduced by 1 per attack.");
-//NOTUSED var dufflebag = new Equipment("Duffle Bag", "inc/images/equipment_dufflebag.jpeg", "If you attack and kill another character, you get all their equipment cards.");
+var dufflebag = new Equipment("Duffle Bag", "inc/images/equipment_dufflebag.jpeg", "If you attack and kill another character, you get all their equipment cards.");
 //NOTUSED var specialvest = new Equipment("Special Vest", "inc/images/equipment_specialvest.jpg", "You receive no damage from the attack of the following cards: Jihad! Jihad!, Dynamite, or Deadly Surprises.");
 var handgun = new Equipment("Handgun", "inc/images/equipment_handgun.jpg", "You may attack into adjacent areas.  If your attack is successful you do 1 extra point of damage.");
 var cattleprod = new Equipment("Cattle Prod", "inc/images/equipment_cattleprod.png", "When you take an Investigation card you may take two, giving them to the same player or two players.");
@@ -245,26 +245,25 @@ var deadlysurprise = new Action("Deadly Surprise", "inc/images/action_deadlysurp
 var deadlysurprise2 = new Action("Deadly Surprise", "inc/images/action_deadlysurprise2.jpeg", "You give 2 points of damage to any character and heal 1 point of your own damage");
 //NOTUSED var thatsnotgood = new Action("That's Not Good", "inc/images/action_thatsnotgood.jpg", "Give one of your equipment cards to another player.  If you have no equipment cards you receive 1 damage.");
 var thatsmine = new Action("That's Mine", "inc/images/action_thatsmine.jpg", "You steal an equipment card from any character.");
+var thatsmine2 = new Action("That's Mine", "inc/images/action_thatsmine2.jpg", "You steal an equipment card from any character.");
 var deadlysurprise3 = new Action("Deadly Surprise", "inc/images/action_deadlysurprise3.jpg", "You give 2 points of damage to any character and heal 1 point of your own damage.");
 //NOTUSED var deadlygame = new Action("Deadly Game", "inc/images/action_deadlygame.jpg", "Pick a character, roll 1D6.  If result is 1-4, they take 3 points of damage, if 5-6 you take 3 points of damage.");
 //NOTUSED var jihadjihad = new Action("Jihad! Jihad!", "inc/images/action_jihadjihad.jpeg", "You give two points of damage to any character and receive 2 points of damage yourself.  You can double this if you reveal or are revealed as a terrorist.");
 
 //The following are arrays of all the of objects put together
 //The action array is composed of each action card available in the game.
-//var actionArray = [rnr, illhelp, guardianangel, luckyday, spotted, firstaid, judgementday, energyboost, doctorsvisit, firstaid2, dynamite, jihad, deadlysurprise, deadlysurprise2, thatsnotgood, thatsmine, deadlysurprise3, deadlygame, jihadjihad];
-var actionArray = [rnr, illhelp, luckyday, spotted, firstaid, judgementday, firstaid2, deadlysurprise, deadlysurprise2, thatsmine, deadlysurprise3, energyboost, guardianangel, doctorsvisit];
-
+//var actionArray = [rnr, illhelp, guardianangel, luckyday, spotted, firstaid, judgementday, energyboost, doctorsvisit, firstaid2, dynamite, jihad, deadlysurprise, deadlysurprise2, thatsnotgood, thatsmine, thatsmine2, deadlysurprise3, deadlygame, jihadjihad];
+var actionArray = [rnr, illhelp, luckyday, spotted, firstaid, judgementday, firstaid2, deadlysurprise, deadlysurprise2, thatsmine, thatsmine2, deadlysurprise3, energyboost, guardianangel, doctorsvisit];
 //The equipment array is composed of each Equipment card that is available in the game
 var equipmentArray = [waterboard, goodluckcharm, balancesuit, handgun, cattleprod, sniperrifle, garrote, blowgun];
 
 //The offense and defense array are both composed of Equipment and One Time Action Cards and are two of the three decks in the game S17
-var offenseArray = [sniperrifle, garrote, cattleprod, handgun, blowgun, deadlysurprise, deadlysurprise2, deadlysurprise3, thatsmine];
-var defenseArray = [doctorsvisit, goodluckcharm, firstaid, firstaid2, judgementday, rnr, luckyday, illhelp, spotted, waterboard, balancesuit, energyboost, guardianangel];
+var offenseArray = [sniperrifle, garrote, cattleprod, handgun, blowgun, deadlysurprise, deadlysurprise2, deadlysurprise3, thatsmine, thatsmine2];
+var defenseArray = [goodluckcharm, firstaid, firstaid2, judgementday, rnr, luckyday, illhelp, spotted, waterboard, balancesuit, energyboost, guardianangel, doctorsvisit];
 
 // after the offense and defense decks run out, this becomes the new deck and is reshuffled. S17
-var newDeckOffenseArray = [deadlysurprise, deadlysurprise2, deadlysurprise3, thatsmine];
-var newDeckDefenseArray = [firstaid, firstaid2, judgementday, rnr, luckyday, illhelp, spotted, energyboost, guardianangel, doctorsvisit]; 
-
+var newDeckOffenseArray = [deadlysurprise, deadlysurprise2, deadlysurprise3, thatsmine, thatsmine2];
+var newDeckDefenseArray = [firstaid, firstaid2, judgementday, rnr, luckyday, illhelp, spotted, energyboost, guardianangel, doctorsvisit];
 
 //The investigation array is composed of every Investigation card that is available in the game
 //var investigationArray = [accuse1, accuse2, accuse3, accuse4, accuse5, accuse6, accuse7, accuse8, accuse9, accuse10, accuse11, accuse12, accuse13, accuse14, accuse15, reveal1, reveal2];
