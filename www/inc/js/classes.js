@@ -290,7 +290,7 @@ array_shuffle(terroristsArray);
 array_shuffle(counterterroristArray);
 array_shuffle(neutralArray);
 array_shuffle(offenseArray);
-//array_shuffle(defenseArray);
+array_shuffle(defenseArray);
 array_shuffle(actionArray);
 array_shuffle(equipmentArray);
 array_shuffle(investigationArray);
