@@ -438,7 +438,7 @@ function drawBoard(){
 	var boardMesh = new THREE.PlaneGeometry(mapSizeX,mapSizeZ); //7 wide, 3.4 tall - close to tabletop size
 	THREE.ImageUtils.crossOrigin = '';
 
-	var mapOverlay = THREE.ImageUtils.loadTexture('http://i.imgur.com/3KT0kdH.jpg');
+	var mapOverlay = THREE.ImageUtils.loadTexture('http://i.imgur.com/1LBnhon.jpg');
 	mapOverlay.minFilter = THREE.LinearFilter;
 
 	var boardMaterial = new THREE.MeshBasicMaterial({map: mapOverlay})
