@@ -237,7 +237,7 @@ var spotted = new Action("Spotted!", "inc/images/action_spotted.jpeg", "If you a
 var firstaid = new Action("First Aid", "inc/images/action_firstaid.jpg", "Heal two points of your damage.");
 var judgementday = new Action("Judgement Day", "inc/images/action_judgementday.jpg", "All characters except for you receive 2 points of damage");
 var energyboost = new Action("Energy Boost", "inc/images/action_energyboost.jpeg", "When this turn is over, take another turn!");
-//NOTUSED var doctorsvisit = new Action("Doctor's Visit", "inc/images/action_doctorsvisit.jpeg", "Heal any characters HP marker to 4 (You may choose yourself).");
+var doctorsvisit = new Action("Doctor's Visit", "inc/images/action_doctorsvisit.jpeg", "Restore any characters Health to 4 (You may choose yourself).");
 var firstaid2 = new Action("First Aid", "inc/images/action_firstaid2.jpeg", "Heal two points of your damage");
 //NOTUSED var dynamite = new Action("Dynamite", "inc/images/action_dynamite.jpeg", "Roll 2D6 and give 3 points of damage to all characters in the area rolled.");
 //NOTUSED var jihad = new Action("Jihad!", "inc/images/action_jihad.jpeg", "If you are a Terrorist, you may reveal your identity.  If you do, you can fully heal your damage.");
@@ -252,18 +252,18 @@ var deadlysurprise3 = new Action("Deadly Surprise", "inc/images/action_deadlysur
 //The following are arrays of all the of objects put together
 //The action array is composed of each action card available in the game.
 //var actionArray = [rnr, illhelp, guardianangel, luckyday, spotted, firstaid, judgementday, energyboost, doctorsvisit, firstaid2, dynamite, jihad, deadlysurprise, deadlysurprise2, thatsnotgood, thatsmine, deadlysurprise3, deadlygame, jihadjihad];
-var actionArray = [rnr, illhelp, luckyday, spotted, firstaid, judgementday, firstaid2, deadlysurprise, deadlysurprise2, thatsmine, deadlysurprise3, energyboost, guardianangel];
+var actionArray = [rnr, illhelp, luckyday, spotted, firstaid, judgementday, firstaid2, deadlysurprise, deadlysurprise2, thatsmine, deadlysurprise3, energyboost, guardianangel, doctorsvisit];
 
 //The equipment array is composed of each Equipment card that is available in the game
 var equipmentArray = [waterboard, goodluckcharm, balancesuit, handgun, cattleprod, sniperrifle, garrote, blowgun];
 
 //The offense and defense array are both composed of Equipment and One Time Action Cards and are two of the three decks in the game S17
 var offenseArray = [sniperrifle, garrote, cattleprod, handgun, blowgun, deadlysurprise, deadlysurprise2, deadlysurprise3, thatsmine];
-var defenseArray = [goodluckcharm, firstaid, firstaid2, judgementday, rnr, luckyday, illhelp, spotted, waterboard, balancesuit, energyboost, guardianangel];
+var defenseArray = [doctorsvisit, goodluckcharm, firstaid, firstaid2, judgementday, rnr, luckyday, illhelp, spotted, waterboard, balancesuit, energyboost, guardianangel];
 
 // after the offense and defense decks run out, this becomes the new deck and is reshuffled. S17
 var newDeckOffenseArray = [deadlysurprise, deadlysurprise2, deadlysurprise3, thatsmine];
-var newDeckDefenseArray = [firstaid, firstaid2, judgementday, rnr, luckyday, illhelp, spotted, energyboost, guardianangel]; 
+var newDeckDefenseArray = [firstaid, firstaid2, judgementday, rnr, luckyday, illhelp, spotted, energyboost, guardianangel, doctorsvisit]; 
 
 
 //The investigation array is composed of every Investigation card that is available in the game
@@ -290,7 +290,7 @@ array_shuffle(terroristsArray);
 array_shuffle(counterterroristArray);
 array_shuffle(neutralArray);
 array_shuffle(offenseArray);
-array_shuffle(defenseArray);
+//array_shuffle(defenseArray);
 array_shuffle(actionArray);
 array_shuffle(equipmentArray);
 array_shuffle(investigationArray);
