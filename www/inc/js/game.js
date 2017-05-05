@@ -364,7 +364,7 @@ function show_select_player_screen(selection)
   //Shows all players that are able to be attacked depending on the region and equipment cards the current player has -S17
   else if(selection == 'attacking')
   {
-      var current_player_can_be_attacked = false;
+      game.current_player_can_attack = false;
       for(var i = 1; i <= game.num_of_players; i++)
       {
         var player_string = 'select_player_' + i + '_btn';
@@ -379,7 +379,7 @@ function show_select_player_screen(selection)
             if(y == 4 || y == 5)
             {
 
-              current_player_can_be_attacked = true;
+              game.current_player_can_attack = true;
 
               document.getElementById(player_string).style.display = "initial";
             }
@@ -388,7 +388,7 @@ function show_select_player_screen(selection)
             {
               if(y == 2 || y == 3 || y == 6)
               {
-                current_player_can_be_attacked = true;
+                game.current_player_can_attack = true;
                 document.getElementById(player_string).style.display = "initial";
               }
             }
@@ -396,7 +396,7 @@ function show_select_player_screen(selection)
             {
               if(y == 2 || y == 3 || y == 6 || y == 8)
               {
-                current_player_can_be_attacked = true;
+                game.current_player_can_attack = true;
                 document.getElementById(player_string).style.display = "initial";
               }
             }
@@ -405,7 +405,7 @@ function show_select_player_screen(selection)
           {
             if(y == 2 || y == 3)
             {
-              current_player_can_be_attacked = true;
+              game.current_player_can_attack = true;
               document.getElementById(player_string).style.display = "initial";
             }
 
@@ -413,7 +413,7 @@ function show_select_player_screen(selection)
             {
               if(y == 4 || y == 5)
               {
-                current_player_can_be_attacked = true;
+                game.current_player_can_attack = true;
                 document.getElementById(player_string).style.display = "initial";
               }
             }
@@ -421,7 +421,7 @@ function show_select_player_screen(selection)
             {
               if(y == 4 || y == 5 || y == 6)
               {
-                current_player_can_be_attacked = true;
+                game.current_player_can_attack = true;
                 document.getElementById(player_string).style.display = "initial";
               }
             }
@@ -430,7 +430,7 @@ function show_select_player_screen(selection)
           {
             if(y == 6)
             {
-              current_player_can_be_attacked = true;
+              game.current_player_can_attack = true;
               document.getElementById(player_string).style.display = "initial";
             }
 
@@ -438,7 +438,7 @@ function show_select_player_screen(selection)
             {
               if(y == 4 || y == 5 || y == 8)
               {
-                current_player_can_be_attacked = true;
+                game.current_player_can_attack = true;
                 document.getElementById(player_string).style.display = "initial";
               }
             }
@@ -446,7 +446,7 @@ function show_select_player_screen(selection)
             {
               if(y == 4 || y == 5 || y == 8 || y == 2 || y == 3 || y == 9 || y == 10)
               {
-                current_player_can_be_attacked = true;
+                game.current_player_can_attack = true;
                 document.getElementById(player_string).style.display = "initial";
               }
             }
@@ -455,7 +455,7 @@ function show_select_player_screen(selection)
           {
             if(y == 8)
             {
-              current_player_can_be_attacked = true;
+              game.current_player_can_attack = true;
               document.getElementById(player_string).style.display = "initial";
             }
 
@@ -463,7 +463,7 @@ function show_select_player_screen(selection)
             {
               if(y == 6 || y == 9 || y == 10)
               {
-                current_player_can_be_attacked = true;
+                game.current_player_can_attack = true;
                 document.getElementById(player_string).style.display = "initial";
               }
             }
@@ -471,7 +471,7 @@ function show_select_player_screen(selection)
             {
               if(y == 6 || y == 9 || y == 10 || y == 4 || y == 5 || y == 11 || y == 12)
               {
-                current_player_can_be_attacked = true;
+                game.current_player_can_attack = true;
                 document.getElementById(player_string).style.display = "initial";
               }
             }
@@ -480,7 +480,7 @@ function show_select_player_screen(selection)
           {
             if(y == 9 || y == 10)
             {
-              current_player_can_be_attacked = true;
+              game.current_player_can_attack = true;
               document.getElementById(player_string).style.display = "initial";
             }
 
@@ -488,7 +488,7 @@ function show_select_player_screen(selection)
             {
               if(y == 8 || y == 11 || y == 12)
               {
-                current_player_can_be_attacked = true;
+                game.current_player_can_attack = true;
                 document.getElementById(player_string).style.display = "initial";
               }
             }
@@ -496,7 +496,7 @@ function show_select_player_screen(selection)
             {
               if(y == 8 || y == 11 || y == 12 || y == 6)
               {
-                current_player_can_be_attacked = true;
+                game.current_player_can_attack = true;
                 document.getElementById(player_string).style.display = "initial";
               }
             }
@@ -505,7 +505,7 @@ function show_select_player_screen(selection)
           {
             if(y == 11 || y == 12)
             {
-              current_player_can_be_attacked = true;
+              game.current_player_can_attack = true;
               document.getElementById(player_string).style.display = "initial";
             }
 
@@ -513,7 +513,7 @@ function show_select_player_screen(selection)
             {
               if(y == 9 || y == 10)
               {
-                current_player_can_be_attacked = true;
+                game.current_player_can_attack = true;
                 document.getElementById(player_string).style.display = "initial";
               }
             }
@@ -521,7 +521,7 @@ function show_select_player_screen(selection)
             {
               if(y == 9 || y == 10 || y == 8)
               {
-                current_player_can_be_attacked = true;
+                game.current_player_can_attack = true;
                 document.getElementById(player_string).style.display = "initial";
               }
             }
@@ -529,7 +529,7 @@ function show_select_player_screen(selection)
         }
       }
 
-      if(current_player_can_be_attacked == false)
+      if(game.current_player_can_attack == false)
       {
         hide_select_player_screen();
         game.add_info_message(game.current_turn, 'There is no one you can attack');
@@ -542,7 +542,7 @@ function show_select_player_screen(selection)
         game.add_info_message(game.current_turn, 'Roll for damage.');
       }
 
-      game.be_attacked = current_player_can_be_attacked;
+      game.be_attacked = game.current_player_can_attack;
   }
   //Shows all the players you can steal cards from -S17
   else if(selection == 'region_stealing')
@@ -791,7 +791,7 @@ class Game{
     this.current_attacking_player_pts = 0; //Attacking pts
     this.current_defending_player_pts = 0; //Defending pts
     this.has_attacked = 0;
-    this.current_player_can_be_attacked = false;
+    this.current_player_can_attack = false;
     this.selected_option = 0;
     this.offense_or_defense;
     this.extra_turn = false; // used for the energy boost card. is a bool that will be check at turn_4.
@@ -868,7 +868,7 @@ class Game{
         document.getElementById('current_player_box_color').innerHTML = this.player_array[this.current_turn].player_color.toUpperCase();
         this.check_win_or_dead();
         this.has_attacked = 0;
-        this.current_player_can_be_attacked = false;
+        this.current_player_can_attack = false;
         this.add_info_message(this.current_turn, 'Starting your turn.');
       	if(this.player_array[this.current_player].character.char_name == 'CIA Charlie' && this.player_array[this.current_player].used_special == 1) {
       		this.show_charlie_special_move_btn();
@@ -1199,7 +1199,7 @@ class Game{
           this.add_info_message(this.current_turn, 'Select which player to attack.');
           //show_attack_select_player_screen();
           show_select_player_screen('attacking');
-          if(this.current_player_can_be_attacked == true)
+          if(this.current_player_can_attack == true)
             this.has_attacked = 1;
         }
         else
@@ -1655,7 +1655,7 @@ class Game{
           this.reveal_player();
           this.player_array[this.current_player].used_special = 1;
           this.has_attacked = 0;
-          this.current_player_can_be_attacked = false;
+          this.current_player_can_attack = false;
 	        moveDamage(this.player_array[this.selected_player].player_color, 2); // billy takes 2 damage to use special
 
           this.add_info_message(this.current_player, "You may now attack again!");
