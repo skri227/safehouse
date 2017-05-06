@@ -5,6 +5,8 @@
 //within the file that are used for checking win conditions (which may change in later versions of our code), as well
 //as different variables to hold certain things throughout the game
 
+//Note: Any comments without the S17 were not completed by the Safehouse Team of Spring 2017
+
 
 // //Variables to hold the amount of characters that are dead for each affiliation
 // var terrorist_dead_count, counter_terrorist_dead_count, neutral_dead_count;
@@ -170,20 +172,35 @@ class Equipment{
 	}
 }
 
-
+//These are toggled for testing death conditions, all characters set to 2 health for faster testing
+/*
 //These 10 variables are the 10 instances of the 10 characters created in the game.  They are passed their names, HP,
 //images, affiliations, win conditions, speical abilities, and then the text that is displayed on the card.
-var Ayman = new Character("Ayman al-Zawahiri", 13, "inc/images/character_ayman.JPG", "Terrorist", "terrorist_win_condition", "special", "All the Counter-Terrorist are dead or 3 Neutral are dead.", "Reveal - If you attack a player and inflict 3 or more damage, you heal 2 points of your own damage.");
+var Ayman = new Character("Ayman al-Zawahiri", 2, "inc/images/character_ayman.JPG", "Terrorist", "terrorist_win_condition", "special", "All the Counter-Terrorist are dead or 3 Neutral are dead.", "Reveal - If you attack a player and deal 3 or more damage, restore 2 health.");
+var Hassan = new Character("Hassan Nasrallah", 2, "inc/images/character_hassan.jpg", "Terrorist", "terrorist_win_condition", "special", "All the Counter-Terrorist are dead or 3 Neutral are dead.", "You may lie when given an Investigation card.  You do not have to reveal yourself to do this.");
+var Osama = new Character("Osama Bin Laden", 2, "inc/images/character_osama.jpg", "Terrorist", "terrorist_win_condition", "special", "All the Counter-Terrorist are dead or 3 Neutral are dead.", "Reveal - When you are attacked, you may counter-attack immediately, once the initial attack resolves.");
+var Sam = new Character("Sam Seal", 2, "inc/images/character_samseal.jpg", "Counter-Terrorist", "counter_terrorist_win_condition", "special", "All the Terrorists are dead.", "Reveal - Once - You may choose to double the damage done for your attack.");
+var Charlie = new Character("CIA Charlie", 2, "inc/images/character_ciacharlie.jpg", "Counter-Terrorist", "counter_terrorist_win_condition", "special", "All the Terrorists are dead.", "Reveal - When you move you can roll dice as normal or move to an adjacent area.");
+var Fred = new Character("FBI Fred", 2, "inc/images/character_fbifred.jpeg", "Counter-Terrorist", "counter_terrorist_win_condition", "special", "All the Terrorists are dead.", "Reveal - Once - At the start of your turn, deal 1-6 damage (at random) to any player of your choice.");
+var Daniel = new Character("Daniel Doomsday", 2, "inc/images/character_danieldoomsday.png", "Neutral", "win_condition", "special","You are the first character to die OR all the Terrorists are dead and you survive.", "Reveal - If you deal damage to a known Terrorist, restore 1 health.");
+var George = new Character("Gatherin' George", 2, "inc/images/character_gatheringeorge.png", "Neutral", "win_condition", "special", "When you have more than 5 equipment cards.", "Reveal - If you deal 2 or more damage, you may steal an equipment card.");
+var Tori = new Character("Totally Tori", 2, "inc/images/character_toritotally.jpg", "Neutral", "win_condition", "special", "When the game ends you're 'like totally still alive'", "Reveal - Once - fully restore your health.");
+var Billy = new Character("Billy-Bob Badass", 2, "inc/images/character_billybobbadass.jpg", "Neutral", "win_condition", "special", "When you kill a character, you win if the total number of dead characters is 3 or more.", "Reveal - After you attack you may take 2 damage to attack again.");
+*/
+
+//actual information of all characters, must be active for game to be played correctly
+//These 10 variables are the 10 instances of the 10 characters created in the game.  They are passed their names, HP,
+//images, affiliations, win conditions, speical abilities, and then the text that is displayed on the card.
+var Ayman = new Character("Ayman al-Zawahiri", 13, "inc/images/character_ayman.JPG", "Terrorist", "terrorist_win_condition", "special", "All the Counter-Terrorist are dead or 3 Neutral are dead.", "Reveal - If you attack a player and deal 3 or more damage, restore 2 health.");
 var Hassan = new Character("Hassan Nasrallah", 11, "inc/images/character_hassan.jpg", "Terrorist", "terrorist_win_condition", "special", "All the Counter-Terrorist are dead or 3 Neutral are dead.", "You may lie when given an Investigation card.  You do not have to reveal yourself to do this.");
-//var Osama = new Character("Osama Bin Laden", 14, "inc/images/character_osama.jpg", "Terrorist", "terrorist_win_condition", "special", "All the Counter-Terrorist are dead or 3 Neutral are dead.", "Reveal - When you are attacked, you may counter-attack immediately, once the initial attack resolves.");
-var Osama = new Character("Osama Bin Laden", 14, "inc/images/character_osama.jpg", "Terrorist", "terrorist_win_condition", "special", "All the Counter-Terrorist are dead or 3 Neutral are dead.", "Reveal - Once only, fully heal your damage.");
-var Sam = new Character("Sam Seal", 14, "inc/images/character_samseal.jpg", "Counter-Terrorist", "counter_terrorist_win_condition", "special", "All the Terrorists are dead.", "Once only, you may choose to double the damage done for your attack.");
+var Osama = new Character("Osama Bin Laden", 14, "inc/images/character_osama.jpg", "Terrorist", "terrorist_win_condition", "special", "All the Counter-Terrorist are dead or 3 Neutral are dead.", "Reveal - When you are attacked, you may counter-attack immediately, once the initial attack resolves.");
+var Sam = new Character("Sam Seal", 14, "inc/images/character_samseal.jpg", "Counter-Terrorist", "counter_terrorist_win_condition", "special", "All the Terrorists are dead.", "Reveal - Once - You may choose to double the damage done for your attack.");
 var Charlie = new Character("CIA Charlie", 10, "inc/images/character_ciacharlie.jpg", "Counter-Terrorist", "counter_terrorist_win_condition", "special", "All the Terrorists are dead.", "Reveal - When you move you can roll dice as normal or move to an adjacent area.");
-var Fred = new Character("FBI Fred", 12, "inc/images/character_fbifred.jpeg", "Counter-Terrorist", "counter_terrorist_win_condition", "special", "All the Terrorists are dead.", "Once only, at the start of your turn, pick any player to inflict a random amount of damage between 1-6.");
-var Daniel = new Character("Daniel Doomsday", 12, "inc/images/character_danieldoomsday.png", "Neutral", "win_condition", "special","You are the first character to die OR all the Terrorists are dead and you survive.", "Reveal - If you inflict damage on a known Terrorist you heal 1 damage to yourself.");
-var George = new Character("Gatherin' George", 10, "inc/images/character_gatheringeorge.png", "Neutral", "win_condition", "special", "When you have more than 5 equipment cards.", "Reveal - If you inflict 2 or more damage, you may steal an equipment card.");
-var Tori = new Character("Totally Tori", 8, "inc/images/character_toritotally.jpg", "Neutral", "win_condition", "special", "When the game ends you're 'like totally still alive'", "Reveal - Once only, fully heal your damage.");
-var Billy = new Character("Billy-Bob Badass", 11, "inc/images/character_billybobbadass.jpg", "Neutral", "win_condition", "special", "When you kill a character, you win if the total number of dead characters is 3 or more.", "Reveal - After you attack you may give yourself 2 damage to attack again.");
+var Fred = new Character("FBI Fred", 12, "inc/images/character_fbifred.jpeg", "Counter-Terrorist", "counter_terrorist_win_condition", "special", "All the Terrorists are dead.", "Reveal - Once - At the start of your turn, deal 1-6 damage (at random) to any player of your choice.");
+var Daniel = new Character("Daniel Doomsday", 12, "inc/images/character_danieldoomsday.png", "Neutral", "win_condition", "special","You are the first character to die OR all the Terrorists are dead and you survive.", "Reveal - If you deal damage to a known Terrorist, restore 1 health.");
+var George = new Character("Gatherin' George", 10, "inc/images/character_gatheringeorge.png", "Neutral", "win_condition", "special", "When you have more than 5 equipment cards.", "Reveal - If you deal 2 or more damage, you may steal an equipment card.");
+var Tori = new Character("Totally Tori", 8, "inc/images/character_toritotally.jpg", "Neutral", "win_condition", "special", "When the game ends you're 'like totally still alive'", "Reveal - Once - fully restore your health.");
+var Billy = new Character("Billy-Bob Badass", 11, "inc/images/character_billybobbadass.jpg", "Neutral", "win_condition", "special", "When you kill a character, you win if the total number of dead characters is 3 or more.", "Reveal - After you attack you may take 2 damage to attack again.");
 
 
 
@@ -193,7 +210,7 @@ var accuse1 = new Investigation("Accuse", "inc/images/investigation.png", "I bet
 var accuse2 = new Investigation("Accuse", "inc/images/investigation.png", "I bet you are a Terrorist.  If so, you receive 1 damage", "accuse2");
 var accuse3 = new Investigation("Accuse", "inc/images/investigation.png", "I bet you are Neutral.  If so, you heal 1 damage (If you have no damage - take one damage instead)", "accuse3");
 var accuse4 = new Investigation("Accuse", "inc/images/investigation.png", "I bet you are a Terrorist.  If so, you heal 1 damage (If you have no damage - take one instead)", "accuse4");
-var accuse5 = new Investigation("Accuse", "inc/images/investigation.png", "I bet you are either Neutral or a Terrorist.  If so, you must either give me an equipment card or receive 1 damage", "accuse5");
+//CURRENTLY BROKEN var accuse5 = new Investigation("Accuse", "inc/images/investigation.png", "I bet you are either Neutral or a Terrorist.  If so, you must either give me an equipment card or receive 1 damage", "accuse5");
 var accuse6 = new Investigation("Accuse", "inc/images/investigation.png", "I bet you are a Counter-Terrorist.  If so, you heal 1 damage (If you have no damage - take one instead)", "accuse6");
 //NOTUSED var accuse7 = new Investigation("Accuse", "inc/images/investigation.png", "I bet you are either Terrorist or a Counter-Terrorist.  If so, you must either give me an equipment card or receive 1 damage", "accuse7");
 //NOTUSED var accuse8 = new Investigation("Accuse", "inc/images/investigation.png", "I bet you are either Neutral or a Counter-Terrorist.  If so, you must either give me an equipment card or receive 1 damage", "accuse8");
@@ -215,7 +232,7 @@ var accuse15 = new Investigation("Accuse", "inc/images/investigation.png", "I be
 var waterboard = new Equipment("Water Board", "inc/images/equipment_waterboard.jpg", "When you take an Investigation card, you may take two, giving them to the same player or two different players.");
 var goodluckcharm = new Equipment("Good Luck Charm", "inc/images/equipment_goodluckcharm.jpg", "You receive no damage from the area 'Mystic East' (You can still heal your own damage if you choose yourself).");
 var balancesuit = new Equipment("Balance Suit", "inc/images/equipment_balancesuit.jpeg", "Your attacks do 1 less damage and the damage you take is reduced by 1 per attack.");
-//NOTUSED var dufflebag = new Equipment("Duffle Bag", "inc/images/equipment_dufflebag.jpeg", "If you attack and kill another character, you get all their equipment cards.");
+var dufflebag = new Equipment("Duffle Bag", "inc/images/equipment_dufflebag.jpeg", "If you attack and kill another character, you get all their equipment cards.");
 //NOTUSED var specialvest = new Equipment("Special Vest", "inc/images/equipment_specialvest.jpg", "You receive no damage from the attack of the following cards: Jihad! Jihad!, Dynamite, or Deadly Surprises.");
 var handgun = new Equipment("Handgun", "inc/images/equipment_handgun.jpg", "You may attack into adjacent areas.  If your attack is successful you do 1 extra point of damage.");
 var cattleprod = new Equipment("Cattle Prod", "inc/images/equipment_cattleprod.png", "When you take an Investigation card you may take two, giving them to the same player or two players.");
@@ -230,14 +247,14 @@ var blowgun = new Equipment("Blow Gun", "inc/images/equipment_blowgun.gif", "If 
 //and the card text to be displayed on the card
 var rnr = new Action("R&R", "inc/images/action_rnr.jpeg", "If you are a Counter-Terrorist, you may reveal your identity.  If you do, or if you are already revealed, you heal fully(0 damage).");
 //var illhelp = new Action("I'll Help!", "inc/images/action_illhelp.jpeg", "Pick a character (other than you) - Heal 1D6 points of damage.");
-var illhelp = new Action("I'll Help!", "inc/images/action_illhelp.jpeg", "Pick a character (other than you) - Heal random 1-6 points of damage.");
-//NOTUSED var guardianangel = new Action("Guardian Angel", "inc/images/action_guardianangel.jpg", "You get no damage from another characters' attack until your next turn.");
+var illhelp = new Action("I'll Help!", "inc/images/action_illhelp.jpeg", "Pick a character (other than you) - Restore between 1-6 health, at random.");
+var guardianangel = new Action("Guardian Angel", "inc/images/action_guardianangel.jpg", "You take no damage from attacks until your next turn.");
 var luckyday = new Action("It's your lucky day!", "inc/images/action_luckyday.jpeg", "If you are Tori, Charlie, or Hassan, you may reveal yourself.  If you do (or you are already revealed) you fully heal (0 damage).");
 var spotted = new Action("Spotted!", "inc/images/action_spotted.jpeg", "If you are Osama or Ayman, you must reveal yourself!");
 var firstaid = new Action("First Aid", "inc/images/action_firstaid.jpg", "Heal two points of your damage.");
-var judgementday = new Action("Judgement Day", "inc/images/action_judgementday.jpg", "All character's except for you receive 2 points of damage");
-//NOTUSED var energyboost = new Action("Energy Boost", "inc/images/action_energyboost.jpeg", "When this turn is over, take another turn!");
-//NOTUSED var doctorsvisit = new Action("Doctor's Visit", "inc/images/action_doctorsvisit.jpeg", "Heal any characters HP marker to 4 (You may choose yourself).");
+var judgementday = new Action("Judgement Day", "inc/images/action_judgementday.jpg", "All characters except for you receive 2 points of damage");
+var energyboost = new Action("Energy Boost", "inc/images/action_energyboost.jpeg", "When this turn is over, take another turn!");
+var doctorsvisit = new Action("Doctor's Visit", "inc/images/action_doctorsvisit.jpeg", "Restore any characters Health to 4 (You may choose yourself).");
 var firstaid2 = new Action("First Aid", "inc/images/action_firstaid2.jpeg", "Heal two points of your damage");
 //NOTUSED var dynamite = new Action("Dynamite", "inc/images/action_dynamite.jpeg", "Roll 2D6 and give 3 points of damage to all characters in the area rolled.");
 //NOTUSED var jihad = new Action("Jihad!", "inc/images/action_jihad.jpeg", "If you are a Terrorist, you may reveal your identity.  If you do, you can fully heal your damage.");
@@ -245,18 +262,27 @@ var deadlysurprise = new Action("Deadly Surprise", "inc/images/action_deadlysurp
 var deadlysurprise2 = new Action("Deadly Surprise", "inc/images/action_deadlysurprise2.jpeg", "You give 2 points of damage to any character and heal 1 point of your own damage");
 //NOTUSED var thatsnotgood = new Action("That's Not Good", "inc/images/action_thatsnotgood.jpg", "Give one of your equipment cards to another player.  If you have no equipment cards you receive 1 damage.");
 var thatsmine = new Action("That's Mine", "inc/images/action_thatsmine.jpg", "You steal an equipment card from any character.");
+var thatsmine2 = new Action("That's Mine", "inc/images/action_thatsmine2.jpg", "You steal an equipment card from any character.");
 var deadlysurprise3 = new Action("Deadly Surprise", "inc/images/action_deadlysurprise3.jpg", "You give 2 points of damage to any character and heal 1 point of your own damage.");
 //NOTUSED var deadlygame = new Action("Deadly Game", "inc/images/action_deadlygame.jpg", "Pick a character, roll 1D6.  If result is 1-4, they take 3 points of damage, if 5-6 you take 3 points of damage.");
 //NOTUSED var jihadjihad = new Action("Jihad! Jihad!", "inc/images/action_jihadjihad.jpeg", "You give two points of damage to any character and receive 2 points of damage yourself.  You can double this if you reveal or are revealed as a terrorist.");
 
 //The following are arrays of all the of objects put together
 //The action array is composed of each action card available in the game.
-//var actionArray = [rnr, illhelp, guardianangel, luckyday, spotted, firstaid, judgementday, energyboost, doctorsvisit, firstaid2, dynamite, jihad, deadlysurprise, deadlysurprise2, thatsnotgood, thatsmine, deadlysurprise3, deadlygame, jihadjihad];
-var actionArray = [rnr, illhelp, luckyday, spotted, firstaid, judgementday, firstaid2, deadlysurprise, deadlysurprise2, thatsmine, deadlysurprise3];
-var new_deck_actionArray = [rnr, illhelp, luckyday, spotted, firstaid, judgementday, firstaid2, deadlysurprise, deadlysurprise2, thatsmine, deadlysurprise3];
+//var actionArray = [rnr, illhelp, guardianangel, luckyday, spotted, firstaid, judgementday, energyboost, doctorsvisit, firstaid2, dynamite, jihad, deadlysurprise, deadlysurprise2, thatsnotgood, thatsmine, thatsmine2, deadlysurprise3, deadlygame, jihadjihad];
 
+var actionArray = [rnr, illhelp, luckyday, spotted, firstaid, judgementday, firstaid2, deadlysurprise, deadlysurprise2, thatsmine, thatsmine2, deadlysurprise3, energyboost, guardianangel, doctorsvisit];
 //The equipment array is composed of each Equipment card that is available in the game
 var equipmentArray = [waterboard, goodluckcharm, balancesuit, handgun, cattleprod, sniperrifle, garrote, blowgun];
+
+//The offense and defense array are both composed of Equipment and One Time Action Cards and are two of the three decks in the game S17
+var offenseArray = [sniperrifle, garrote, cattleprod, handgun, blowgun, deadlysurprise, deadlysurprise2, deadlysurprise3, thatsmine, thatsmine2];
+var defenseArray = [goodluckcharm, firstaid, firstaid2, judgementday, rnr, luckyday, illhelp, spotted, waterboard, balancesuit, energyboost, guardianangel, doctorsvisit];
+
+
+// after the offense and defense decks run out, this becomes the new deck and is reshuffled. S17
+var newDeckOffenseArray = [deadlysurprise, deadlysurprise2, deadlysurprise3, thatsmine, thatsmine2];
+var newDeckDefenseArray = [firstaid, firstaid2, judgementday, rnr, luckyday, illhelp, spotted, energyboost, guardianangel, doctorsvisit];
 
 //The investigation array is composed of every Investigation card that is available in the game
 //var investigationArray = [accuse1, accuse2, accuse3, accuse4, accuse5, accuse6, accuse7, accuse8, accuse9, accuse10, accuse11, accuse12, accuse13, accuse14, accuse15, reveal1, reveal2];
@@ -264,26 +290,25 @@ var investigationArray = [accuse1, accuse2, accuse3, accuse4, accuse5, accuse6, 
 var new_deck_investigationArray = [accuse1, accuse2, accuse3, accuse4, accuse5, accuse6, accuse10, accuse11, accuse13, accuse15];
 
 //The Terrorists array is composed of the 3 terrorist characters in the game
-//var terroristsArray = [Ayman, Hassan, Osama];
-var terroristsArray = [Osama]; // only for testing DELETE AFTER
+var terroristsArray = [Ayman, Hassan, Osama];
 
 //The Counter-Terrorist array is composed of the 3 Counter-Terrorist characters available in the game
-//var counterterroristArray = [Sam, Charlie, Fred];
-var counterterroristArray = [Charlie]; //only for testing DELETE AFTER
+var counterterroristArray = [Sam, Charlie, Fred];
 
 //The Neutral array is composed of the 4 Neutral characters that are available in the game
 var neutralArray = [Daniel, George, Tori, Billy];
 
-
 //The Characters Array is a list of all available characters in the game
-//var charactersArray = [Ayman, Hassan, Osama, Sam, Charlie, Fred, Daniel, George, Tori, Billy];
-var charactersArray = [Osama, Charlie, Daniel, George, Tori, Billy]; // only for testing DELETE AFTER
+var charactersArray = [Ayman, Hassan, Osama, Sam, Charlie, Fred, Daniel, George, Tori, Billy];
+
 
 //These 7 function calls shuffle all the arrays for a random order that can be drawn from.
 array_shuffle(charactersArray);
 array_shuffle(terroristsArray);
 array_shuffle(counterterroristArray);
 array_shuffle(neutralArray);
+array_shuffle(offenseArray);
+array_shuffle(defenseArray);
 array_shuffle(actionArray);
 array_shuffle(equipmentArray);
 array_shuffle(investigationArray);

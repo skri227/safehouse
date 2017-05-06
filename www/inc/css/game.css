@@ -1,3 +1,6 @@
+/*Note: Any comments without the S17 were not completed by the Safehouse Team of Spring 2017*/
+
+/*Imports the font for the game.*/
 @font-face
 {
 	font-family:"GrotesqueNo9T";
@@ -5,6 +8,7 @@
 }
 
 /*Main body CSS*/
+/*Sets styles for the entire game*/
 body
 {
 	margin: 0px;
@@ -12,7 +16,7 @@ body
 	font-family:'GrotesqueNo9T', sans-serif;
 	background-color: black;
 	/*Start Menu */
-	background-image: url("../images/background.png");
+	background-image: url("../images/Maps/background.png");
 	background-repeat: no-repeat;
 	background-size:100% 100%;
 	text-align: center;
@@ -27,12 +31,15 @@ body
 }
 
 /*Start Menu */
+
+/*Sets the size for the logo on the game's start screen*/
 #start_menu #logo
 {
 	width: 30%;
 	height: 60%;
 }
 
+/*Sets the styles for the button on the start screen*/
 #start_menu button
 {
 	background-color: transparent;
@@ -46,8 +53,18 @@ body
 	font-family:'GrotesqueNo9T', sans-serif;
 	-webkit-appearance: button;
 }
+
 #start_menu button:focus {outline:0;}
 
+/*When hovering over the start screen's buttons, it turns the text yellow with a red glow on the outside*/
+#start_menu button:hover
+{
+	transform: scale(1.2);
+	color: yellow;
+	text-shadow: .75px .75px red, 0 0 35px red;
+}
+
+/*Displays the start screen dirst*/
 #start_menu
 {
 	display: initial;
@@ -61,6 +78,7 @@ body
 	display: initial;
 }
 
+/*Sets the styles for the text in the number of players screen*/
 .num_of_players h3
 {
 	margin-top: 30px;
@@ -68,6 +86,7 @@ body
 	font-size: 3em;
 }
 
+/*Sets the styles for the buttons in the number of players screen*/
 .num_of_players_btn
 {
 	width: 200px;
@@ -83,11 +102,43 @@ body
 .num_of_players button:active {border-color: white;}
 .num_of_players button:focus {outline:0;}
 
+/*Sets the styles for the buttons in the number of players screen when the cursor hovers over them*/
+.num_of_players button:hover
+{
+	box-shadow: 0 5px 15px white;
+}
+
+/*Set the color and size of the buttons in the number of players screen*/
 .num_of_players_btn span
 {
 	color: white;
 	font-size: 40px;
-	text-decoration: underline;
+}
+
+/* s17 sets styles for rules page */
+#rules_screen
+{
+	text-align: left;
+	display: none;
+	color: red;
+	padding-bottom:10%;
+	margin-left: auto ;
+	margin-right: auto ;
+}
+
+#rules_back_btn h1:hover
+{
+	transform: scale(1.2);
+	color: yellow;
+	text-shadow: .75px .75px red, 0 0 35px red;
+}
+
+/*Sets the styles for the text in the number of players screen when the cursor hovers over them*/
+#num_of_players_home_btn h3:hover
+{
+	transform: scale(1.2);
+	color: yellow;
+	text-shadow: .75px .75px red, 0 0 35px red;
 }
 /*End Player Select Menu */
 
@@ -136,12 +187,27 @@ body
 {
 	font-size: 3em;
 }
+
+.select_players #player_select_play_btn:hover
+{
+	transform: scale(1.2);
+	color: yellow;
+	text-shadow: .75px .75px red, 0 0 35px red;
+}
+
 .select_players #player_select_home_btn
 {
 	position: fixed;
 	font-size: 2em;
 	bottom: 20px;
 	left: 20px;
+}
+
+.select_players #player_select_home_btn:hover
+{
+	transform: scale(1.2);
+	color: yellow;
+	text-shadow: .75px .75px red, 0 0 35px red;
 }
 
 .select_players .player_select_btn_not_selected
@@ -298,7 +364,7 @@ body
 	color: red;
 }
 
-#draw_invest_card, #draw_equip_card, #draw_onetime_card
+#draw_invest_card, #draw_defense_card, #draw_offense_card
 {
 	display: inline-block;
 	width: 150px;
@@ -314,12 +380,12 @@ body
 	border: 6px solid yellow;
 }
 
-#draw_equip_card
+#draw_defense_card
 {
 	border: 6px solid silver;
 }
 
-#draw_onetime_card
+#draw_offense_card
 {
 	border: 6px solid black;
 }
@@ -365,6 +431,7 @@ body
 	border-color: red;
 	font-family:'GrotesqueNo9T', sans-serif;
 }
+
 #select_player_overlay_area button:focus {outline:0;}
 
 
@@ -452,6 +519,68 @@ body
 }
 #select_options_overlay_area button:focus {outline:0;}
 /*End Select player screen*/
+
+/*Show steal and give card screens -S17*/
+#select_player_steal_container , #select_player_give_card_container
+{
+	/*display:none;*/
+	position: fixed;
+	top: 0%;
+	left: 0%;
+	z-index: 999;
+	width: 100%;
+	height: 100%;
+}
+
+#select_player_steal_area , #select_player_give_card_area
+{
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	width: 55%;
+	height: 50%;
+	transform: translate(-50%, -50%);
+	padding: 20px;
+	color: red;
+	background: rgba(0, 0, 0, 0.6);
+	text-align: center;
+}
+
+#select_player_steal_area h1
+{
+	/*top: -500%;
+	left: -850%;*/
+	position: relative;
+	white-space: nowrap;
+	overflow-y: hidden;
+	overflow-x: hidden;
+}
+
+#select_player_steal_area button
+{
+	display: block;
+	padding-top: 15px;
+	padding-bottom: 15px;
+	padding-left: 20px;
+	padding-right: 20px;
+	margin: 5px;
+	margin-left: auto;
+	margin-right: auto;
+	font-size: 24px;
+	font-weight: bold;
+	color: white;
+	background-color: red;
+	border-color: red;
+	font-family:'GrotesqueNo9T', sans-serif;
+	top: 5%;
+	position: relative;
+	white-space: nowrap;
+	overflow-y: hidden;
+	overflow-x: hidden;
+}
+
+#select_player_steal_area button:focus {outline:0;}
+/*End show steal card screen*/
 
 /*Show card screen*/
 #show_card_overlay_container
@@ -670,7 +799,7 @@ body
 #menu_container button:focus {outline:0;}
 /*End menu btn CSS*/
 
-/*removed zoom button container*/
+/* S17 removed zoom button container*/
 
 /*Player info area CSS*/
 #player_container
@@ -762,6 +891,102 @@ body
 	font-size: 15px;
 }
 /*End Player info area CSS*/
+
+/*steal card info area CSS*/
+/*Includes George's Special Steal -S17*/
+#george_steal_options_container
+{
+	display:none;
+	position: fixed;
+	top: 0%;
+	left: 0%;
+	z-index: 999;
+	width: 100%;
+	height: 100%;
+}
+
+#george_steal_options_overlay_area
+{
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	padding: 20px;
+	color: red;
+	background: rgba(0, 0, 0, 0.6);
+	text-align: center;
+}
+
+#george_steal_options_overlay_area button
+{
+	display: block;
+	padding-top: 15px;
+	padding-bottom: 15px;
+	padding-left: 20px;
+	padding-right: 20px;
+	margin: 5px;
+	margin-left: auto;
+	margin-right: auto;
+	font-size: 24px;
+	font-weight: bold;
+	color: white;
+	background-color: red;
+	border-color: red;
+	font-family:'GrotesqueNo9T', sans-serif;
+}
+
+#george_steal_options_overlay_area button:focus {outline:0;}
+
+#steal_cards_container, #give_cards_container
+{
+	position: relative;
+	left: 10%;
+	width: 80%;
+	height: 60%;
+	border-color: black;
+	background-color: white;
+	/*white-space: nowrap;
+	overflow-y: hidden;
+	overflow-x: hidden;*/
+}
+
+#steal_cards_area, , #give_cards_area
+{
+	white-space: nowrap;
+	overflow-y: hidden;
+	overflow-x: hidden;
+	float: left;
+	width: 60%;
+	position: relative;
+}
+
+#steal_card_area_scroll_right
+{
+	float: right;
+	width: 10%;
+	height: 100%;
+	position: relative;
+}
+
+#steal_card_area_scroll_left
+{
+	float: left;
+	width: 10%;
+	height: 100%;
+	position: relative;
+}
+
+#steal_card_area_scroll_left img, #steal_card_area_scroll_right img
+{
+	width: 100%;
+	height: 40%;
+	position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+}
 
 /*card info area CSS*/
 #cards_container
@@ -939,6 +1164,31 @@ body
 	font-family:'GrotesqueNo9T', sans-serif;
 }
 
+#action_container .safe_house_choice_btn
+{
+	font-size: 33px;
+	font-weight: bold;
+	color: black;
+	background-color: red;
+	border-color: red;
+	width: 100%;
+	height: 50%;
+	font-family:'GrotesqueNo9T', sans-serif;
+}
+
+
+#action_container .osama_special_attack_btn
+{
+	font-size: 33px;
+	font-weight: bold;
+	color: black;
+	background-color: red;
+	border-color: red;
+	width: 100%;
+	height: 50%;
+	font-family:'GrotesqueNo9T', sans-serif;
+}
+
 #action_container .charlie_special_move_btn
 {
 	font-size: 33px;
@@ -967,7 +1217,14 @@ body
 
 #my_Canvas
 {
-	width: 100%;
-	height: 100%;
+	/*width: 100%;
+	height: 100%;*/
 }
+
+/*for rules list, aligns test left.*/
+#listDiv.ul
+{
+    text-align: left;
+}
+
 /*End game canvas area CSS*/

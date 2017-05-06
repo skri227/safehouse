@@ -8,6 +8,8 @@ This file contains all of the set up and funtions for the 3D graphics of safehou
 It uses javascript and the THREE.js library of graphics functions.
 */
 
+//Note: Any comments without the S17 were not completed by the Safehouse Team of Spring 2017
+
 //lots of global variables. This could probably be cleaned up especially by someone with
 //a better understandin of javascript or THREE.js
 
@@ -33,7 +35,7 @@ var greenDie2;
 var whitePiece;
 var redPiece;
 var greenPiece;
-var pinkPiece;
+var pinkPiece; //not implemented yet, use for 9th player
 var bluePiece;
 var orangePiece;
 var blackPiece;
@@ -83,14 +85,73 @@ var battleAttackSpecial = false;
 var battleDefense = false;
 var battleDefenseSpecial = false;
 
+// s17
 //used to determine dice location
 //as set in dice settings below, dice are .2 apart
+//keep in mind origin is cetner screen, negative is left/up, positive is right/down
+//all left/right/up/down movement on board is accomplished in X, Z planes respectively
 var diceXLocation = -4;
-var diceYLocation = -.55;
+var diceZLocation = -.55;
+//Note - this Y setting is used to elevate pieces above the map/board Y settings.
+// less than .11 will go "below" the map
+var pieceVisible = .11; //for when board pieces should be screen, drawn above board
+var pieceHidden = -.11; //for when board pieces should be hidden, drawn below board
+
+
 
 //set dice block size
 var diceSize = .15;
 
+//S17 - for setup and zone seven location
+// for minor map resizes, change the mapSizeX & mapSizeZ and all zones will adjust
+//if any map alterations other than simple resizing are made, you will need to find correct centers for new zone locations
+var mapSizeX = 7;
+var mapSizeZ = 3.4;
+
+//width of damage meter
+//distance each damage counter will travel in x direction per damage point taken
+var damageMeterSpaceSize = mapSizeX/15;
+
+
+
+//S17 - since the top zones are all in series, the X center is the same
+// storing this multiple to reduce chance of mistype
+var centerOfMapTopRowMultiple = .32353;
+//same for bottom row of zones
+var centerOfMapBottomRowMultiples = .35714;
+
+//S17 - for resizing current map
+//all locations variables will be dependent on map size
+var sevenCenterX = -mapSizeX*(.06666);
+var sevenCenterZ = mapSizeZ*.013333;
+
+var fourFiveCenterX = -mapSizeX*.37143;
+var fourFiveCenterZ = -mapSizeZ*centerOfMapTopRowMultiple;
+
+var sixCenterX = -mapSizeX*.07857;
+var sixCenterZ = -mapSizeZ*centerOfMapTopRowMultiple;
+
+var eightCenterX = mapSizeX*.10714;
+var eightCenterZ = -mapSizeZ*centerOfMapTopRowMultiple;
+
+var nineTenCenterX = mapSizeX*centerOfMapBottomRowMultiples;
+var nineTenCenterZ = -mapSizeZ*centerOfMapTopRowMultiple;
+
+var twoThreeCenterX = -mapSizeX*centerOfMapBottomRowMultiples;
+var twoThreeCenterZ = mapSizeZ*.058824;
+
+var elevenTwelveCenterX = mapSizeX*.31429;
+var elevenTwelveCenterZ = mapSizeZ*.11765;
+//spaces player pieces so they never overlap on board, set and reset with dice roll
+var offsetX = 0.0;
+var offsetZ = 0.0;
+
+//S17 offset between dice to ensure they never overlap
+var DiceOffsetX = .2;
+var DiceOffsetZ = .2;
+
+// for spacing of dead piece that have been removed from board
+var deathOffsetX = .15;
 
 
 
@@ -116,13 +177,13 @@ var whiteDiceMat6 = new THREE.MeshBasicMaterial({ map: whiteDiceTex6} );
 var whiteDieFaces = [whiteDiceMat1, whiteDiceMat2, whiteDiceMat3, whiteDiceMat4, whiteDiceMat5, whiteDiceMat6];
 var whiteDieFaceMat = new THREE.MeshFaceMaterial(whiteDieFaces);
 whiteDice1 = new THREE.Mesh( dieOneGeo, whiteDieFaceMat );
-whiteDice1.position.set(diceXLocation+.4,.11,diceYLocation);
+whiteDice1.position.set(diceXLocation+2*DiceOffsetX,pieceVisible,diceZLocation);
 scene.add( whiteDice1 );
 
 //Dice 2
 var dieTwoGeo = new THREE.BoxGeometry(diceSize,diceSize,diceSize );
 whiteDice2 = new THREE.Mesh( dieTwoGeo, whiteDieFaceMat );
-whiteDice2.position.set(diceXLocation+.4,.11,diceYLocation+.2);
+whiteDice2.position.set(diceXLocation+2*DiceOffsetX,pieceVisible,diceZLocation+DiceOffsetZ);
 scene.add( whiteDice2 );
 
 //RedDice
@@ -143,13 +204,13 @@ var redDieMat6 = new THREE.MeshBasicMaterial({ map: redDieTex6} );
 var redDieFaces = [redDieMat1, redDieMat2, redDieMat3, redDieMat4, redDieMat5, redDieMat6];
 var redDieFaceMat = new THREE.MeshFaceMaterial(redDieFaces);
 redDice1 = new THREE.Mesh( dieOneGeo, redDieFaceMat );
-redDice1.position.set(diceXLocation+.2,.11,diceYLocation);
+redDice1.position.set(diceXLocation+DiceOffsetX,pieceVisible,diceZLocation);
 scene.add( redDice1 );
 
 //Dice2
 var dieTwoGeo = new THREE.BoxGeometry(diceSize, diceSize,diceSize );
 redDice2 = new THREE.Mesh( dieTwoGeo, redDieFaceMat );
-redDice2.position.set(diceXLocation+.2,.11,diceYLocation+.2);
+redDice2.position.set(diceXLocation+DiceOffsetX,pieceVisible,diceZLocation+DiceOffsetZ);
 scene.add( redDice2 );
 
 //GreenDice
@@ -170,14 +231,13 @@ var greenDieMat6 = new THREE.MeshBasicMaterial({ map: greenDieTex6} );
 var greenDieFaces = [greenDieMat1, greenDieMat2, greenDieMat3, greenDieMat4, greenDieMat5, greenDieMat6];
 var greenDieFaceMat = new THREE.MeshFaceMaterial(greenDieFaces);
 greenDice1 = new THREE.Mesh( dieOneGeo, greenDieFaceMat );
-greenDice1.position.set(diceXLocation,.11,diceYLocation);
-//greenDice1.position.set(-3.2,.11,-.55);
+greenDice1.position.set(diceXLocation,pieceVisible,diceZLocation);
 scene.add( greenDice1 );
 
 //Dice2
 var dieTwoGeo = new THREE.BoxGeometry(diceSize, diceSize, diceSize);
 greenDice2 = new THREE.Mesh( dieTwoGeo, greenDieFaceMat );
-greenDice2.position.set(diceXLocation,.11,diceYLocation+.2);
+greenDice2.position.set(diceXLocation,pieceVisible,diceZLocation+DiceOffsetZ);
 scene.add( greenDice2 );
 
 
@@ -190,65 +250,65 @@ scene.add( greenDice2 );
 var whiteGeo = new THREE.BoxGeometry(.1,.2,.1);
 var whiteMat = new THREE.MeshPhongMaterial({color: 0xffffff});
 whitePiece = new THREE.Mesh(whiteGeo, whiteMat);
-whitePiece.position.set(-2.8,.11,-.1);
+whitePiece.position.set(sevenCenterX+DiceOffsetX,pieceVisible,sevenCenterZ-DiceOffsetZ); //always visible, must have at least 3 pieces to play
 scene.add(whitePiece);
 
 //white damage piece
 var whiteDamage = new THREE.BoxGeometry(.05,.05,.05);
 var whiteDamagePiece = new THREE.Mesh(whiteDamage, whiteMat);
-whiteDamagePiece.position.set(-2.8,.11,.7);
+whiteDamagePiece.position.set(-2.8,pieceHidden,.7);
 scene.add(whiteDamagePiece);
 
 //yellow piece
 var yellowGeo = new THREE.BoxGeometry(.1,.2,.1);
 var yellowMat = new THREE.MeshPhongMaterial({color: 0xffff00});
 yellowPiece = new THREE.Mesh(yellowGeo, yellowMat);
-yellowPiece.position.set(-2.8,.11,.1);
+yellowPiece.position.set(-2.8, pieceHidden,.1);
 scene.add(yellowPiece);
 
 //yellow damage piece
 var yellowDamage = new THREE.BoxGeometry(.05,.05,.05);
 var yellowDamagePiece = new THREE.Mesh(yellowDamage, yellowMat);
-yellowDamagePiece.position.set(-2.8,.11,.8);
+yellowDamagePiece.position.set(-2.8,pieceHidden,.8);
 scene.add(yellowDamagePiece);
 
 //orange piece
 var orangeGeo = new THREE.BoxGeometry(.1,.2,.1);
 var orangeMat = new THREE.MeshPhongMaterial({color: 0xee5500});
 orangePiece = new THREE.Mesh(orangeGeo, orangeMat);
-orangePiece.position.set(-2.8,.11,.3);
+orangePiece.position.set(-2.8,pieceHidden,.3);
 scene.add(orangePiece);
 
 //orange damage piece
 var orangeDamage = new THREE.BoxGeometry(.05,.05,.05);
 var orangeDamagePiece = new THREE.Mesh(orangeDamage, orangeMat);
-orangeDamagePiece.position.set(-2.8,.11,.9);
+orangeDamagePiece.position.set(-2.8,pieceHidden,.9);
 scene.add(orangeDamagePiece);
 
 //green piece
 var greenGeo = new THREE.BoxGeometry(.1,.2,.1);
 var greenMat = new THREE.MeshPhongMaterial({color: 0x00ff00});
 greenPiece = new THREE.Mesh(greenGeo, greenMat);
-greenPiece.position.set(-3,.11,-.1);
+greenPiece.position.set(sevenCenterX,pieceVisible,sevenCenterZ-DiceOffsetZ); //changed
 scene.add(greenPiece);
 
 //green damage piece
 var greenDamage = new THREE.BoxGeometry(.05,.05,.05);
 var greenDamagePiece = new THREE.Mesh(greenDamage, greenMat);
-greenDamagePiece.position.set(-2.9,.11,.7);
+greenDamagePiece.position.set(-2.9,pieceHidden,.7);
 scene.add(greenDamagePiece);
 
 //blue piece
 var blueGeo = new THREE.BoxGeometry(.1,.2,.1);
 var blueMat = new THREE.MeshPhongMaterial({color: 0x0000ff});
 bluePiece = new THREE.Mesh(blueGeo, blueMat);
-bluePiece.position.set(-3,.11,.3);
+bluePiece.position.set(-3,pieceHidden,.3);
 scene.add(bluePiece);
 
 //blue damage piece
 var blueDamage = new THREE.BoxGeometry(.05,.05,.05);
 var blueDamagePiece = new THREE.Mesh(blueDamage, blueMat);
-blueDamagePiece.position.set(-2.9,.11,.9);
+blueDamagePiece.position.set(-2.9,pieceHidden,.9);
 scene.add(blueDamagePiece);
 
 
@@ -256,39 +316,41 @@ scene.add(blueDamagePiece);
 var blackGeo = new THREE.BoxGeometry(.1,.2,.1);
 var blackMat = new THREE.MeshPhongMaterial({color: 0x111111});
 blackPiece = new THREE.Mesh(blackGeo, blackMat);
-blackPiece.position.set(-3.2,.11,-.1);
+blackPiece.position.set(-3.2,pieceHidden,-.1);
+//blackPiece.position.set(-3.2,.11,-.1);
 scene.add(blackPiece);
 
 //black damage piece
 var blackDamage = new THREE.BoxGeometry(.05,.05,.05);
 var blackDamagePiece = new THREE.Mesh(blackDamage, blackMat);
-blackDamagePiece.position.set(-3,.11,.7);
+blackDamagePiece.position.set(-3,pieceHidden,.7);
 scene.add(blackDamagePiece);
 
 //red piece
 var redGeo = new THREE.BoxGeometry(.1,.2,.1);
 var redMat = new THREE.MeshPhongMaterial({color: 0xff0000});
 redPiece = new THREE.Mesh(redGeo, redMat);
-redPiece.position.set(-3.2,.11,.1);
+redPiece.position.set(sevenCenterX-DiceOffsetX,pieceVisible,sevenCenterZ); //changed
 scene.add(redPiece);
 
 //red damage piece
+//test
 var redDamage = new THREE.BoxGeometry(.05,.05,.05);
 var redDamagePiece = new THREE.Mesh(redDamage, redMat);
-redDamagePiece.position.set(-3,.11,.8);
+redDamagePiece.position.set(-3,pieceHidden,.8);
 scene.add(redDamagePiece);
 
 //purple piece
 var purpleGeo = new THREE.BoxGeometry(.1,.2,.1);
 var purpleMat = new THREE.MeshPhongMaterial({color: 0x9b30ff});
 purplePiece = new THREE.Mesh(purpleGeo, purpleMat);
-purplePiece.position.set(-3.2,.11,.3);
+purplePiece.position.set(-3.2,pieceHidden,.3);
 scene.add(purplePiece);
 
 //purple damage piece
 var purpleDamage = new THREE.BoxGeometry(.05,.05,.05);
 var purpleDamagePiece = new THREE.Mesh(purpleDamage, purpleMat);
-purpleDamagePiece.position.set(-3,.11,.9);
+purpleDamagePiece.position.set(-3,pieceHidden,.9);
 scene.add(purpleDamagePiece);
 
 //color of the player who's turn it is
@@ -308,7 +370,7 @@ animate();
 //draw functions for each stationary element in the scene
 //stationary elements don't break textures put into functions so this cleans up the code quite a bit
 function drawTable(){
-	//tableTop backgroun
+	//tableTop background
 	var tableTopGeo = new THREE.BoxGeometry( 8.5, .1, 3.5 ); //(width, thickness, height)
 	THREE.ImageUtils.crossOrigin = '';
 	var tableTopTex = THREE.ImageUtils.loadTexture('http://i.imgur.com/CQYuOYb.jpg');
@@ -316,7 +378,7 @@ function drawTable(){
 	var tableTop = new THREE.Mesh( tableTopGeo, tableTopMat );
 	scene.add( tableTop );
 
-
+//not visible since zoom feature removed s17, but still needed for room draw
 	//left front leg
 	var lfGeo = new THREE.BoxGeometry( .15, 2.25, .15 );
 	var lfMat = new THREE.MeshBasicMaterial( { map: tableTopTex} );
@@ -372,15 +434,17 @@ function drawRoom(){
 
 function drawBoard(){
 	//board - map
-	//var boardMesh = new THREE.PlaneGeometry(5,2); //5 wide, 2 tall
-	var boardMesh = new THREE.PlaneGeometry(7,3.4); //7 wide, 3.4 tall - close to tabletop size
+
+	var boardMesh = new THREE.PlaneGeometry(mapSizeX,mapSizeZ); //7 wide, 3.4 tall - close to tabletop size
 	THREE.ImageUtils.crossOrigin = '';
-	var mapOverlay = THREE.ImageUtils.loadTexture('http://i.imgur.com/9e9CDIo.jpg');
+
+	var mapOverlay = THREE.ImageUtils.loadTexture('http://i.imgur.com/1LBnhon.jpg');
+	mapOverlay.minFilter = THREE.LinearFilter;
+
 	var boardMaterial = new THREE.MeshBasicMaterial({map: mapOverlay})
 	var board = new THREE.Mesh(boardMesh,boardMaterial);
 	board.rotation.x = (-90*Math.PI/180);
-	//board.position.set(0,.08,.25); //moved up
-	board.position.set(0,.08,.05);
+	board.position.set(0,.08,.05); // S17 - set in relation to table & background
 	scene.add(board);
 }
 
@@ -402,10 +466,6 @@ function canvas_init(){
 	var directionalLight = new THREE.DirectionalLight(0xc0c0c0);
 	directionalLight.position.set(0,7,2).normalize();
 	scene.add(directionalLight);
-
-	//ambient lighting
-	//var ambientLight = new THREE.AmbientLight( 0x404040 ); // soft white light
-	//scene.add( ambientLight );
 
 	//draw all stationary elements from functions above
 	drawRoom();
@@ -450,7 +510,7 @@ function animate(){
 		//zDistance = zVelocity*(time/100) + .5*zAcceleration*Math.pow((time/100), 2);
 
 
-		//white dice are only ever moved used on a turn roll
+		//white dice are only ever moved/used on a turn roll
 		//this determines when the dice should stop moving after the have begun animation
 		if(turn){
 			if(whiteDice1.position.y <= .25 && time > 100){
@@ -943,12 +1003,12 @@ function animate(){
 			movePiece(playerColor);
 		}
 
-		whiteDice1.position.set(diceXLocation+.4,.11,diceYLocation);
-		whiteDice2.position.set(diceXLocation+.4,.11,diceYLocation+.2);
-		redDice1.position.set(diceXLocation+.2,.11,diceYLocation);
-		greenDice1.position.set(diceXLocation,.11,diceYLocation);
-		greenDice2.position.set(diceXLocation,.11,diceYLocation+.2);
-		redDice2.position.set(diceXLocation+.2,.11,diceYLocation+.2);
+		whiteDice1.position.set(diceXLocation+.4,pieceVisible,diceZLocation);
+		whiteDice2.position.set(diceXLocation+.4,pieceVisible,diceZLocation+.2);
+		redDice1.position.set(diceXLocation+.2,pieceVisible,diceZLocation);
+		greenDice1.position.set(diceXLocation,pieceVisible,diceZLocation);
+		greenDice2.position.set(diceXLocation,pieceVisible,diceZLocation+.2);
+		redDice2.position.set(diceXLocation+.2,pieceVisible,diceZLocation+.2);
 
 		whiteDice1.rotation.x = 0;
 		whiteDice1.rotation.y = 0;
@@ -994,6 +1054,7 @@ function render(){
 }
 
 //increments the counter so the scene can move between birds eye and table
+//zoom button no longer appears, removed s17
 function move_screen()
 {
 	zoomClicked = true;
@@ -1118,7 +1179,34 @@ function rollOneGreenDice(){
 	diceMove = true;
 }
 
+//sets up board pieces in Safe House - only called at start of game
 
+//since num_of_players is set up with multiple options for 7-8 players, reset to singular option for piece purposes
+function board_pieces_setup(){
+	if(game.num_of_players == 71 || game.num_of_players == 72)
+    game.num_of_players = 7;
+
+  if(game.num_of_players == 81 || game.num_of_players == 82)
+    game.num_of_players = 8;
+
+	if(game.num_of_players > 3) //since we only need 4+ players to run this check, bc 3 is the minimum number needed to play
+	{
+		bluePiece.position.set(sevenCenterX, pieceVisible, sevenCenterZ+DiceOffsetZ); //redrawing needed pieces visibly in Safe House
+	}
+	if(game.num_of_players > 4){
+		orangePiece.position.set(sevenCenterX+DiceOffsetX, pieceVisible, sevenCenterZ+DiceOffsetZ);
+	}
+	if(game.num_of_players > 5){
+		purplePiece.position.set(sevenCenterX-DiceOffsetX, pieceVisible, sevenCenterZ+DiceOffsetZ);
+	}
+	if(game.num_of_players > 6){
+		yellowPiece.position.set(sevenCenterX+DiceOffsetX, pieceVisible, sevenCenterZ);
+	}
+	if(game.num_of_players > 7){
+		blackPiece.position.set(sevenCenterX-DiceOffsetX, pieceVisible, sevenCenterZ-DiceOffsetZ);
+	}
+	//if 9th player added, follow suit
+}
 /****************************************************************************IMPORTANT FOR ZACH AND KAMERON********************************************************/
 //moves whatever color piece is passed to it to the correct location on the board based on the dice roll
 //the player just had.
@@ -1128,31 +1216,6 @@ function movePiece(color){
 
 	//variable to hold piece to be moved
 	var whoseTurn = whitePiece;
-
-	//specific centers for each region
-	var fourFiveCenterX = -2.6;
-	var fourFiveCenterZ = -1.1;
-
-	var sixCenterX = -.55;
-	var sixCenterZ = -1.1;
-
-	var eightCenterX = .75;
-	var eightCenterZ = -1.1;
-
-	var nineTenCenterX = 2.5;
-	var nineTenCenterZ = -1.1;
-
-	var twoThreeCenterX = -2.5;
-	var twoThreeCenterZ = .2;
-
-	var sevenCenterX = -.15;
-	var sevenCenterZ = .2;
-
-	var elevenTwelveCenterX = 2.2;
-	var elevenTwelveCenterZ = .4;
-
-	var offsetX = 0.0;
-	var offsetZ = 0.0;
 
 	//sets the correct piece and offset based on the color passed
 	if(color == "white"){
@@ -1207,32 +1270,32 @@ function movePiece(color){
 	//moves the selected piece to the center of the region determined by the dice roll then offsets it based on the offset
 	//assigned above
 	if(turnValue == 2 || turnValue == 3){
-		whoseTurn.position.set(twoThreeCenterX+offsetX,.2,twoThreeCenterZ+offsetZ);
+		whoseTurn.position.set(twoThreeCenterX+offsetX,pieceVisible,twoThreeCenterZ+offsetZ);
 	}
 
 	if(turnValue == 4 || turnValue == 5){
-		whoseTurn.position.set(fourFiveCenterX+offsetX,.2,fourFiveCenterZ+offsetZ);
+		whoseTurn.position.set(fourFiveCenterX+offsetX,pieceVisible,fourFiveCenterZ+offsetZ);
 	}
 
 	if(turnValue == 6){
-		whoseTurn.position.set(sixCenterX+offsetX,.2,sixCenterZ+offsetZ);
+		whoseTurn.position.set(sixCenterX+offsetX,pieceVisible,sixCenterZ+offsetZ);
 	}
 
 	if(turnValue == 7){
-		offsetZ = offsetZ + .2;
-		whoseTurn.position.set(sevenCenterX+offsetX,.2,sevenCenterZ+offsetZ);
+		//S17
+		whoseTurn.position.set(sevenCenterX+offsetX,pieceVisible,sevenCenterZ+offsetZ);
 	}
 
 	if(turnValue == 8){
-		whoseTurn.position.set(eightCenterX+offsetX,.2,eightCenterZ+offsetZ);
+		whoseTurn.position.set(eightCenterX+offsetX,pieceVisible,eightCenterZ+offsetZ);
 	}
 
 	if(turnValue == 9 || turnValue == 10){
-		whoseTurn.position.set(nineTenCenterX+offsetX,.2,nineTenCenterZ+offsetZ);
+		whoseTurn.position.set(nineTenCenterX+offsetX,pieceVisible,nineTenCenterZ+offsetZ);
 	}
 
 	if(turnValue == 11 || turnValue == 12){
-		whoseTurn.position.set(elevenTwelveCenterX+offsetX,.2,elevenTwelveCenterZ+offsetZ);
+		whoseTurn.position.set(elevenTwelveCenterX+offsetX,pieceVisible,elevenTwelveCenterZ+offsetZ);
 	}
 
 
@@ -1282,6 +1345,8 @@ function moveDamage(color, damageAdded){
 		damage = blueDamagePiece;
 	}
 
+	// pink to be implemented with 9th player option
+
 	//Find correct player based on color
 	for(var i = 1; i <= game.num_of_players; i++)
 	{
@@ -1290,7 +1355,8 @@ function moveDamage(color, damageAdded){
 			if(((game.player_array[i].hp + damageAdded) > 0) && ((game.player_array[i].hp + damageAdded) < game.player_array[i].character.hp))
 			{
 				game.player_array[i].hp = game.player_array[i].hp + damageAdded;
-				damage.position.x = damage.position.x + (damageAdded*.33);
+				damage.position.x = damage.position.x + (damageAdded*damageMeterSpaceSize); //.33
+
 			}
 			else if((game.player_array[i].hp + damageAdded) >= game.player_array[i].character.hp)
 			{
@@ -1317,57 +1383,63 @@ function moveDamage(color, damageAdded){
 */
 function resetDamage(colorsPlaying){
 
+  //S17
 	//since the damage map consists of squares we only need the starting center and an offset
-	var centerZ = 1.5;
-	var centerX = -3.25;
+  //this number is arbitrary, just trying to center each damage block cluster within damage bar
+	//any changes here must also be reflected in setDamage()
+	var centerZ = mapSizeZ*.45588;
+	//var centerZ = 1.5;
+	//starting from left die of board, set right half of one damage block (half of 1/15 of board width)
+	var centerX = -mapSizeX/2 + mapSizeX/(15*2);
+	//var centerX = -3.25;
 
 		//if a piece is playing set it to the correct position in the zero square
 		if(colorsPlaying == "white"){
 			offsetX = .05;
 			offsetZ = -.05;
-			whiteDamagePiece.position.set(centerX+offsetX,.11,centerZ+offsetZ);
+			whiteDamagePiece.position.set(centerX+offsetX,pieceVisible,centerZ+offsetZ);
 		}
 
 		if(colorsPlaying == "yellow"){
 			offsetX = .05;
 			offsetZ = 0.0;
-			yellowDamagePiece.position.set(centerX+offsetX,.11,centerZ+offsetZ);
+			yellowDamagePiece.position.set(centerX+offsetX,pieceVisible,centerZ+offsetZ);
 		}
 
 		if(colorsPlaying == "orange"){
 			offsetX = .05;
 			offsetZ = .05;
-			orangeDamagePiece.position.set(centerX+offsetX,.11,centerZ+offsetZ);
+			orangeDamagePiece.position.set(centerX+offsetX,pieceVisible,centerZ+offsetZ);
 		}
 
 		if(colorsPlaying == "green"){
 			offsetX = 0.0;
 			offsetZ = -.05;
-			greenDamagePiece.position.set(centerX+offsetX,.11,centerZ+offsetZ);
+			greenDamagePiece.position.set(centerX+offsetX,pieceVisible,centerZ+offsetZ);
 		}
 
 		if(colorsPlaying == "purple"){
 			offsetX = -.05;
 			offsetZ = .05;
-			purpleDamagePiece.position.set(centerX+offsetX,.11,centerZ+offsetZ);
+			purpleDamagePiece.position.set(centerX+offsetX,pieceVisible,centerZ+offsetZ);
 		}
 
 		if(colorsPlaying == "red"){
 			offsetX = -.05;
 			offsetZ = 0.0;
-			redDamagePiece.position.set(centerX+offsetX,.11,centerZ+offsetZ);
+			redDamagePiece.position.set(centerX+offsetX,pieceVisible,centerZ+offsetZ);
 		}
 
 		if(colorsPlaying == "black"){
 			offsetX = -.05;
 			offsetZ = -.05;
-			blackDamagePiece.position.set(centerX+offsetX,.11,centerZ+offsetZ);
+			blackDamagePiece.position.set(centerX+offsetX,pieceVisible,centerZ+offsetZ);
 		}
 
 		if(colorsPlaying == "blue"){
 			offsetX = 0.0;
 			offsetZ = .05;
-			blueDamagePiece.position.set(centerX+offsetX,.11,centerZ+offsetZ);
+			blueDamagePiece.position.set(centerX+offsetX,pieceVisible,centerZ+offsetZ);
 		}
 
 		//Find correct player based on color
@@ -1392,8 +1464,14 @@ so that there is no overlap of the pieces if they are in the same square
 function setDamage(colorsPlaying){
 
 	//since the damage map consists of squares we only need the starting center and an offset
-	var centerZ = 1.5;
+	//this multiplier is arbitrary, just trying to center the damage blocks within each damage zone
+	var centerZ = mapSizeZ*.45588;
+	//var centerZ = 1.5;
+	//starting from left die of board, set right half of one damage block (half of 1/15 of board width)
+	var centerX = -mapSizeX/2 + mapSizeX/(15*2);
+	/*var centerZ = 1.5;
 	var centerX = -3.25;
+	*/
 
 	//looks through an array to find all of the colors playing
 	for(i = 0; i < colorsPlaying.length; i++){
@@ -1401,101 +1479,91 @@ function setDamage(colorsPlaying){
 		if(colorsPlaying[i] == "white"){
 			offsetX = .05;
 			offsetZ = -.05;
-			whiteDamagePiece.position.set(centerX+offsetX,.11,centerZ+offsetZ);
+			whiteDamagePiece.position.set(centerX+offsetX,pieceVisible,centerZ+offsetZ);
 		}
 
 		if(colorsPlaying[i] == "yellow"){
 			offsetX = .05;
 			offsetZ = 0.0;
-			yellowDamagePiece.position.set(centerX+offsetX,.11,centerZ+offsetZ);
+			yellowDamagePiece.position.set(centerX+offsetX,pieceVisible,centerZ+offsetZ);
 		}
 
 		if(colorsPlaying[i] == "orange"){
 			offsetX = .05;
 			offsetZ = .05;
-			orangeDamagePiece.position.set(centerX+offsetX,.11,centerZ+offsetZ);
+			orangeDamagePiece.position.set(centerX+offsetX,pieceVisible,centerZ+offsetZ);
 		}
 
 		if(colorsPlaying[i] == "green"){
 			offsetX = 0.0;
 			offsetZ = -.05;
-			greenDamagePiece.position.set(centerX+offsetX,.11,centerZ+offsetZ);
+			greenDamagePiece.position.set(centerX+offsetX,pieceVisible,centerZ+offsetZ);
 		}
 
 		if(colorsPlaying[i] == "purple"){
 			offsetX = -.05;
 			offsetZ = .05;
-			purpleDamagePiece.position.set(centerX+offsetX,.11,centerZ+offsetZ);
+			purpleDamagePiece.position.set(centerX+offsetX,pieceVisible,centerZ+offsetZ);
 		}
 
 		if(colorsPlaying[i] == "red"){
 			offsetX = -.05;
 			offsetZ = 0.0;
-			redDamagePiece.position.set(centerX+offsetX,.11,centerZ+offsetZ);
+			redDamagePiece.position.set(centerX+offsetX,pieceVisible,centerZ+offsetZ);
 		}
 
 		if(colorsPlaying[i] == "black"){
 			offsetX = -.05;
 			offsetZ = -.05;
-			blackDamagePiece.position.set(centerX+offsetX,.11,centerZ+offsetZ);
+			blackDamagePiece.position.set(centerX+offsetX,pieceVisible,centerZ+offsetZ);
 		}
 
 		if(colorsPlaying[i] == "blue"){
 			offsetX = 0.0;
 			offsetZ = .05;
-			blueDamagePiece.position.set(centerX+offsetX,.11,centerZ+offsetZ);
+			blueDamagePiece.position.set(centerX+offsetX,pieceVisible,centerZ+offsetZ);
 		}
 	}
 }
 
 
-/****************************************************************************IMPORTANT FOR ZACH AND KAMERON********************************************************/
+
 /*
 If a player dies at some point during the game call this function with their color
-to remove their piece from the board. Currently leaves damage pieces so other
-players can see at what square they died. To move those back uncomment each damage
-piece section
-
-Sets the piece of the color called back to the starting position
+to remove their piece from the board.
+S17
+Sets the piece of the color called to the black area of the damage tracker
 */
 function playerDied(color){
 	if(color == "white"){
-		whitePiece.position.set(-2.8,.11,-.1);
-		//whiteDamagePiece.position.set(-2.8,.11,.7);
+		whitePiece.position.set((-3.5*mapSizeX/15),pieceVisible,(7*mapSizeZ/20));
 	}
 
 	if(color == "yellow"){
-		yellowPiece.position.set(-2.8,.11,.1);
-		//yellowDamagePiece.position.set(-2.8,.11,.8);
+		yellowPiece.position.set(((-3.5*mapSizeX/15)+deathOffsetX),pieceVisible,(7*mapSizeZ/20));
 	}
 
 	if(color == "orange"){
-		orangePiece.position.set(-2.8,.11,.3);
-		//orangeDamagePiece.position.set(-2.8,.11,.9);
+		orangePiece.position.set(((-3.5*mapSizeX/15)+2*deathOffsetX),pieceVisible,(7*mapSizeZ/20));
 	}
 
 	if(color == "green"){
-		greenPiece.position.set(-3,.11,-.1);
-		//greenDamagePiece.position.set(-2.9,.11,.7);
+		greenPiece.position.set(((-3.5*mapSizeX/15)+3*deathOffsetX),pieceVisible,(7*mapSizeZ/20));
 	}
 
 	if(color == "blue"){
-		bluePiece.position.set(-3,.11,.3);
-		//blueDamagePiece.position.set(-2.9,.11,.9);
+		bluePiece.position.set(((-3.5*mapSizeX/15)+4*deathOffsetX),pieceVisible,(7*mapSizeZ/20));
 	}
 
 	if(color == "black"){
-		blackPiece.position.set(-3.2,.11,-.1);
-		//blackDamagePiece.position.set(-3,.11,.7);
+		blackPiece.position.set(((-3.5*mapSizeX/15)+5*deathOffsetX),pieceVisible,(7*mapSizeZ/20));
 	}
 
 	if(color == "red"){
-		redPiece.position.set(-3.2,.11,.1);
-		//redDamagePiece.position.set(-3,.11,.8);
+		redPiece.position.set(((-3.5*mapSizeX/15)+6*deathOffsetX),pieceVisible,(7*mapSizeZ/20));
 	}
 
 	if(color == "purple"){
-		purplePiece.position.set(-3.2,.11,.3);
-		//purpleDamagePiece.position.set(-3,.11,.9);
+		purplePiece.position.set(((-3.5*mapSizeX/15)+7*deathOffsetX),pieceVisible,(7*mapSizeZ/20));
 	}
 }
